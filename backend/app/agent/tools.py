@@ -34,6 +34,7 @@ from app.agent.matching import (
     find_crews,
     find_workers,
 )
+from app.agent.audit import logged
 from app.database import all_locations, fetch_all, fetch_one, find_location
 
 
@@ -461,12 +462,17 @@ def recommend_workforce(skill: str, quantity: int, location: str,
 
 
 # Everything Gemini is allowed to call.
+#
+# Each one is wrapped so the call is written to agent_actions: which tool,
+# what arguments, what came back, how long it took, and whether it worked.
+# The wrapper keeps the name, docstring and signature, which is what the
+# SDK reads to describe the tool to Gemini.
 ALL_TOOLS = [
-    search_workers,
-    search_crews,
-    get_worker_profile,
-    get_crew_profile,
-    check_availability,
-    distance_between,
-    recommend_workforce,
+    logged(search_workers),
+    logged(search_crews),
+    logged(get_worker_profile),
+    logged(get_crew_profile),
+    logged(check_availability),
+    logged(distance_between),
+    logged(recommend_workforce),
 ]

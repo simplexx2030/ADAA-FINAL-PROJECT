@@ -19,6 +19,7 @@ from datetime import date, timedelta
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+from app.agent import audit, cache as reply_cache
 from app.agent.agent import GeminiUnavailable, Turn, chat, parse_request
 from app.agent.matching import (
     DEFAULT_SEARCH_RADIUS_KM,
@@ -385,6 +386,16 @@ class ChatTurn(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(description="What the contractor said")
     history: list[ChatTurn] = Field(default_factory=list)
+    session_id: str | None = Field(
+        default=None,
+        description=("Pass the session_id from a previous reply to keep the "
+                     "whole conversation in one audit trail. One is created "
+                     "if you leave this out."),
+    )
+    user_id: str | None = Field(
+        default=None,
+        description="Who is asking, if known. Recorded in the action log.",
+    )
 
 
 @app.post("/api/agent/chat")
@@ -405,9 +416,77 @@ def agent_chat(request: ChatRequest):
         return chat(
             request.message,
             history=[Turn(role=t.role, text=t.text) for t in request.history],
+            session_id=request.session_id,
+            user_id=request.user_id,
         )
     except GeminiUnavailable as error:
         raise HTTPException(status_code=503, detail=str(error))
+
+
+# ---------------------------------------------------------------------------
+# The agent action log (specification section 24)
+# ---------------------------------------------------------------------------
+
+@app.get("/api/agent/sessions")
+def list_sessions(limit: int = 20):
+    """
+    Recent conversations, newest first.
+
+    Each row summarises one conversation: how many actions, which tools
+    were used, and whether anything failed.
+    """
+    return {"sessions": audit.recent_sessions(limit)}
+
+
+@app.get("/api/agent/sessions/{session_id}")
+def session_trail(session_id: str):
+    """
+    Everything the agent did in one conversation, in order.
+
+    This is the answer to "how do you know it did not make that up?".
+    Each tool call is recorded with the arguments the agent chose and the
+    records that came back.
+    """
+    actions = audit.session_actions(session_id)
+    if not actions:
+        raise HTTPException(status_code=404,
+                            detail=f"No actions recorded for session {session_id}")
+    return {"session_id": session_id, "actions": actions}
+
+
+@app.get("/api/agent/tool-usage")
+def tool_usage():
+    """
+    How often each tool has been called, and how reliable it is.
+
+    Specification section 23 asks whether the agent calls the correct tool.
+    This is where that is measured rather than assumed.
+    """
+    return {"tools": audit.tool_usage()}
+
+
+@app.get("/api/agent/cache")
+def cache_status():
+    """
+    What the reply cache currently holds.
+
+    Asking the agent the same question twice only costs Gemini quota once.
+    Every agent reply says whether it was "cached", so during a
+    demonstration you always know if you are seeing a fresh answer.
+    """
+    return reply_cache.stats()
+
+
+@app.delete("/api/agent/cache")
+def clear_cache():
+    """
+    Forget every cached reply.
+
+    The cache already invalidates itself when the workforce data changes or
+    the day rolls over, so this is rarely needed. Use it if you want to be
+    certain the next answer comes fresh from Gemini.
+    """
+    return {"cleared": reply_cache.clear()}
 
 
 class ParseRequest(BaseModel):

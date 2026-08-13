@@ -30,6 +30,11 @@ class Settings(BaseSettings):
     gemini_api_key: str = ""
     gemini_model: str = "gemini-3.1-pro-preview"
 
+    # Remember Gemini's replies, so asking the same question twice only
+    # costs quota once. The free tier is small, and rehearsing a demo can
+    # otherwise use up a whole day. Set GEMINI_CACHE=false to turn it off.
+    gemini_cache: bool = True
+
     # --- Database ---
     # Not used yet. We start with CSV files (STEP 1) and move to PostgreSQL
     # at STEP 2.

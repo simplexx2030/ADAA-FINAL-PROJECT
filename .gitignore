@@ -3,6 +3,9 @@
 .env.local
 *.key
 
+# Cached Gemini replies (local only, never shared)
+backend/.cache/
+
 # Python
 __pycache__/
 *.py[cod]

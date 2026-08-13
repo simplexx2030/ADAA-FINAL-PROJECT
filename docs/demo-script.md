@@ -182,12 +182,56 @@ did it, that is a bug worth reporting — business rule 9.
 
 ---
 
+## The strongest thing you can show
+
+After running the scenarios, open the audit trail for the session:
+
+```
+http://127.0.0.1:8000/api/agent/sessions/{session_id}
+```
+
+Pass a `session_id` in your first chat request (or copy the one the reply returns) and every
+question stays in one trail. You get a row per tool call:
+
+```text
+tool_call   recommend_workforce   938ms  ok   {"skill":"Mason","location":"Guntur","quantity":8}
+chat                             4689ms  ok   {"message":"I need 8 masons tomorrow..."}
+tool_call   get_crew_profile      616ms  ok   {"crew_id":"RAVI01"}
+chat                             3178ms  ok   {"message":"Can Ravi's crew handle it?"}
+```
+
+This is the difference between saying the agent uses real data and **showing** it. It is also
+what specification section 24 asks for, and it is the evidence base for the evaluation
+chapter.
+
+`GET /api/agent/tool-usage` summarises the same thing across all sessions: which tools get
+called, how often, and how often they fail.
+
+---
+
+## Saving quota while you rehearse
+
+Replies are cached. Asking the same question twice costs Gemini nothing the second time —
+the reply comes back with `"cached": true` and in about 0.3 seconds instead of 5.
+
+The cache invalidates itself if the workforce data changes or the day rolls over, so it can
+never hand back a stale answer about who is available. To force fresh answers:
+
+```
+DELETE /api/agent/cache
+```
+
+**This roughly halves what a rehearsal costs.** Run through the scenarios once to fill the
+cache, and a second pass is free.
+
+---
+
 ## If a professor asks the hard questions
 
 **"How do you know it isn't making the workers up?"**
 Every reply carries `tools_used`. If it is empty, `grounded` is false and nothing came from
-the database. Also: `/api/match/workforce` returns the same composition with no LLM in the
-loop at all.
+the database. Then open the session trail and show the actual tool calls. Also:
+`/api/match/workforce` returns the same composition with no LLM in the loop at all.
 
 **"What stops it from saying an unavailable worker is free?"**
 Availability is a database table, and the only thing that reads it is a Python function

@@ -44,13 +44,14 @@ One step at a time. After each step: run the tests, verify manually, then contin
       Every reply reports `tools_used`, and `grounded` is true only when a tool ran.
       *Success: Gemini retrieves actual database information.* ✅ **Done**
 
-- [ ] **STEP 6 — Workforce coordination agent** ⬅️ **Next**
-      The loop works already through `recommend_workforce`. STEP 6 is about making it
-      reliable and observable, and adding the agent action logging in spec §24, which is
-      designed but not yet built.
-      *Success: the agent solves the 8-mason scenario using real data.*
+- [x] **STEP 6 — Workforce coordination agent**
+      The full loop, end to end, with a session and an audit trail. Every tool call is
+      written to `agent_actions` (spec §24) with its arguments, its result, how long it
+      took and whether it worked. Replies are cached so the same question does not spend
+      Gemini quota twice.
+      *Success: the agent solves the 8-mason scenario using real data.* ✅ **Done**
 
-- [ ] **STEP 7 — Job coordination**
+- [ ] **STEP 7 — Job coordination** ⬅️ **Next**
       `create_job`, `send_job_offer`, `collect_response`, `confirm_assignment`.
       Notifications simulated at first.
       *Success: contractor → job → crew/worker → response → confirmation.*

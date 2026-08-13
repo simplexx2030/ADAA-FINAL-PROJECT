@@ -5,8 +5,9 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–5 complete** — the agent understands a request in plain language,
-searches the real database through its tools, and composes a workforce it can explain.
+**Current status: STEPS 0–6 complete** — the agent understands a request in plain language,
+searches the real database through its tools, composes a workforce it can explain, and keeps
+an audit trail of every tool call it made.
 It cannot yet create jobs or send offers, and there is no user interface. Those come next.
 
 **Presenting this?** Read [`docs/demo-script.md`](docs/demo-script.md) first. The Gemini
@@ -132,6 +133,19 @@ And two that use Gemini (POST, so use `/docs` to try them):
 The agent's reply includes `tools_used` and `grounded`. If `grounded` is false, no tool ran,
 so nothing in that reply came from the database.
 
+Every conversation is recorded, so you can check afterwards exactly what the agent did:
+
+| Endpoint | What it shows |
+|---|---|
+| `GET /api/agent/sessions` | recent conversations |
+| `GET /api/agent/sessions/{id}` | every tool call in one conversation, in order |
+| `GET /api/agent/tool-usage` | how often each tool is used, and how reliable it is |
+| `GET /api/agent/cache` | how many replies are cached |
+
+Replies are cached, so asking the same question twice only costs Gemini quota once. The cache
+invalidates itself when the workforce data changes or the day rolls over, and every reply says
+whether it was `cached`.
+
 Press `Ctrl+C` in the terminal to stop the server.
 
 ### Run the tests
@@ -140,7 +154,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **134 passed** and 1 skipped. Tests that need the database are skipped automatically if it
+You should see **162 passed** and 1 skipped. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -178,7 +192,9 @@ ADAA-AI-AGENT/
 │   │       ├── matching.py   who is eligible, and who ranks highest
 │   │       ├── tools.py      what Gemini is allowed to look up
 │   │       ├── agent.py      the Gemini connection
-│   │       └── prompts.py    what Gemini is told
+│   │       ├── prompts.py    what Gemini is told
+│   │       ├── audit.py      the record of what the agent did
+│   │       └── cache.py      remembering replies, to save quota
 │   ├── database/
 │   │   └── schema.sql   the eleven tables
 │   ├── scripts/

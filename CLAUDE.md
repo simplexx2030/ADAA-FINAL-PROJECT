@@ -125,7 +125,7 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0 through 5 complete.** Next: STEP 6 — the coordination agent and action logging.
+**STEP 0 through 6 complete.** Next: STEP 7 — job coordination (the first WRITE actions).
 
 The agent reaches data **only** through `backend/app/agent/tools.py`. All seven tools are
 read-only, and a test asserts none of them writes. Write actions (create job, send offer,
@@ -133,6 +133,16 @@ confirm) arrive at STEP 7 and need confirmation first (rule 7).
 
 `grounded` on a chat reply is true only when a tool actually ran. Keep it that way — it is
 the mechanical check behind rule 9.
+
+**Audit log** (`app/agent/audit.py`, table `agent_actions`): every tool call is recorded with
+arguments, result, duration and success. `agent_actions` is deliberately **not** dropped by
+`schema.sql`, so re-seeding does not erase the evaluation evidence. Logging swallows its own
+errors — a lost row must never cost a user their answer. Never log secrets.
+
+**Reply cache** (`app/agent/cache.py`): the key includes the model, today's date and a
+fingerprint of the workforce data, so a cached answer can never outlive the availability it
+was based on. Tests run with the cache **off** (see `tests/conftest.py`) — without that,
+tests sharing placeholder input read each other's answers.
 
 The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
 without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).

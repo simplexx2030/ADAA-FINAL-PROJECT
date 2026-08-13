@@ -11,6 +11,10 @@ Every reply reports which tools actually ran. That is how a caller tells
 the difference between an answer built from database rows and an answer the
 model produced on its own -- ``grounded`` is true only when a tool ran.
 
+Replies are cached, because the free tier is small. ``cached`` on every
+reply says whether the answer came from Gemini just now or from an earlier
+identical question. See cache.py for why that is safe.
+
 One decision is worth pointing out, because it is the whole architecture in
 miniature. When a contractor says "tomorrow", Gemini does NOT work out the
 calendar date. It copies the word "tomorrow" back to us, and Python turns
@@ -24,6 +28,7 @@ import time
 from dataclasses import dataclass
 from datetime import date, timedelta
 
+from app.agent import audit, cache
 from app.agent.prompts import PARSE_PROMPT, system_prompt
 from app.config import settings
 
@@ -217,7 +222,8 @@ def _tools_that_ran(response) -> list[dict]:
 
 
 def chat(message: str, history: list[Turn] | None = None,
-         use_tools: bool = True) -> dict:
+         use_tools: bool = True, session_id: str | None = None,
+         user_id: str | None = None) -> dict:
     """
     Answer one message from the user.
 
@@ -227,10 +233,35 @@ def chat(message: str, history: list[Turn] | None = None,
     With ``use_tools`` on, Gemini can search the ADAA database through the
     functions in tools.py. The reply reports which tools ran, so nothing
     has to be taken on trust.
+
+    Everything is recorded against ``session_id`` in the agent_actions
+    table, so the whole conversation can be replayed afterwards. One is
+    generated if you do not pass one.
     """
+    session_id = session_id or audit.new_session_id()
     from google.genai import types
 
     from app.agent.tools import ALL_TOOLS
+
+    turns = [{"role": t.role, "text": t.text} for t in (history or [])]
+
+    # The key includes a fingerprint of the database, so if the workforce
+    # data changes this answer is never reused. A cached reply about who is
+    # available must not outlive the availability it was based on.
+    key = cache.make_key(
+        "chat",
+        {"message": message, "history": turns, "use_tools": use_tools},
+        include_data=True,
+    )
+    remembered = cache.get(key)
+    if remembered is not None:
+        # A cached answer still gets logged, marked as such, so the record
+        # of the conversation is complete and honest about where the reply
+        # came from.
+        audit.record(session_id, "chat_cached", user_id=user_id,
+                     input_data={"message": message},
+                     output_data={"reply": remembered.get("reply", "")[:500]})
+        return {**remembered, "cached": True, "session_id": session_id}
 
     contents = []
     for turn in history or []:
@@ -239,15 +270,28 @@ def chat(message: str, history: list[Turn] | None = None,
                                       parts=[types.Part(text=turn.text)]))
     contents.append(types.Content(role="user", parts=[types.Part(text=message)]))
 
-    response = _generate(
-        contents,
-        system_prompt(tools_available=use_tools),
-        tools=ALL_TOOLS if use_tools else None,
-    )
+    # Tell the tool wrappers which conversation their calls belong to.
+    audit.set_session(session_id)
+    started = time.perf_counter()
+
+    try:
+        response = _generate(
+            contents,
+            system_prompt(tools_available=use_tools),
+            tools=ALL_TOOLS if use_tools else None,
+        )
+    except GeminiUnavailable as error:
+        audit.record(session_id, "chat", user_id=user_id,
+                     input_data={"message": message},
+                     success=False, error=str(error),
+                     duration_ms=int((time.perf_counter() - started) * 1000))
+        raise
+    finally:
+        audit.set_session(None)
 
     tools_used = _tools_that_ran(response) if use_tools else []
 
-    return {
+    result = {
         "reply": (response.text or "").strip(),
         "model": settings.gemini_model,
         "tools_used": tools_used,
@@ -256,6 +300,16 @@ def chat(message: str, history: list[Turn] | None = None,
         # data, whatever the reply sounds like.
         "grounded": bool(tools_used),
     }
+
+    audit.record(session_id, "chat", user_id=user_id,
+                 input_data={"message": message},
+                 output_data={"reply": result["reply"][:1000],
+                              "tools_used": [t["tool"] for t in tools_used],
+                              "grounded": result["grounded"]},
+                 duration_ms=int((time.perf_counter() - started) * 1000))
+
+    cache.put(key, result)
+    return {**result, "cached": False, "session_id": session_id}
 
 
 # ---------------------------------------------------------------------------
@@ -393,6 +447,15 @@ def parse_request(text: str, today: date | None = None) -> dict:
 
     Gemini does the reading. Python does the date.
     """
+    # No database fingerprint here: parsing a sentence does not depend on
+    # the workforce data, only on the words and on today's date, which is
+    # already part of the key.
+    key = cache.make_key("parse", {"text": text, "today": str(today or "")},
+                         include_data=False)
+    remembered = cache.get(key)
+    if remembered is not None:
+        return {**remembered, "cached": True}
+
     response = _generate(text, PARSE_PROMPT, json_schema=PARSE_SCHEMA)
 
     raw = (response.text or "").strip()
@@ -412,7 +475,7 @@ def parse_request(text: str, today: date | None = None) -> dict:
     if date_text and not resolved and "date" not in missing:
         missing.append("date")
 
-    return {
+    result = {
         "skill": parsed.get("skill"),
         "quantity": parsed.get("quantity"),
         "date_text": date_text,
@@ -426,3 +489,6 @@ def parse_request(text: str, today: date | None = None) -> dict:
         "clarification_question": parsed.get("clarification_question"),
         "model": settings.gemini_model,
     }
+
+    cache.put(key, result)
+    return {**result, "cached": False}

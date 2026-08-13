@@ -220,6 +220,36 @@ create table independence_assessments (
 );
 
 
+-- Agent action log (specification section 24) ------------------------------
+-- Every meaningful thing the agent does is recorded here: which tool it
+-- called, with what, what came back, and whether it worked.
+--
+-- This table is deliberately NOT dropped and recreated with the rest.
+-- Re-seeding the workforce data should not erase the record of what the
+-- agent did, because that record is the evidence for the evaluation.
+--
+-- Never log secrets: no API keys, no passwords, no connection strings.
+create table if not exists agent_actions (
+    id           serial primary key,
+    session_id   text not null,
+    user_id      text,
+    action_type  text not null,
+    tool_name    text,
+    input        jsonb,
+    output       jsonb,
+    success      boolean not null default true,
+    error        text,
+    duration_ms  integer,
+    model        text,
+    created_at   timestamptz not null default now()
+);
+
+create index if not exists agent_actions_session_idx
+    on agent_actions (session_id, created_at);
+create index if not exists agent_actions_tool_idx
+    on agent_actions (tool_name, created_at);
+
+
 -- Indexes for the searches the matching engine will run most often.
 create index workers_availability_idx   on workers (availability_status, verification_status);
 create index worker_skills_skill_idx    on worker_skills (skill_id, verification_status);
