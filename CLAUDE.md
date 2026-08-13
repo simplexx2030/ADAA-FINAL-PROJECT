@@ -125,7 +125,16 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0 through 9 complete — the backend is finished.** Next: STEP 10 — the frontend.
+**STEP 0 through 10 complete.** Next: STEP 11 — the multilingual layer.
+
+**Frontend** (`frontend/`, Next.js 16 + React 19 + Tailwind 4): all calls go through
+`lib/api.ts` — nothing else calls `fetch`. Pages are client components using `useLoad`.
+Dynamic route params are a **Promise** in Next 16; unwrap with `use(params)`.
+Read `frontend/AGENTS.md` and `node_modules/next/dist/docs/` before changing page
+conventions — this Next version differs from older patterns.
+
+CORS in `backend/app/main.py` allows `localhost:3000` only, and exists purely because the
+two run on different ports in development.
 
 The agent reaches data **only** through `backend/app/agent/tools.py`. The read tools never
 write; the `propose_*` tools write a proposal and nothing else. A person confirms via the

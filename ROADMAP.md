@@ -78,11 +78,14 @@ One step at a time. After each step: run the tests, verify manually, then contin
       rather than rewarded. Presented openly as an unvalidated prototype figure.
       ✅ **Done**
 
-- [ ] **STEP 10 — Frontend** ⬅️ **Next**
-      Contractor dashboard, AI workforce assistant, crew dashboard, worker profile.
-      *Success: a professor can use the system without the terminal.*
+- [x] **STEP 10 — Frontend**
+      Next.js, React and Tailwind. All four screens from §19, plus a fifth showing the
+      agent's action trail. Every agent reply displays whether it is grounded and which
+      tools ran; the crew page puts the crew's rating and each member's own rating in
+      adjacent columns.
+      *Success: a professor can use the system without the terminal.* ✅ **Done**
 
-- [ ] **STEP 11 — Multilingual layer**
+- [ ] **STEP 11 — Multilingual layer** ⬅️ **Next**
       English, Telugu, Hindi. Translation must never alter wage, quantity, date, time or job
       ID — those come from the database, not the model.
 

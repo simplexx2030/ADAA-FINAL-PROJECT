@@ -5,15 +5,15 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–9 complete — the whole backend works.** The agent understands a
-request in plain language, searches the real database, composes a workforce it can explain,
-keeps an audit trail of every tool call, carries a job from request through to confirmed
-workers, updates reputation from what actually happened, and can assess whether a worker is
-ready for independent work.
+**Current status: STEPS 0–10 complete.** The agent understands a request in plain language,
+searches the real database, composes a workforce it can explain, keeps an audit trail of every
+tool call, carries a job from request through to confirmed workers, updates reputation from
+what actually happened, assesses readiness for independent work — and there is now a web
+interface for all of it.
 
 It **proposes** anything consequential; a person confirms it. The agent has no way to confirm
 its own proposal, no way to award anyone a rating, and no way to change anybody's status.
-What is left is the user interface and the multilingual layer.
+What is left is the multilingual layer.
 
 **Presenting this?** Read [`docs/demo-script.md`](docs/demo-script.md) first. The Gemini
 free tier allows only 20 requests a day, which is about one rehearsal and one live run.
@@ -100,13 +100,32 @@ always produces exactly the same dataset, and the seeder rebuilds the tables fro
 
 ## Running it
 
-### Start the server
+### Start it
+
+Two terminals. **Backend first:**
 
 ```bash
 backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend
 ```
 
-Then open in your browser:
+**Then the web interface:**
+
+```bash
+npm install --prefix frontend
+npm run dev --prefix frontend
+```
+
+Open <http://localhost:3000>. That is the whole system — no terminal commands needed
+after this point, which is what specification §26 asks for.
+
+| Page | What it is |
+|---|---|
+| `/` | Contractor dashboard |
+| `/assistant` | Ask for workforce in plain language |
+| `/crews/RAVI01` | A crew, and each member's **own** rating beside the crew's |
+| `/workers/W014` | Bhaskar, who left a crew and kept everything |
+
+The API is still available directly if you want to look underneath:
 
 | Address | What you should see |
 |---|---|
@@ -244,6 +263,11 @@ ADAA-AI-AGENT/
 │   │   ├── generate_data.py    writes the CSV files
 │   │   └── seed_database.py    loads them into PostgreSQL
 │   └── tests/
+│
+├── frontend/            the web interface (Next.js, React, Tailwind)
+│   ├── app/             one folder per screen
+│   ├── components/      cards, tags, the top bar
+│   └── lib/api.ts       every call made to the backend
 │
 ├── data/                the sample workforce data (CSV)
 └── docs/                notes and diagrams

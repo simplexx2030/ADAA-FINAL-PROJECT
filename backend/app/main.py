@@ -20,6 +20,7 @@ Run it with:
 from datetime import date, timedelta
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from app.agent import (actions as agent_actions, audit,
@@ -44,6 +45,21 @@ app = FastAPI(
         "reply to see exactly what was looked up."
     ),
     version="0.8.0",
+)
+
+# The frontend runs on a different port during development (3000 rather
+# than 8000), and a browser refuses to call across ports unless the server
+# says it is allowed. This is a development setting: in production the two
+# would be served from one origin and this list would be narrowed.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -71,7 +87,7 @@ def root():
     """
     return {
         "name": "ADAA Workforce Coordination Agent",
-        "step": "STEP 8 - reputation from job history",
+        "step": "STEP 10 - frontend",
         "environment": settings.app_env,
         "gemini_model": settings.gemini_model,
         "gemini_key_configured": bool(settings.gemini_api_key),
@@ -501,6 +517,60 @@ def cancel_action(action_id: str):
         return agent_actions.cancel(action_id)
     except ActionError as error:
         raise HTTPException(status_code=409, detail=str(error))
+
+
+@app.get("/api/jobs")
+def list_jobs(status: str | None = None, limit: int = 50):
+    """
+    Jobs, newest first. Optionally filtered by status.
+
+    Used by the contractor dashboard to show active and recent work.
+    """
+    sql = """
+        select j.id, j.contractor_id, j.title, j.skill_required,
+               j.workers_required, j.location_name, j.date, j.start_time,
+               j.wage, j.status, c.company_name,
+               (select count(*) from job_assignments ja
+                 where ja.job_id = j.id) as assignments
+          from jobs j
+          left join contractors c on c.id = j.contractor_id
+         where 1 = 1
+    """
+    params: list = []
+    if status:
+        sql += " and j.status = %s"
+        params.append(status)
+    counted = fetch_one(
+        "select count(*) as total from jobs" +
+        (" where status = %s" if status else ""),
+        (status,) if status else (),
+    )
+
+    sql += " order by j.date desc, j.id desc limit %s"
+    params.append(limit)
+
+    # "total" is every matching job; "jobs" is only the page returned. The
+    # dashboard needs both, and showing the page size as if it were the
+    # total would be quietly wrong.
+    return {"total": counted["total"], "jobs": fetch_all(sql, tuple(params))}
+
+
+@app.get("/api/jobs/{job_id}")
+def get_job(job_id: str):
+    """One job, with everyone who was offered it and how they answered."""
+    job = fetch_one(
+        """
+        select j.*, c.company_name
+          from jobs j left join contractors c on c.id = j.contractor_id
+         where j.id = %s
+        """,
+        (job_id,),
+    )
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"No job with id {job_id}")
+
+    job["offers"] = agent_actions.job_offers(job_id)
+    return job
 
 
 @app.get("/api/jobs/{job_id}/offers")
