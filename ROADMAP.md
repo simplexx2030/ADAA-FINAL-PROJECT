@@ -29,11 +29,15 @@ One step at a time. After each step: run the tests, verify manually, then contin
       *Success: "8 masons, Guntur, tomorrow" returns Ravi Crew (6) + 2 individuals = 8.*
       ✅ **Done**
 
-- [ ] **STEP 4 — Gemini integration** ⬅️ **Next**
-      Google GenAI SDK, Gemini client, system prompt, basic conversation endpoint.
-      *Success: "I need 8 masons tomorrow" gets a meaningful response.*
+- [x] **STEP 4 — Gemini integration**
+      Google GenAI SDK, cached Gemini client, the section-12 system prompt, a conversation
+      endpoint and a request parser. Running on `gemini-3.5-flash` — the spec's
+      `gemini-3.1-pro-preview` gets zero quota on the free tier; `GEMINI_MODEL` in `.env`
+      switches to Pro with no code change.
+      *Success: "I need 8 masons tomorrow at 8 AM near Guntur" → skill Mason, quantity 8,
+      date 2026-08-14, time 08:00, location Guntur.* ✅ **Done**
 
-- [ ] **STEP 5 — Agent tools**
+- [ ] **STEP 5 — Agent tools** ⬅️ **Next**
       `search_workers`, `search_crews`, `get_worker_profile`, `get_crew_profile`,
       `check_availability`, `calculate_distance`.
       *Success: Gemini retrieves actual database information.*

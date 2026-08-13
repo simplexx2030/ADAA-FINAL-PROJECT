@@ -17,7 +17,7 @@
              ADAA WORKFORCE AGENT
                         |
                         v
-                GEMINI 3.1 PRO
+                    GEMINI
              (LLM / Reasoning Layer)       (Google GenAI SDK)
                         |
           +-------------+-------------+
@@ -46,7 +46,7 @@ This split is the heart of the design. It is what makes the system trustworthy a
 scientifically evaluable, because the parts that must be correct are deterministic and
 testable without an LLM.
 
-| Gemini 3.1 Pro is responsible for | Python / application logic is responsible for |
+| Gemini is responsible for | Python / application logic is responsible for |
 |---|---|
 | Understanding natural language | Calculating distance |
 | Reasoning about requests | Checking availability |
@@ -64,8 +64,8 @@ come from a tool result. If no tool confirms an action, the agent must not say i
 
 - **Claude Code** — the development assistant. Writes and edits this codebase. Not part of
   the running product.
-- **Gemini 3.1 Pro Preview** — the LLM that powers the ADAA agent at runtime, reached through
-  the Google GenAI SDK.
+- **Gemini** — the LLM that powers the ADAA agent at runtime, reached through the Google
+  GenAI SDK. The exact model is set by `GEMINI_MODEL` and is never hard-coded.
 - **ADAA Agent** — the software agent combining Gemini, tools, business rules and the database.
 
 The Anthropic API appears nowhere in the ADAA runtime.
@@ -76,7 +76,7 @@ The Anthropic API appears nowhere in the ADAA runtime.
 
 | Layer | Choice | Why |
 |---|---|---|
-| LLM | Gemini 3.1 Pro Preview | Required by the specification. Model name lives in `GEMINI_MODEL` so it can be swapped without code changes. |
+| LLM | Gemini, via `GEMINI_MODEL` | Required by the specification. Currently `gemini-3.5-flash`, because the free tier grants `gemini-3.1-pro-preview` zero quota. One line in `.env` moves to Pro once billing is enabled. |
 | Backend | Python + FastAPI | Simple, readable, automatic API documentation. |
 | Database | PostgreSQL via Supabase | Hosted, no local install, matches the spec's long-term target. PostGIS available later for geography. |
 | Frontend | Next.js + React + Tailwind | Specified. Kept deliberately simple for the prototype. |
@@ -164,5 +164,12 @@ This enables debugging and university evaluation. **Secrets are never logged.**
 
 ## Current state
 
-STEP 0. Only the FastAPI skeleton and its health check exist. Everything above this line
-describes the target design, built one step at a time — see [`ROADMAP.md`](ROADMAP.md).
+**STEPS 0–4 built.** The database, the deterministic matching engine and the Gemini
+connection all work. What is described above but does not exist yet:
+
+- the agent **tools** — Gemini cannot reach the database on its own (STEP 5)
+- job coordination, reputation updates, independence scoring (STEPS 7–9)
+- the frontend (STEP 10) and the multilingual layer (STEP 11)
+- **logging** of agent actions, which is designed above but not yet implemented
+
+Built one step at a time — see [`ROADMAP.md`](ROADMAP.md).

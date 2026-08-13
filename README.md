@@ -5,10 +5,10 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–3 complete** — the environment is set up, the sample workforce
-dataset exists, the API reads real records from PostgreSQL, and the matching engine can
-compose a workforce for a job.
-There is no AI agent and no user interface yet. Those arrive next.
+**Current status: STEPS 0–4 complete** — the environment is set up, the sample workforce
+dataset exists, the API reads real records from PostgreSQL, the matching engine composes a
+workforce, and Gemini can read a request in plain language.
+The agent cannot search the database yet, and there is no user interface. Those arrive next.
 
 ---
 
@@ -68,7 +68,7 @@ Get a key from <https://aistudio.google.com/apikey>.
 
 ```env
 GEMINI_API_KEY=your-key-here
-GEMINI_MODEL=gemini-3.1-pro-preview
+GEMINI_MODEL=gemini-3.5-flash
 ```
 
 **Never commit the `.env` file.** It is already listed in `.gitignore`.
@@ -120,6 +120,13 @@ Things worth trying in the browser:
 | `/api/locations` | the places ADAA has workforce in |
 | `/api/match/workforce?skill=Mason&quantity=8&location=Guntur` | **the 8-mason scenario** |
 
+And two that use Gemini (POST, so use `/docs` to try them):
+
+| Endpoint | What it does |
+|---|---|
+| `POST /api/jobs/parse` | reads a sentence into structured job details |
+| `POST /api/agent/chat` | talks to the agent |
+
 Press `Ctrl+C` in the terminal to stop the server.
 
 ### Run the tests
@@ -128,7 +135,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **48 passed**. Tests that need the database are skipped automatically if it
+You should see **105 passed** and 1 skipped. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -163,7 +170,9 @@ ADAA-AI-AGENT/
 │   │   ├── config.py    all settings, read from .env
 │   │   ├── database.py  the PostgreSQL connection
 │   │   └── agent/
-│   │       └── matching.py   who is eligible, and who ranks highest
+│   │       ├── matching.py   who is eligible, and who ranks highest
+│   │       ├── agent.py      the Gemini connection
+│   │       └── prompts.py    what Gemini is told
 │   ├── database/
 │   │   └── schema.sql   the eleven tables
 │   ├── scripts/

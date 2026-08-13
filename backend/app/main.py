@@ -15,7 +15,9 @@ Run it with:
 from datetime import date, timedelta
 
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 
+from app.agent.agent import GeminiUnavailable, Turn, chat, parse_request
 from app.agent.matching import (
     DEFAULT_SEARCH_RADIUS_KM,
     WorkforceRequest,
@@ -380,3 +382,64 @@ def match_workforce(
 def distance(lat1: float, lng1: float, lat2: float, lng2: float):
     """Distance in kilometres between two points (agent tool 6)."""
     return {"distance_km": calculate_distance(lat1, lng1, lat2, lng2)}
+
+
+# ---------------------------------------------------------------------------
+# The AI agent (Gemini)
+# ---------------------------------------------------------------------------
+
+class ChatTurn(BaseModel):
+    """One earlier message in the conversation."""
+
+    role: str = Field(description="'user' or 'model'")
+    text: str
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(description="What the contractor said")
+    history: list[ChatTurn] = Field(default_factory=list)
+
+
+@app.post("/api/agent/chat")
+def agent_chat(request: ChatRequest):
+    """
+    Talk to the ADAA agent.
+
+    The agent is powered by Gemini. It can currently understand a request
+    and ask for anything missing, but it cannot look workers up yet -- the
+    database tools are connected at the next build step. Until then it is
+    instructed to say so rather than invent a crew, so nothing it returns
+    should be treated as workforce data.
+    """
+    try:
+        return chat(
+            request.message,
+            history=[Turn(role=t.role, text=t.text) for t in request.history],
+        )
+    except GeminiUnavailable as error:
+        raise HTTPException(status_code=503, detail=str(error))
+
+
+class ParseRequest(BaseModel):
+    text: str = Field(
+        description="A workforce request in plain language",
+        examples=["I need 8 masons tomorrow at 8 AM near Guntur"],
+    )
+
+
+@app.post("/api/jobs/parse")
+def parse_job_request(request: ParseRequest):
+    """
+    Turn a sentence into structured job details.
+
+    Gemini reads the language. The calendar date is worked out by the
+    application, not by the model, because a wrong date sends people to a
+    site on the wrong morning.
+
+    Anything the contractor did not say comes back as null and is listed in
+    "missing", together with one question that would fill the gaps.
+    """
+    try:
+        return parse_request(request.text)
+    except GeminiUnavailable as error:
+        raise HTTPException(status_code=503, detail=str(error))

@@ -8,9 +8,9 @@ This file holds the rules that apply to *every* session.
 
 ## The one-sentence architecture
 
-> Claude Code builds ADAA; Gemini 3.1 Pro powers ADAA's AI agent; Python/FastAPI controls
-> the application; PostgreSQL stores the workforce data; deterministic business logic
-> verifies and executes decisions.
+> Claude Code builds ADAA; Gemini powers ADAA's AI agent; Python/FastAPI controls the
+> application; PostgreSQL stores the workforce data; deterministic business logic verifies
+> and executes decisions.
 
 ## The core principle
 
@@ -27,7 +27,7 @@ This file holds the rules that apply to *every* session.
 ## Role separation — do not confuse these
 
 - **Claude Code** = the development/coding assistant. Builds the software.
-- **Gemini 3.1 Pro Preview** = the LLM *inside* the product, called via the Google GenAI SDK.
+- **Gemini** = the LLM *inside* the product, called via the Google GenAI SDK.
 - **ADAA Agent** = the software agent using Gemini + tools + business rules + database.
 
 **The Anthropic API must never appear in the ADAA runtime.** Claude does not power the agent.
@@ -93,15 +93,21 @@ If a milestone appears already complete, verify it before skipping it.
   All 11 tables exist and are seeded. Connect through `app.database`, never with a
   hand-built URL — `normalize_database_url` repairs the connection string.
 - **Python**: 3.14 works; all dependencies install cleanly.
-- **Model name**: `gemini-3.1-pro-preview` is set via `GEMINI_MODEL` in `.env` and is never
-  hard-coded. Verify it with `backend/scripts/check_gemini.py`.
+- **Model name**: never hard-coded. It comes from `GEMINI_MODEL` in `.env`. Verify the
+  current one with `backend/scripts/check_gemini.py`. See "Gemini model" below.
 
 ## Known environment facts
 
-- **Gemini model.** `gemini-3.1-pro-preview` exists and the API key is valid, but the
-  **free tier grants it zero quota** (429 RESOURCE_EXHAUSTED, `limit: 0`). Models confirmed
+- **Gemini model.** Running on **`gemini-3.5-flash`** (user decision, 2026-08-13).
+  `gemini-3.1-pro-preview` exists and the key is valid, but the **free tier grants it zero
+  quota** (429, `limit: 0`) — that is not exhaustion, Pro is simply never free. Confirmed
   working on this key: `gemini-3.5-flash`, `gemini-3.1-flash-lite`, `gemini-flash-latest`.
-  Using Pro requires billing on the Google Cloud project. Decide at STEP 4.
+  Moving to Pro is one line in `.env` once billing is enabled.
+- **Never swap Gemini for Claude.** This was raised and declined once already. Spec Rule B
+  and §29 forbid it, the Claude Code subscription is not API access, and the Gemini free
+  tier works.
+- **The Gemini client must be cached.** A throwaway `genai.Client()` is garbage collected
+  mid-request and the call dies with "client has been closed". See `agent._cached_client`.
 - **Supabase connection.** Use the **session pooler** host
   (`aws-0-ap-south-1.pooler.supabase.com:5432`). The direct host `db.<ref>.supabase.co` is
   IPv6-only and does not resolve on this network. `aws-1-...` is the wrong pooler for this
@@ -114,7 +120,11 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0, 1, 2 and 3 complete.** Next: STEP 4 — Gemini integration.
+**STEP 0 through 4 complete.** Next: STEP 5 — agent tools.
+
+Gemini can converse and parse requests but has **no database access yet**. Until the tools
+land, `prompts.NO_TOOLS_YET` tells the model to say so rather than invent a crew — delete
+that block at STEP 5.
 
 The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
 without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).
