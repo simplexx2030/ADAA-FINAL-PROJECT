@@ -1,790 +1,790 @@
 job_id,rater_id,worker_id,crew_id,rating,comment
-J0001,CON004,W001,,4.43,"Strong team, well coordinated."
-J0001,CON004,W001,,4.87,"Good work, finished on time."
-J0001,CON004,W001,,4.8,Work completed as agreed.
-J0002,CON001,W001,,4.97,Very neat finishing.
-J0002,CON001,W001,,4.43,Work completed as agreed.
-J0002,CON001,W001,,4.42,"Strong team, well coordinated."
-J0002,CON001,W001,,4.7,Quality was acceptable.
-J0003,CON005,W001,,4.95,Careful with materials.
-J0002,CON001,W001,,4.43,Work completed as agreed.
-J0002,CON001,W001,,4.97,"Strong team, well coordinated."
-J0001,CON004,W001,,4.51,Would hire again.
-J0004,CON003,W001,,4.89,"Good work, finished on time."
-J0005,CON002,W001,,4.53,Would hire again.
-J0006,CON004,W001,,4.51,Very neat finishing.
-J0006,CON004,W001,,4.45,Reliable and punctual.
-J0006,CON004,W001,,4.62,Reliable and punctual.
-J0007,CON001,W001,,4.94,"Strong team, well coordinated."
-J0007,CON001,W001,,4.46,Quality was acceptable.
-J0007,CON001,W001,,4.78,Careful with materials.
-J0007,CON001,W001,,4.87,"Strong team, well coordinated."
-J0008,CON001,W001,,4.97,Quality was acceptable.
-J0008,CON001,W001,,4.88,Would hire again.
-J0008,CON001,W001,,4.89,"Good work, finished on time."
-J0006,CON004,W001,,4.92,Reliable and punctual.
-J0004,CON003,W001,,4.53,Careful with materials.
-J0009,CON001,W001,,4.78,"Strong team, well coordinated."
-J0009,CON001,W001,,4.98,Work completed as agreed.
-J0010,CON001,W001,,4.48,Quality was acceptable.
-J0010,CON001,W001,,4.52,Would hire again.
-J0011,CON001,W001,,4.62,Would hire again.
-J0009,CON001,W001,,4.6,Would hire again.
-J0005,CON002,W002,,4.7,Would hire again.
-J0005,CON002,W002,,4.68,Would hire again.
-J0012,CON001,W002,,4.28,Very neat finishing.
-J0013,CON004,W002,,4.79,Reliable and punctual.
-J0013,CON004,W002,,4.33,Would hire again.
-J0005,CON002,W002,,4.67,Would hire again.
-J0014,CON005,W002,,4.27,"Good work, finished on time."
-J0014,CON005,W002,,4.34,"Good work, finished on time."
-J0015,CON006,W002,,4.87,Careful with materials.
-J0011,CON001,W002,,4.51,"Strong team, well coordinated."
-J0015,CON006,W002,,4.85,Quality was acceptable.
-J0015,CON006,W002,,4.52,Would hire again.
-J0015,CON006,W002,,4.2,"Good work, finished on time."
-J0015,CON006,W002,,4.35,Would hire again.
-J0015,CON006,W002,,4.93,"Good work, finished on time."
-J0016,CON006,W002,,4.41,Very neat finishing.
-J0004,CON003,W002,,4.92,Would hire again.
-J0012,CON001,W002,,4.44,Reliable and punctual.
-J0014,CON005,W002,,4.5,Very neat finishing.
-J0017,CON002,W002,,4.86,Quality was acceptable.
-J0017,CON002,W002,,5.0,Would hire again.
-J0017,CON002,W002,,4.76,Careful with materials.
-J0017,CON002,W002,,4.69,Work completed as agreed.
-J0017,CON002,W002,,4.53,Reliable and punctual.
-J0004,CON003,W003,,4.23,"Good work, finished on time."
-J0018,CON004,W003,,4.37,Quality was acceptable.
-J0004,CON003,W003,,4.23,"Strong team, well coordinated."
-J0004,CON003,W003,,4.77,Reliable and punctual.
-J0019,CON004,W003,,4.69,Very neat finishing.
-J0003,CON005,W003,,4.39,Reliable and punctual.
-J0017,CON002,W003,,4.63,Would hire again.
-J0019,CON004,W003,,4.17,"Good work, finished on time."
-J0004,CON003,W003,,4.77,Work completed as agreed.
-J0017,CON002,W003,,4.73,Quality was acceptable.
-J0003,CON005,W003,,4.77,Work completed as agreed.
-J0003,CON005,W003,,4.83,Careful with materials.
-J0018,CON004,W003,,4.27,Would hire again.
-J0003,CON005,W003,,4.31,Careful with materials.
-J0020,CON002,W003,,4.61,Very neat finishing.
-J0021,CON002,W003,,4.32,"Good work, finished on time."
-J0021,CON002,W003,,4.23,"Good work, finished on time."
-J0022,CON003,W003,,4.68,Quality was acceptable.
-J0023,CON002,W004,,4.27,Reliable and punctual.
-J0023,CON002,W004,,4.46,Work completed as agreed.
-J0024,CON006,W004,,4.4,Reliable and punctual.
-J0024,CON006,W004,,4.81,Would hire again.
-J0023,CON002,W004,,4.22,Quality was acceptable.
-J0024,CON006,W004,,4.6,Would hire again.
-J0024,CON006,W004,,4.3,Quality was acceptable.
-J0024,CON006,W004,,4.58,Work completed as agreed.
-J0024,CON006,W004,,4.34,Work completed as agreed.
-J0025,CON002,W004,,4.2,Reliable and punctual.
-J0025,CON002,W004,,4.62,"Good work, finished on time."
-J0025,CON002,W004,,4.53,Reliable and punctual.
-J0026,CON004,W004,,4.5,Very neat finishing.
-J0026,CON004,W004,,3.99,Very neat finishing.
-J0027,CON002,W004,,4.18,Would hire again.
-J0010,CON001,W005,,4.87,Reliable and punctual.
-J0022,CON003,W005,,4.65,"Strong team, well coordinated."
-J0028,CON001,W005,,4.8,Would hire again.
-J0012,CON001,W005,,4.72,Quality was acceptable.
-J0012,CON001,W005,,4.7,Reliable and punctual.
-J0022,CON003,W005,,4.88,Reliable and punctual.
-J0029,CON005,W005,,4.73,Would hire again.
-J0012,CON001,W005,,4.63,Quality was acceptable.
-J0028,CON001,W005,,4.74,Reliable and punctual.
-J0010,CON001,W005,,4.65,Reliable and punctual.
-J0022,CON003,W005,,4.94,Careful with materials.
-J0022,CON003,W005,,4.9,Would hire again.
-J0030,CON003,W005,,4.89,Work completed as agreed.
-J0030,CON003,W005,,4.96,Work completed as agreed.
-J0012,CON001,W005,,4.73,"Strong team, well coordinated."
-J0028,CON001,W005,,4.9,Careful with materials.
-J0030,CON003,W005,,4.68,"Good work, finished on time."
-J0022,CON003,W005,,4.86,"Good work, finished on time."
-J0030,CON003,W005,,4.95,Quality was acceptable.
-J0003,CON005,W005,,4.68,"Good work, finished on time."
-J0030,CON003,W005,,4.61,Quality was acceptable.
-J0030,CON003,W005,,4.73,"Strong team, well coordinated."
-J0018,CON004,W005,,4.95,Work completed as agreed.
-J0018,CON004,W005,,4.85,"Strong team, well coordinated."
-J0031,CON001,W005,,4.94,"Strong team, well coordinated."
-J0031,CON001,W005,,4.99,Very neat finishing.
-J0031,CON001,W005,,4.75,Reliable and punctual.
-J0031,CON001,W005,,4.94,"Strong team, well coordinated."
-J0031,CON001,W005,,4.71,Reliable and punctual.
-J0031,CON001,W005,,4.91,Very neat finishing.
-J0031,CON001,W005,,4.66,Quality was acceptable.
-J0019,CON004,W005,,4.66,Would hire again.
-J0020,CON002,W005,,4.87,Reliable and punctual.
-J0029,CON005,W005,,4.7,Careful with materials.
-J0032,CON004,W005,,4.64,"Good work, finished on time."
-J0018,CON004,W005,,4.97,Would hire again.
-J0018,CON004,W005,,4.69,"Good work, finished on time."
-J0029,CON005,W005,,4.87,Reliable and punctual.
-J0033,CON001,W005,,4.62,Very neat finishing.
-J0033,CON001,W005,,4.7,Quality was acceptable.
-J0029,CON005,W005,,4.92,Reliable and punctual.
-J0033,CON001,W005,,4.73,"Good work, finished on time."
-J0033,CON001,W005,,4.9,Careful with materials.
-J0033,CON001,W005,,4.92,"Strong team, well coordinated."
-J0033,CON001,W005,,4.66,Work completed as agreed.
-J0033,CON001,W005,,4.98,"Good work, finished on time."
-J0034,CON003,W005,,4.87,Quality was acceptable.
-J0029,CON005,W006,,4.86,Quality was acceptable.
-J0029,CON005,W006,,4.22,Very neat finishing.
-J0035,CON004,W006,,4.86,Careful with materials.
-J0034,CON003,W006,,4.24,Work completed as agreed.
-J0034,CON003,W006,,4.73,Quality was acceptable.
-J0036,CON005,W006,,4.12,Would hire again.
-J0032,CON004,W006,,4.24,Would hire again.
-J0035,CON004,W006,,4.98,Quality was acceptable.
-J0021,CON002,W006,,4.88,Careful with materials.
-J0037,CON005,W006,,4.38,"Strong team, well coordinated."
-J0034,CON003,W006,,4.97,Careful with materials.
-J0032,CON004,W006,,4.22,Careful with materials.
-J0034,CON003,W006,,5.0,Reliable and punctual.
-J0034,CON003,W006,,4.47,Quality was acceptable.
-J0035,CON004,W006,,4.72,Reliable and punctual.
-J0020,CON002,W006,,4.82,"Good work, finished on time."
-J0035,CON004,W006,,4.45,Reliable and punctual.
-J0035,CON004,W006,,4.24,"Good work, finished on time."
-J0035,CON004,W006,,4.86,Quality was acceptable.
-J0038,CON003,W006,,4.65,"Good work, finished on time."
-J0039,CON005,W006,,4.45,Reliable and punctual.
-J0040,CON003,W006,,4.55,Quality was acceptable.
-J0040,CON003,W006,,4.88,"Good work, finished on time."
-J0039,CON005,W006,,4.1,Very neat finishing.
-J0040,CON003,W006,,4.63,Work completed as agreed.
-J0041,CON004,W006,,4.65,"Strong team, well coordinated."
-J0041,CON004,W006,,4.37,Careful with materials.
-J0040,CON003,W006,,4.13,Careful with materials.
-J0041,CON004,W006,,4.28,Would hire again.
-J0040,CON003,W007,,4.04,"Strong team, well coordinated."
-J0040,CON003,W007,,3.97,Quality was acceptable.
-J0042,CON003,W007,,4.08,Reliable and punctual.
-J0042,CON003,W007,,4.27,Careful with materials.
-J0043,CON001,W007,,4.64,Reliable and punctual.
-J0043,CON001,W007,,4.18,Careful with materials.
-J0041,CON004,W007,,4.52,Reliable and punctual.
-J0044,CON003,W007,,4.43,Quality was acceptable.
-J0045,CON001,W007,,4.06,Quality was acceptable.
-J0044,CON003,W007,,4.73,Reliable and punctual.
-J0045,CON001,W007,,4.06,Work completed as agreed.
-J0046,CON006,W007,,4.64,Quality was acceptable.
-J0041,CON004,W007,,4.69,Reliable and punctual.
-J0045,CON001,W007,,4.43,Quality was acceptable.
-J0046,CON006,W007,,4.53,Very neat finishing.
-J0046,CON006,W007,,4.62,Would hire again.
-J0045,CON001,W007,,4.27,Quality was acceptable.
-J0046,CON006,W007,,4.57,Reliable and punctual.
-J0044,CON003,W007,,4.01,Quality was acceptable.
-J0046,CON006,W007,,4.13,"Strong team, well coordinated."
-J0047,CON001,W007,,4.17,Work completed as agreed.
-J0044,CON003,W007,,4.66,Careful with materials.
-J0044,CON003,W008,,4.48,Would hire again.
-J0048,CON005,W008,,4.17,Would hire again.
-J0044,CON003,W008,,3.96,Work completed as agreed.
-J0048,CON005,W008,,4.54,Very neat finishing.
-J0048,CON005,W008,,4.25,"Good work, finished on time."
-J0048,CON005,W008,,4.33,Would hire again.
-J0049,CON004,W008,,4.49,Very neat finishing.
-J0047,CON001,W008,,4.43,Reliable and punctual.
-J0049,CON004,W008,,4.42,Would hire again.
-J0050,CON005,W008,,4.07,Very neat finishing.
-J0050,CON005,W008,,4.02,"Good work, finished on time."
-J0045,CON001,W008,,4.32,"Strong team, well coordinated."
-J0051,CON005,W008,,4.12,Would hire again.
-J0051,CON005,W008,,4.08,Would hire again.
-J0051,CON005,W008,,4.18,"Strong team, well coordinated."
-J0051,CON005,W008,,4.38,Work completed as agreed.
-J0051,CON005,W008,,4.01,Careful with materials.
-J0051,CON005,W009,,4.65,Would hire again.
-J0053,CON005,W009,,4.22,Work completed as agreed.
-J0047,CON001,W009,,4.12,Quality was acceptable.
-J0052,CON005,W009,,4.32,Reliable and punctual.
-J0053,CON005,W009,,4.69,Would hire again.
-J0052,CON005,W009,,4.07,Would hire again.
-J0054,CON001,W009,,4.7,"Strong team, well coordinated."
-J0054,CON001,W009,,4.2,Quality was acceptable.
-J0054,CON001,W009,,4.58,Quality was acceptable.
-J0053,CON005,W009,,4.32,Careful with materials.
-J0052,CON005,W009,,4.67,"Strong team, well coordinated."
-J0045,CON001,W009,,4.78,Reliable and punctual.
-J0051,CON005,W009,,4.17,"Good work, finished on time."
-J0045,CON001,W009,,4.83,"Good work, finished on time."
-J0053,CON005,W009,,4.3,Quality was acceptable.
-J0055,CON001,W009,,4.68,Careful with materials.
-J0054,CON001,W009,,4.23,Careful with materials.
-J0052,CON005,W009,,4.58,"Strong team, well coordinated."
-J0053,CON005,W009,,4.23,Would hire again.
-J0052,CON005,W009,,4.73,Would hire again.
-J0052,CON005,W009,,4.67,Quality was acceptable.
-J0055,CON001,W009,,4.6,Work completed as agreed.
-J0053,CON005,W009,,4.74,Work completed as agreed.
-J0055,CON001,W009,,4.25,Quality was acceptable.
-J0055,CON001,W009,,4.21,"Good work, finished on time."
-J0055,CON001,W009,,4.16,Careful with materials.
-J0049,CON004,W010,,4.73,Reliable and punctual.
-J0056,CON001,W010,,3.99,Very neat finishing.
-J0041,CON004,W010,,3.98,Quality was acceptable.
-J0049,CON004,W010,,4.3,Reliable and punctual.
-J0049,CON004,W010,,4.1,Reliable and punctual.
-J0041,CON004,W010,,4.62,Careful with materials.
-J0056,CON001,W010,,4.44,Careful with materials.
-J0057,CON004,W010,,4.72,Work completed as agreed.
-J0056,CON001,W010,,3.97,"Good work, finished on time."
-J0058,CON001,W010,,4.66,Work completed as agreed.
-J0058,CON001,W010,,3.94,Careful with materials.
-J0059,CON004,W010,,3.89,Quality was acceptable.
-J0058,CON001,W010,,4.71,"Good work, finished on time."
-J0059,CON004,W010,,4.63,Work completed as agreed.
-J0059,CON004,W010,,4.61,Quality was acceptable.
-J0059,CON004,W010,,3.87,"Good work, finished on time."
-J0058,CON001,W010,,4.16,Very neat finishing.
-J0059,CON004,W010,,4.5,"Good work, finished on time."
-J0058,CON001,W010,,3.88,Very neat finishing.
-J0060,CON003,W011,,3.94,Work completed as agreed.
-J0060,CON003,W011,,3.84,Very neat finishing.
-J0061,CON004,W011,,3.98,Would hire again.
-J0061,CON004,W011,,4.06,Careful with materials.
-J0062,CON004,W011,,3.82,Very neat finishing.
-J0062,CON004,W011,,4.46,Would hire again.
-J0060,CON003,W011,,4.42,Reliable and punctual.
-J0063,CON006,W011,,3.8,"Strong team, well coordinated."
-J0062,CON004,W011,,4.6,Careful with materials.
-J0062,CON004,W011,,4.58,"Strong team, well coordinated."
-J0062,CON004,W011,,3.76,"Good work, finished on time."
-J0062,CON004,W011,,4.64,Quality was acceptable.
-J0062,CON004,W011,,4.56,Would hire again.
-J0063,CON006,W011,,4.34,Very neat finishing.
-J0060,CON003,W012,,4.81,"Good work, finished on time."
-J0064,CON005,W012,,4.32,Would hire again.
-J0064,CON005,W012,,4.01,Quality was acceptable.
-J0063,CON006,W012,,3.97,Quality was acceptable.
-J0064,CON005,W012,,4.13,"Strong team, well coordinated."
-J0064,CON005,W012,,3.99,Reliable and punctual.
-J0064,CON005,W012,,4.79,Careful with materials.
-J0065,CON002,W012,,3.95,Careful with materials.
-J0063,CON006,W012,,4.67,Quality was acceptable.
-J0064,CON005,W012,,4.14,"Strong team, well coordinated."
-J0066,CON001,W012,,4.28,Would hire again.
-J0067,CON003,W012,,4.51,Reliable and punctual.
-J0067,CON003,W012,,4.48,Work completed as agreed.
-J0067,CON003,W012,,4.66,Work completed as agreed.
-J0067,CON003,W012,,4.85,Reliable and punctual.
-J0068,CON001,W012,,4.21,"Strong team, well coordinated."
-J0068,CON001,W012,,4.52,Careful with materials.
-J0068,CON001,W012,,4.29,Work completed as agreed.
-J0068,CON001,W012,,4.83,Reliable and punctual.
-J0069,CON003,W012,,4.4,"Strong team, well coordinated."
-J0069,CON003,W012,,4.59,Would hire again.
-J0065,CON002,W013,,4.03,Careful with materials.
-J0065,CON002,W013,,4.33,Work completed as agreed.
-J0065,CON002,W013,,4.34,Careful with materials.
-J0070,CON001,W013,,3.98,Work completed as agreed.
-J0070,CON001,W013,,4.5,Work completed as agreed.
-J0071,CON002,W013,,4.0,Would hire again.
-J0072,CON002,W013,,4.16,Quality was acceptable.
-J0072,CON002,W013,,4.17,"Good work, finished on time."
-J0070,CON001,W013,,4.16,Careful with materials.
-J0073,CON005,W013,,3.98,Work completed as agreed.
-J0073,CON005,W013,,4.52,Careful with materials.
-J0073,CON005,W013,,4.47,Work completed as agreed.
-J0072,CON002,W013,,4.34,Reliable and punctual.
-J0071,CON002,W013,,4.52,"Strong team, well coordinated."
-J0073,CON005,W013,,4.16,"Good work, finished on time."
-J0073,CON005,W013,,4.34,Work completed as agreed.
-J0074,CON003,W014,,4.05,Work completed as agreed.
-J0074,CON003,W014,,4.95,Work completed as agreed.
-J0074,CON003,W014,,4.23,Careful with materials.
-J0074,CON003,W014,,4.83,"Good work, finished on time."
-J0063,CON006,W014,,4.82,Reliable and punctual.
-J0075,CON004,W014,,4.17,Work completed as agreed.
-J0075,CON004,W014,,4.5,"Strong team, well coordinated."
-J0076,CON006,W014,,4.39,Quality was acceptable.
-J0074,CON003,W014,,4.36,Work completed as agreed.
-J0074,CON003,W014,,4.18,Work completed as agreed.
-J0075,CON004,W014,,4.61,Quality was acceptable.
-J0075,CON004,W014,,4.74,Would hire again.
-J0074,CON003,W014,,4.59,Careful with materials.
-J0077,CON001,W014,,4.77,Careful with materials.
-J0077,CON001,W014,,4.85,Careful with materials.
-J0077,CON001,W014,,4.74,Very neat finishing.
-J0077,CON001,W014,,4.26,Very neat finishing.
-J0078,CON001,W014,,4.15,"Good work, finished on time."
-J0072,CON002,W014,,4.3,Work completed as agreed.
-J0078,CON001,W014,,4.17,Would hire again.
-J0073,CON005,W014,,4.26,"Strong team, well coordinated."
-J0071,CON002,W014,,4.64,Very neat finishing.
-J0078,CON001,W014,,4.36,Work completed as agreed.
-J0072,CON002,W014,,4.64,Very neat finishing.
-J0079,CON005,W014,,4.41,Would hire again.
-J0080,CON003,W014,,4.7,Quality was acceptable.
-J0080,CON003,W014,,4.83,Very neat finishing.
-J0081,CON003,W015,,4.18,Quality was acceptable.
-J0081,CON003,W015,,4.25,Reliable and punctual.
-J0082,CON001,W015,,3.72,Very neat finishing.
-J0082,CON001,W015,,4.35,Reliable and punctual.
-J0082,CON001,W015,,3.65,Reliable and punctual.
-J0082,CON001,W015,,3.7,Careful with materials.
-J0082,CON001,W015,,4.31,Reliable and punctual.
-J0082,CON001,W015,,3.59,Careful with materials.
-J0083,CON001,W015,,4.16,Quality was acceptable.
-J0083,CON001,W015,,3.87,Reliable and punctual.
-J0083,CON001,W015,,4.03,Quality was acceptable.
-J0083,CON001,W015,,3.58,Quality was acceptable.
-J0084,CON006,W015,,3.75,Quality was acceptable.
-J0083,CON001,W015,,3.6,Very neat finishing.
-J0084,CON006,W015,,3.62,"Good work, finished on time."
-J0085,CON003,W015,,4.32,Reliable and punctual.
-J0085,CON003,W015,,4.3,Reliable and punctual.
-J0083,CON001,W015,,3.55,"Strong team, well coordinated."
-J0085,CON003,W015,,4.23,Work completed as agreed.
-J0085,CON003,W015,,3.74,Quality was acceptable.
-J0086,CON001,W015,,4.2,Work completed as agreed.
-J0084,CON006,W015,,4.28,Reliable and punctual.
-J0086,CON001,W015,,4.15,Quality was acceptable.
-J0084,CON006,W015,,3.67,Reliable and punctual.
-J0088,CON004,W016,,4.83,Careful with materials.
-J0089,CON006,W016,,4.95,"Strong team, well coordinated."
-J0089,CON006,W016,,4.56,"Strong team, well coordinated."
-J0089,CON006,W016,,4.99,Quality was acceptable.
-J0089,CON006,W016,,4.68,Work completed as agreed.
-J0090,CON004,W016,,4.86,Would hire again.
-J0090,CON004,W016,,4.94,Careful with materials.
-J0091,CON005,W016,,4.92,"Good work, finished on time."
-J0091,CON005,W016,,4.82,Would hire again.
-J0090,CON004,W016,,4.55,Work completed as agreed.
-J0090,CON004,W016,,4.82,Quality was acceptable.
-J0090,CON004,W016,,4.56,Work completed as agreed.
-J0092,CON003,W016,,4.94,Work completed as agreed.
-J0093,CON004,W016,,4.61,Reliable and punctual.
-J0091,CON005,W016,,4.55,Quality was acceptable.
-J0093,CON004,W016,,4.64,Careful with materials.
-J0091,CON005,W016,,4.75,"Strong team, well coordinated."
-J0094,CON004,W016,,4.89,"Good work, finished on time."
-J0094,CON004,W016,,4.67,Quality was acceptable.
-J0094,CON004,W016,,4.61,"Strong team, well coordinated."
-J0094,CON004,W016,,4.95,Would hire again.
-J0094,CON004,W016,,4.89,"Good work, finished on time."
-J0095,CON005,W016,,4.58,Very neat finishing.
-J0095,CON005,W016,,4.51,"Strong team, well coordinated."
-J0096,CON001,W016,,4.68,"Strong team, well coordinated."
-J0097,CON006,W017,,4.17,Work completed as agreed.
-J0098,CON003,W017,,4.3,"Strong team, well coordinated."
-J0099,CON006,W017,,4.03,Reliable and punctual.
-J0099,CON006,W017,,4.36,Would hire again.
-J0100,CON002,W017,,4.18,"Strong team, well coordinated."
-J0101,CON001,W017,,4.12,Quality was acceptable.
-J0100,CON002,W017,,3.92,"Good work, finished on time."
-J0101,CON001,W017,,4.56,"Good work, finished on time."
-J0102,CON002,W017,,4.01,Quality was acceptable.
-J0103,CON001,W017,,4.45,Careful with materials.
-J0102,CON002,W017,,3.86,"Strong team, well coordinated."
-J0102,CON002,W017,,4.31,Work completed as agreed.
-J0102,CON002,W017,,4.47,Quality was acceptable.
-J0102,CON002,W017,,3.96,Work completed as agreed.
-J0104,CON005,W017,,4.36,Quality was acceptable.
-J0101,CON001,W017,,4.62,Very neat finishing.
-J0104,CON005,W017,,4.12,Quality was acceptable.
-J0105,CON006,W017,,4.52,"Good work, finished on time."
-J0106,CON004,W018,,4.69,Very neat finishing.
-J0106,CON004,W018,,4.29,"Good work, finished on time."
-J0107,CON005,W019,,4.14,Reliable and punctual.
-J0107,CON005,W019,,4.18,Quality was acceptable.
-J0108,CON005,W019,,3.83,Quality was acceptable.
-J0108,CON005,W019,,4.6,Careful with materials.
-J0109,CON003,W019,,4.34,"Strong team, well coordinated."
-J0110,CON006,W019,,4.26,Reliable and punctual.
-J0110,CON006,W019,,3.92,Work completed as agreed.
-J0111,CON006,W019,,4.46,"Good work, finished on time."
-J0110,CON006,W019,,4.38,Reliable and punctual.
-J0109,CON003,W019,,4.69,Very neat finishing.
-J0111,CON006,W019,,4.06,Reliable and punctual.
-J0106,CON004,W020,,4.1,Careful with materials.
-J0106,CON004,W020,,3.94,Reliable and punctual.
-J0112,CON001,W021,,4.71,Careful with materials.
-J0113,CON004,W021,,4.93,"Strong team, well coordinated."
-J0114,CON002,W021,,4.75,"Good work, finished on time."
-J0114,CON002,W021,,4.94,"Good work, finished on time."
-J0115,CON002,W021,,4.94,Careful with materials.
-J0115,CON002,W021,,4.72,"Strong team, well coordinated."
-J0115,CON002,W021,,4.93,Reliable and punctual.
-J0115,CON002,W021,,4.92,"Good work, finished on time."
-J0113,CON004,W021,,4.99,Very neat finishing.
-J0113,CON004,W021,,4.73,Would hire again.
-J0113,CON004,W021,,4.74,"Good work, finished on time."
-J0115,CON002,W021,,4.72,Quality was acceptable.
-J0116,CON002,W021,,4.95,Would hire again.
-J0116,CON002,W021,,4.91,Reliable and punctual.
-J0116,CON002,W021,,4.89,Would hire again.
-J0116,CON002,W021,,4.77,Careful with materials.
-J0086,CON001,W021,,4.67,"Strong team, well coordinated."
-J0117,CON004,W021,,4.73,"Strong team, well coordinated."
-J0106,CON004,W022,,3.77,"Strong team, well coordinated."
-J0118,CON004,W022,,3.71,"Strong team, well coordinated."
-J0118,CON004,W022,,4.14,"Strong team, well coordinated."
-J0119,CON006,W022,,4.07,Reliable and punctual.
-J0120,CON004,W022,,4.13,Quality was acceptable.
-J0120,CON004,W022,,3.7,"Strong team, well coordinated."
-J0120,CON004,W022,,3.92,Quality was acceptable.
-J0120,CON004,W023,,4.63,"Good work, finished on time."
-J0121,CON005,W023,,4.42,Would hire again.
-J0120,CON004,W023,,4.47,Would hire again.
-J0121,CON005,W023,,4.17,Work completed as agreed.
-J0122,CON004,W023,,4.35,Quality was acceptable.
-J0120,CON004,W023,,4.77,Quality was acceptable.
-J0121,CON005,W023,,4.77,Work completed as agreed.
-J0121,CON005,W023,,4.17,"Good work, finished on time."
-J0121,CON005,W023,,4.35,"Good work, finished on time."
-J0122,CON004,W023,,4.52,Careful with materials.
-J0122,CON004,W023,,4.22,Careful with materials.
-J0122,CON004,W023,,4.72,Would hire again.
-J0122,CON004,W023,,4.82,Would hire again.
-J0122,CON004,W023,,4.12,Work completed as agreed.
-J0123,CON001,W023,,4.31,Would hire again.
-J0124,CON003,W023,,4.59,"Good work, finished on time."
-J0123,CON001,W023,,4.59,Reliable and punctual.
-J0126,CON004,W024,,4.79,Quality was acceptable.
-J0126,CON004,W024,,4.66,Reliable and punctual.
-J0127,CON006,W024,,4.63,Reliable and punctual.
-J0127,CON006,W024,,4.65,Careful with materials.
-J0127,CON006,W024,,4.72,Quality was acceptable.
-J0128,CON001,W024,,4.94,Careful with materials.
-J0128,CON001,W024,,4.97,Would hire again.
-J0127,CON006,W024,,4.95,Work completed as agreed.
-J0127,CON006,W024,,4.79,Reliable and punctual.
-J0128,CON001,W024,,4.52,Reliable and punctual.
-J0126,CON004,W024,,4.47,Careful with materials.
-J0128,CON001,W024,,4.66,Work completed as agreed.
-J0128,CON001,W024,,4.84,Reliable and punctual.
-J0129,CON006,W024,,4.94,Careful with materials.
-J0128,CON001,W024,,4.81,Reliable and punctual.
-J0128,CON001,W024,,4.5,"Good work, finished on time."
-J0129,CON006,W024,,4.63,"Strong team, well coordinated."
-J0126,CON004,W024,,4.59,Careful with materials.
-J0129,CON006,W024,,4.85,Reliable and punctual.
-J0129,CON006,W024,,4.6,Very neat finishing.
-J0129,CON006,W024,,4.81,Very neat finishing.
-J0126,CON004,W024,,4.78,"Strong team, well coordinated."
-J0126,CON004,W024,,4.49,"Good work, finished on time."
-J0130,CON006,W024,,4.84,"Good work, finished on time."
-J0130,CON006,W024,,4.65,Careful with materials.
-J0131,CON006,W024,,4.92,Very neat finishing.
-J0131,CON006,W024,,4.6,Would hire again.
-J0130,CON006,W024,,4.78,Quality was acceptable.
-J0131,CON006,W024,,4.5,"Strong team, well coordinated."
-J0084,CON006,W025,,4.18,"Good work, finished on time."
-J0084,CON006,W025,,4.12,Very neat finishing.
-J0133,CON004,W025,,3.51,Careful with materials.
-J0083,CON001,W025,,3.92,Quality was acceptable.
-J0134,CON001,W025,,3.57,"Good work, finished on time."
-J0112,CON001,W025,,3.7,"Good work, finished on time."
-J0117,CON004,W025,,3.6,"Good work, finished on time."
-J0135,CON003,W025,,4.32,Very neat finishing.
-J0136,CON002,W025,,4.19,"Strong team, well coordinated."
-J0135,CON003,W025,,3.86,Careful with materials.
-J0137,CON001,W025,,3.59,Reliable and punctual.
-J0135,CON003,W025,,3.52,"Good work, finished on time."
-J0138,CON003,W025,,3.66,Quality was acceptable.
-J0139,CON003,W025,,4.35,Work completed as agreed.
-J0135,CON003,W025,,4.33,Quality was acceptable.
-J0139,CON003,W025,,4.24,"Good work, finished on time."
-J0135,CON003,W025,,4.14,Quality was acceptable.
-J0140,CON005,W025,,3.99,Reliable and punctual.
-J0139,CON003,W025,,4.01,"Good work, finished on time."
-J0140,CON005,W025,,3.85,Reliable and punctual.
-J0140,CON005,W025,,3.65,Reliable and punctual.
-J0140,CON005,W025,,3.72,Work completed as agreed.
-J0139,CON003,W025,,3.98,Careful with materials.
-J0139,CON003,W025,,4.25,Quality was acceptable.
-J0141,CON003,W025,,4.2,Quality was acceptable.
-J0140,CON005,W025,,3.83,Work completed as agreed.
-J0140,CON005,W025,,3.49,Would hire again.
-J0141,CON003,W025,,3.64,Very neat finishing.
-J0141,CON003,W025,,4.27,Quality was acceptable.
-J0142,CON003,W026,,4.06,Reliable and punctual.
-J0142,CON003,W026,,4.15,Reliable and punctual.
-J0143,CON002,W026,,3.84,Very neat finishing.
-J0144,CON003,W026,,4.62,Reliable and punctual.
-J0144,CON003,W026,,4.23,"Good work, finished on time."
-J0144,CON003,W026,,4.37,Quality was acceptable.
-J0117,CON004,W026,,4.4,Quality was acceptable.
-J0144,CON003,W026,,4.11,Quality was acceptable.
-J0136,CON002,W026,,4.36,"Good work, finished on time."
-J0143,CON002,W026,,4.31,Very neat finishing.
-J0142,CON003,W026,,3.81,Very neat finishing.
-J0141,CON003,W026,,4.14,"Strong team, well coordinated."
-J0143,CON002,W026,,4.32,"Good work, finished on time."
-J0142,CON003,W026,,4.68,Reliable and punctual.
-J0145,CON006,W026,,3.96,Reliable and punctual.
-J0143,CON002,W026,,3.78,Very neat finishing.
-J0142,CON003,W026,,3.84,"Strong team, well coordinated."
-J0141,CON003,W026,,3.89,"Good work, finished on time."
-J0136,CON002,W026,,4.57,Careful with materials.
-J0144,CON003,W026,,4.1,Would hire again.
-J0112,CON001,W026,,4.09,Quality was acceptable.
-J0145,CON006,W026,,4.46,Reliable and punctual.
-J0146,CON003,W026,,4.6,"Good work, finished on time."
-J0146,CON003,W026,,4.61,Quality was acceptable.
-J0147,CON002,W026,,4.35,Would hire again.
-J0148,CON003,W026,,4.0,Quality was acceptable.
-J0148,CON003,W026,,4.5,Quality was acceptable.
-J0134,CON001,W026,,3.85,Reliable and punctual.
-J0148,CON003,W026,,4.62,Quality was acceptable.
-J0148,CON003,W026,,3.86,Work completed as agreed.
-J0149,CON002,W026,,4.65,Work completed as agreed.
-J0151,CON006,W027,,3.8,"Strong team, well coordinated."
-J0152,CON002,W027,,4.16,Work completed as agreed.
-J0152,CON002,W027,,3.59,Very neat finishing.
-J0151,CON006,W027,,4.07,Work completed as agreed.
-J0152,CON002,W027,,4.01,"Good work, finished on time."
-J0153,CON006,W027,,3.45,Very neat finishing.
-J0153,CON006,W027,,3.53,"Good work, finished on time."
-J0153,CON006,W027,,4.17,"Good work, finished on time."
-J0152,CON002,W027,,4.15,Work completed as agreed.
-J0152,CON002,W027,,3.88,Work completed as agreed.
-J0151,CON006,W027,,3.44,Reliable and punctual.
-J0154,CON005,W027,,4.09,Would hire again.
-J0151,CON006,W027,,3.75,Reliable and punctual.
-J0153,CON006,W027,,4.0,Reliable and punctual.
-J0155,CON005,W027,,4.06,Careful with materials.
-J0156,CON006,W027,,3.54,"Good work, finished on time."
-J0155,CON005,W027,,3.72,Reliable and punctual.
-J0156,CON006,W027,,3.65,Reliable and punctual.
-J0153,CON006,W027,,3.6,Careful with materials.
-J0156,CON006,W027,,4.06,Would hire again.
-J0155,CON005,W027,,3.95,Careful with materials.
-J0157,CON002,W027,,3.67,Careful with materials.
-J0158,CON005,W027,,3.43,Would hire again.
-J0155,CON005,W027,,3.85,"Good work, finished on time."
-J0159,CON002,W027,,3.93,Careful with materials.
-J0159,CON002,W027,,3.51,"Good work, finished on time."
-J0159,CON002,W027,,3.75,Reliable and punctual.
-J0159,CON002,W027,,3.54,Quality was acceptable.
-J0159,CON002,W027,,3.85,Would hire again.
-J0158,CON005,W027,,3.39,"Strong team, well coordinated."
-J0158,CON005,W027,,4.21,Very neat finishing.
-J0161,CON001,W028,,4.85,"Good work, finished on time."
-J0161,CON001,W028,,4.98,"Good work, finished on time."
-J0161,CON001,W028,,4.72,Careful with materials.
-J0073,CON005,W029,,4.56,Quality was acceptable.
-J0080,CON003,W029,,4.41,Careful with materials.
-J0079,CON005,W029,,4.14,Work completed as agreed.
-J0079,CON005,W029,,3.72,Quality was acceptable.
-J0162,CON004,W029,,3.87,Would hire again.
-J0164,CON005,W030,,4.83,"Good work, finished on time."
-J0164,CON005,W030,,4.99,Careful with materials.
-J0164,CON005,W030,,4.8,Would hire again.
-J0164,CON005,W030,,4.98,"Strong team, well coordinated."
-J0164,CON005,W030,,4.83,Work completed as agreed.
-J0165,CON002,W030,,4.99,Would hire again.
-J0165,CON002,W030,,4.95,Work completed as agreed.
-J0165,CON002,W030,,4.8,Quality was acceptable.
-J0165,CON002,W030,,4.83,Careful with materials.
-J0165,CON002,W030,,4.83,Careful with materials.
-J0165,CON002,W030,,4.82,Quality was acceptable.
-J0166,CON002,W030,,4.94,Very neat finishing.
-J0167,CON006,W030,,4.82,"Good work, finished on time."
-J0167,CON006,W030,,4.95,"Good work, finished on time."
-J0167,CON006,W030,,4.94,Reliable and punctual.
-J0167,CON006,W030,,4.79,Very neat finishing.
-J0167,CON006,W030,,4.99,"Good work, finished on time."
-J0167,CON006,W030,,4.84,Work completed as agreed.
-J0167,CON006,W030,,4.95,Very neat finishing.
-J0168,CON006,W030,,4.94,Reliable and punctual.
-J0169,CON002,W030,,4.96,"Strong team, well coordinated."
-J0169,CON002,W030,,4.84,Reliable and punctual.
-J0169,CON002,W030,,4.96,"Good work, finished on time."
-J0170,CON002,W030,,4.84,"Good work, finished on time."
-J0169,CON002,W030,,4.97,Reliable and punctual.
-J0170,CON002,W030,,4.81,"Strong team, well coordinated."
-J0171,CON004,W030,,4.79,Careful with materials.
-J0170,CON002,W030,,4.84,Very neat finishing.
-J0172,CON005,W030,,4.79,Would hire again.
-J0173,CON002,W030,,4.78,Reliable and punctual.
-J0173,CON002,W030,,5.0,Very neat finishing.
-J0173,CON002,W030,,4.94,Quality was acceptable.
-J0172,CON005,W030,,4.82,Work completed as agreed.
-J0172,CON005,W030,,4.95,Reliable and punctual.
-J0172,CON005,W030,,4.98,"Good work, finished on time."
-J0174,CON006,W030,,4.96,Would hire again.
-J0175,CON006,W031,,4.96,Very neat finishing.
-J0175,CON006,W031,,4.8,"Strong team, well coordinated."
-J0175,CON006,W031,,4.96,"Good work, finished on time."
-J0176,CON002,W031,,4.83,Would hire again.
-J0177,CON002,W031,,4.82,Very neat finishing.
-J0176,CON002,W031,,4.82,Reliable and punctual.
-J0177,CON002,W031,,4.93,Very neat finishing.
-J0178,CON002,W031,,4.78,Work completed as agreed.
-J0175,CON006,W031,,4.94,"Strong team, well coordinated."
-J0176,CON002,W031,,4.76,Work completed as agreed.
-J0175,CON006,W031,,4.97,"Good work, finished on time."
-J0178,CON002,W031,,4.8,"Good work, finished on time."
-J0176,CON002,W031,,4.8,"Strong team, well coordinated."
-J0176,CON002,W031,,4.96,"Strong team, well coordinated."
-J0176,CON002,W031,,4.96,Quality was acceptable.
-J0178,CON002,W031,,4.77,Careful with materials.
-J0179,CON006,W031,,4.8,Work completed as agreed.
-J0178,CON002,W031,,4.79,Work completed as agreed.
-J0176,CON002,W031,,4.83,Careful with materials.
-J0179,CON006,W031,,5.0,Work completed as agreed.
-J0178,CON002,W031,,4.99,Very neat finishing.
-J0179,CON006,W031,,4.83,Work completed as agreed.
-J0179,CON006,W031,,4.97,Reliable and punctual.
-J0179,CON006,W031,,4.93,"Strong team, well coordinated."
-J0180,CON006,W031,,4.76,Careful with materials.
-J0180,CON006,W031,,4.79,"Good work, finished on time."
-J0180,CON006,W031,,4.99,Quality was acceptable.
-J0181,CON004,W031,,4.98,Reliable and punctual.
-J0181,CON004,W031,,4.95,"Good work, finished on time."
-J0180,CON006,W031,,4.99,Very neat finishing.
-J0181,CON004,W031,,4.77,Careful with materials.
-J0180,CON006,W031,,4.94,"Good work, finished on time."
-J0180,CON006,W031,,4.93,Would hire again.
-J0181,CON004,W031,,5.0,Very neat finishing.
-J0182,CON002,W031,,4.81,Work completed as agreed.
-J0181,CON004,W031,,4.77,Reliable and punctual.
-J0182,CON002,W031,,4.93,Reliable and punctual.
-J0182,CON002,W031,,4.83,Careful with materials.
-J0183,CON004,W032,,3.73,Quality was acceptable.
-J0111,CON006,W032,,4.17,Very neat finishing.
-J0110,CON006,W032,,3.76,"Good work, finished on time."
-J0111,CON006,W032,,3.68,Quality was acceptable.
-J0110,CON006,W032,,4.08,"Strong team, well coordinated."
-J0183,CON004,W032,,3.46,Careful with materials.
-J0184,CON006,W032,,3.98,Very neat finishing.
-J0184,CON006,W032,,3.66,Careful with materials.
-J0185,CON001,W032,,3.56,"Good work, finished on time."
-J0185,CON001,W032,,4.03,Careful with materials.
-J0185,CON001,W032,,4.24,Work completed as agreed.
-J0185,CON001,W032,,3.81,"Good work, finished on time."
-J0185,CON001,W032,,3.98,Work completed as agreed.
-J0186,CON003,W032,,4.31,Careful with materials.
-J0186,CON003,W032,,4.28,Quality was acceptable.
-J0187,CON006,W032,,4.14,Careful with materials.
-J0187,CON006,W032,,3.6,Quality was acceptable.
-J0188,CON006,W032,,3.47,Quality was acceptable.
-J0189,CON006,W032,,3.46,Careful with materials.
-J0189,CON006,W032,,3.49,Reliable and punctual.
-J0190,CON001,W032,,4.17,Careful with materials.
-J0190,CON001,W032,,4.18,Reliable and punctual.
-J0189,CON006,W032,,4.27,Very neat finishing.
-J0186,CON003,W032,,4.06,"Good work, finished on time."
-J0189,CON006,W032,,4.06,"Strong team, well coordinated."
-J0189,CON006,W032,,3.5,Would hire again.
-J0189,CON006,W032,,4.28,"Good work, finished on time."
-J0189,CON006,W032,,4.01,Quality was acceptable.
-J0191,CON006,W032,,3.57,Reliable and punctual.
-J0192,CON001,W032,,3.71,"Good work, finished on time."
-J0191,CON006,W032,,3.43,Careful with materials.
-J0193,CON006,W032,,3.57,Careful with materials.
-J0193,CON006,W032,,3.62,Careful with materials.
-J0191,CON006,W032,,3.93,Very neat finishing.
-J0194,CON006,W032,,4.12,Very neat finishing.
-J0192,CON001,W032,,3.76,Would hire again.
-J0191,CON006,W032,,4.25,Would hire again.
-J0194,CON006,W032,,3.68,"Strong team, well coordinated."
-J0195,CON002,,RAVI01,4.99,Very neat finishing.
-J0196,CON003,,RAVI01,4.87,Reliable and punctual.
-J0197,CON004,,RAVI01,4.62,Would hire again.
-J0198,CON003,,RAVI01,4.63,Careful with materials.
-J0199,CON004,,RAVI01,4.92,"Good work, finished on time."
-J0200,CON001,,RAVI01,4.66,Would hire again.
-J0201,CON005,,RAVI01,4.7,Reliable and punctual.
-J0202,CON002,,RAVI01,4.73,Quality was acceptable.
-J0203,CON001,,RAVI01,4.86,"Good work, finished on time."
-J0204,CON001,,RAVI01,4.91,Careful with materials.
-J0205,CON005,,RAVI01,4.9,Quality was acceptable.
-J0206,CON001,,RAVI01,4.68,Very neat finishing.
-J0207,CON002,,RAVI01,4.69,"Good work, finished on time."
-J0208,CON001,,RAVI01,4.98,Quality was acceptable.
-J0209,CON005,,RAVI01,4.88,Careful with materials.
-J0210,CON004,,RAVI01,4.92,Work completed as agreed.
-J0211,CON004,,RAVI01,4.94,Careful with materials.
-J0212,CON001,,RAVI01,4.87,Reliable and punctual.
-J0213,CON006,,RAVI01,4.68,"Good work, finished on time."
-J0214,CON002,,RAVI01,4.61,"Strong team, well coordinated."
-J0215,CON003,,RAVI01,4.97,Work completed as agreed.
-J0216,CON002,,RAVI01,4.62,Reliable and punctual.
-J0217,CON003,,RAVI01,4.92,Work completed as agreed.
-J0218,CON004,,RAVI01,4.61,Quality was acceptable.
-J0219,CON003,,RAVI01,4.99,Quality was acceptable.
-J0220,CON001,,RAVI01,4.73,Careful with materials.
-J0221,CON005,,RAVI01,4.74,Careful with materials.
-J0222,CON006,,RAVI01,4.72,Careful with materials.
-J0223,CON006,,RAVI01,4.87,Would hire again.
-J0224,CON004,,RAVI01,4.73,Reliable and punctual.
-J0225,CON006,,RAVI01,4.98,"Strong team, well coordinated."
-J0226,CON004,,RAVI01,4.68,Would hire again.
-J0227,CON005,,M001,4.52,Work completed as agreed.
-J0228,CON004,,M001,4.33,Would hire again.
-J0229,CON001,,M001,4.82,Work completed as agreed.
-J0230,CON004,,M001,4.71,"Strong team, well coordinated."
-J0231,CON005,,M001,4.49,"Strong team, well coordinated."
-J0232,CON003,,M001,4.27,Very neat finishing.
-J0233,CON005,,M001,4.75,Reliable and punctual.
-J0234,CON005,,M001,4.67,Reliable and punctual.
-J0235,CON001,,M001,4.2,Quality was acceptable.
-J0236,CON001,,M001,4.87,"Strong team, well coordinated."
-J0237,CON003,,M001,4.53,Quality was acceptable.
-J0238,CON004,,M001,5.0,Quality was acceptable.
-J0239,CON005,,M001,4.67,Reliable and punctual.
-J0240,CON001,,M001,4.93,Work completed as agreed.
-J0241,CON003,,M001,4.6,Work completed as agreed.
-J0242,CON006,,M001,4.45,"Strong team, well coordinated."
-J0243,CON003,,M001,4.68,Reliable and punctual.
-J0244,CON004,,M001,4.83,Work completed as agreed.
-J0245,CON001,,M001,4.38,"Good work, finished on time."
-J0246,CON006,,M001,4.37,"Good work, finished on time."
-J0247,CON001,,M001,4.53,Careful with materials.
-J0248,CON004,,C003,4.34,Quality was acceptable.
-J0249,CON003,,C003,4.48,Careful with materials.
-J0250,CON002,,C003,4.75,Reliable and punctual.
-J0251,CON001,,C003,4.32,Quality was acceptable.
-J0252,CON002,,C003,3.99,Quality was acceptable.
-J0253,CON006,,C003,4.0,Very neat finishing.
-J0254,CON002,,C003,4.81,Would hire again.
-J0255,CON001,,C003,4.54,"Good work, finished on time."
-J0256,CON001,,C003,4.65,Quality was acceptable.
-J0257,CON002,,C003,4.8,"Strong team, well coordinated."
-J0258,CON004,,C003,4.15,Very neat finishing.
-J0259,CON004,,C003,4.1,Quality was acceptable.
-J0260,CON004,,C003,4.46,"Good work, finished on time."
-J0261,CON006,,C003,4.74,Very neat finishing.
-J0262,CON003,,C003,4.06,Careful with materials.
-J0263,CON002,,C003,4.26,Very neat finishing.
-J0264,CON005,,C003,3.97,"Good work, finished on time."
-J0265,CON004,,C003,4.14,"Good work, finished on time."
-J0266,CON006,,C003,4.83,Quality was acceptable.
-J0267,CON006,,C003,4.66,Work completed as agreed.
-J0268,CON002,,C003,4.7,"Good work, finished on time."
-J0269,CON003,,C003,4.05,"Strong team, well coordinated."
-J0270,CON006,,C004,4.89,"Strong team, well coordinated."
-J0271,CON004,,C004,4.53,Reliable and punctual.
-J0272,CON002,,C004,4.69,Reliable and punctual.
-J0273,CON006,,C004,4.78,Quality was acceptable.
-J0274,CON004,,C004,4.22,"Strong team, well coordinated."
-J0275,CON004,,C004,4.24,Would hire again.
-J0276,CON002,,C004,4.42,Quality was acceptable.
-J0277,CON005,,C004,4.67,"Strong team, well coordinated."
-J0278,CON005,,C004,4.91,"Strong team, well coordinated."
-J0279,CON004,,C004,4.31,Careful with materials.
-J0280,CON003,,C004,4.29,Would hire again.
-J0281,CON005,,C004,4.51,"Good work, finished on time."
-J0282,CON002,,C004,4.98,"Good work, finished on time."
-J0283,CON005,,C004,4.6,Careful with materials.
-J0284,CON006,,C004,4.96,Quality was acceptable.
-J0285,CON006,,C005,4.36,Reliable and punctual.
-J0286,CON002,,C005,4.89,Reliable and punctual.
-J0287,CON001,,C005,4.61,Would hire again.
-J0288,CON005,,C005,4.56,Very neat finishing.
-J0289,CON001,,C005,4.34,Work completed as agreed.
-J0290,CON002,,C005,4.78,Careful with materials.
-J0291,CON005,,C005,4.23,"Good work, finished on time."
-J0292,CON003,,C005,4.51,"Strong team, well coordinated."
-J0293,CON004,,C005,4.76,Quality was acceptable.
+J0001,CON004,W001,,4.43,Careful with materials.
+J0001,CON004,W001,,4.87,Work completed as agreed.
+J0002,CON001,W001,,4.8,Careful with materials.
+J0002,CON001,W001,,4.97,"Good work, finished on time."
+J0002,CON001,W001,,4.43,Careful with materials.
+J0003,CON001,W001,,4.42,Very neat finishing.
+J0002,CON001,W001,,4.7,Would hire again.
+J0004,CON004,W001,,4.95,"Good work, finished on time."
+J0001,CON004,W001,,4.43,Very neat finishing.
+J0001,CON004,W001,,4.97,Careful with materials.
+J0003,CON001,W001,,4.51,Reliable and punctual.
+J0003,CON001,W001,,4.89,"Good work, finished on time."
+J0005,CON004,W001,,4.53,Reliable and punctual.
+J0006,CON001,W001,,4.51,Careful with materials.
+J0006,CON001,W001,,4.45,Careful with materials.
+J0006,CON001,W001,,4.62,"Strong team, well coordinated."
+J0007,CON001,W001,,4.94,Careful with materials.
+J0004,CON004,W001,,4.46,Would hire again.
+J0008,CON004,W001,,4.78,Careful with materials.
+J0003,CON001,W001,,4.87,Very neat finishing.
+J0007,CON001,W001,,4.97,Careful with materials.
+J0005,CON004,W001,,4.88,"Strong team, well coordinated."
+J0006,CON001,W001,,4.89,Would hire again.
+J0002,CON001,W001,,4.92,"Strong team, well coordinated."
+J0008,CON004,W001,,4.53,Very neat finishing.
+J0007,CON001,W001,,4.78,Would hire again.
+J0009,CON001,W001,,4.98,Careful with materials.
+J0002,CON001,W001,,4.48,Careful with materials.
+J0008,CON004,W001,,4.52,"Good work, finished on time."
+J0009,CON001,W001,,4.62,Reliable and punctual.
+J0004,CON004,W001,,4.6,Quality was acceptable.
+J0004,CON004,W002,,4.52,Would hire again.
+J0005,CON004,W002,,4.33,Very neat finishing.
+J0008,CON004,W002,,4.23,Quality was acceptable.
+J0010,CON002,W002,,4.87,Work completed as agreed.
+J0011,CON002,W002,,4.75,Would hire again.
+J0005,CON004,W002,,4.93,Careful with materials.
+J0011,CON002,W002,,4.46,Careful with materials.
+J0010,CON002,W002,,4.86,"Strong team, well coordinated."
+J0005,CON004,W002,,4.85,Work completed as agreed.
+J0010,CON002,W002,,4.4,"Good work, finished on time."
+J0010,CON002,W002,,4.28,"Strong team, well coordinated."
+J0011,CON002,W002,,4.98,Careful with materials.
+J0005,CON004,W002,,4.97,Careful with materials.
+J0004,CON004,W002,,4.8,Would hire again.
+J0010,CON002,W002,,4.68,Careful with materials.
+J0005,CON004,W002,,4.92,Would hire again.
+J0011,CON002,W002,,4.74,Reliable and punctual.
+J0004,CON004,W002,,4.22,Reliable and punctual.
+J0004,CON004,W002,,4.27,Would hire again.
+J0011,CON002,W002,,4.42,Careful with materials.
+J0011,CON002,W002,,4.45,Work completed as agreed.
+J0010,CON002,W002,,4.35,Would hire again.
+J0012,CON004,W002,,4.34,Careful with materials.
+J0012,CON004,W002,,4.78,Work completed as agreed.
+J0014,CON004,W003,,4.75,Reliable and punctual.
+J0011,CON002,W003,,4.21,Careful with materials.
+J0013,CON002,W003,,4.88,"Good work, finished on time."
+J0013,CON002,W003,,4.9,"Strong team, well coordinated."
+J0013,CON002,W003,,4.12,Work completed as agreed.
+J0013,CON002,W003,,4.25,Quality was acceptable.
+J0013,CON002,W003,,4.25,Careful with materials.
+J0014,CON004,W003,,4.06,Careful with materials.
+J0013,CON002,W003,,4.3,Would hire again.
+J0015,CON002,W003,,4.75,Work completed as agreed.
+J0015,CON002,W003,,4.56,Would hire again.
+J0015,CON002,W003,,4.94,"Good work, finished on time."
+J0016,CON005,W003,,4.82,Very neat finishing.
+J0016,CON005,W003,,4.44,Reliable and punctual.
+J0017,CON002,W003,,4.7,Quality was acceptable.
+J0018,CON005,W003,,4.1,Reliable and punctual.
+J0016,CON005,W003,,4.18,Very neat finishing.
+J0019,CON005,W003,,4.79,Work completed as agreed.
+J0020,CON006,W004,,4.23,Careful with materials.
+J0021,CON002,W004,,4.29,"Good work, finished on time."
+J0021,CON002,W004,,4.51,Quality was acceptable.
+J0020,CON006,W004,,4.78,Very neat finishing.
+J0021,CON002,W004,,4.19,Would hire again.
+J0021,CON002,W004,,4.02,Quality was acceptable.
+J0021,CON002,W004,,4.57,"Good work, finished on time."
+J0021,CON002,W004,,4.26,"Good work, finished on time."
+J0022,CON006,W004,,3.99,Careful with materials.
+J0022,CON006,W004,,4.48,Careful with materials.
+J0022,CON006,W004,,4.61,Careful with materials.
+J0022,CON006,W004,,4.54,Careful with materials.
+J0022,CON006,W004,,4.81,Quality was acceptable.
+J0023,CON002,W004,,4.32,Very neat finishing.
+J0024,CON006,W004,,4.4,"Strong team, well coordinated."
+J0009,CON001,W005,,4.69,Would hire again.
+J0017,CON002,W005,,4.69,Careful with materials.
+J0014,CON004,W005,,4.92,"Strong team, well coordinated."
+J0018,CON005,W005,,4.99,Would hire again.
+J0019,CON005,W005,,4.61,"Good work, finished on time."
+J0016,CON005,W005,,4.73,Would hire again.
+J0012,CON004,W005,,4.91,Careful with materials.
+J0025,CON006,W005,,4.71,Work completed as agreed.
+J0025,CON006,W005,,4.93,Work completed as agreed.
+J0025,CON006,W005,,4.91,Reliable and punctual.
+J0025,CON006,W005,,4.73,Careful with materials.
+J0026,CON003,W005,,4.87,"Strong team, well coordinated."
+J0026,CON003,W005,,4.7,Very neat finishing.
+J0026,CON003,W005,,4.89,Very neat finishing.
+J0025,CON006,W005,,4.87,Quality was acceptable.
+J0025,CON006,W005,,4.67,Careful with materials.
+J0019,CON005,W005,,4.99,"Strong team, well coordinated."
+J0012,CON004,W005,,4.62,Careful with materials.
+J0027,CON005,W005,,4.99,Reliable and punctual.
+J0028,CON001,W005,,4.65,"Strong team, well coordinated."
+J0028,CON001,W005,,4.64,Careful with materials.
+J0028,CON001,W005,,4.74,Quality was acceptable.
+J0028,CON001,W005,,4.68,Quality was acceptable.
+J0028,CON001,W005,,4.86,Work completed as agreed.
+J0029,CON001,W005,,4.8,"Strong team, well coordinated."
+J0028,CON001,W005,,4.91,Would hire again.
+J0030,CON001,W005,,4.69,Work completed as agreed.
+J0028,CON001,W005,,4.91,Would hire again.
+J0029,CON001,W005,,4.65,Careful with materials.
+J0029,CON001,W005,,4.93,Reliable and punctual.
+J0029,CON001,W005,,4.74,"Strong team, well coordinated."
+J0031,CON003,W005,,4.96,Very neat finishing.
+J0032,CON004,W005,,4.61,Careful with materials.
+J0033,CON006,W005,,4.9,Reliable and punctual.
+J0034,CON003,W005,,4.95,"Good work, finished on time."
+J0033,CON006,W005,,4.73,Very neat finishing.
+J0029,CON001,W005,,4.98,Very neat finishing.
+J0029,CON001,W005,,4.87,Quality was acceptable.
+J0031,CON003,W005,,4.74,Quality was acceptable.
+J0033,CON006,W005,,4.86,Reliable and punctual.
+J0030,CON001,W005,,4.86,Work completed as agreed.
+J0031,CON003,W005,,4.95,Would hire again.
+J0030,CON001,W005,,4.86,Careful with materials.
+J0033,CON006,W005,,4.67,Very neat finishing.
+J0012,CON004,W005,,4.74,Very neat finishing.
+J0030,CON001,W005,,4.69,"Strong team, well coordinated."
+J0034,CON003,W005,,4.61,Work completed as agreed.
+J0016,CON005,W006,,4.61,Work completed as agreed.
+J0035,CON004,W006,,4.62,Work completed as agreed.
+J0018,CON005,W006,,4.21,"Strong team, well coordinated."
+J0031,CON003,W006,,4.91,Would hire again.
+J0034,CON003,W006,,4.43,Careful with materials.
+J0012,CON004,W006,,4.82,Work completed as agreed.
+J0035,CON004,W006,,4.85,Reliable and punctual.
+J0027,CON005,W006,,4.55,Quality was acceptable.
+J0035,CON004,W006,,4.91,"Good work, finished on time."
+J0018,CON005,W006,,4.74,"Strong team, well coordinated."
+J0032,CON004,W006,,4.25,Quality was acceptable.
+J0019,CON005,W006,,4.21,Careful with materials.
+J0036,CON005,W006,,4.36,Would hire again.
+J0037,CON004,W006,,4.93,"Strong team, well coordinated."
+J0018,CON005,W006,,4.17,Would hire again.
+J0038,CON006,W006,,4.73,"Good work, finished on time."
+J0034,CON003,W006,,4.37,Quality was acceptable.
+J0018,CON005,W006,,4.67,Would hire again.
+J0036,CON005,W006,,4.18,Work completed as agreed.
+J0039,CON005,W006,,4.89,Quality was acceptable.
+J0016,CON005,W006,,4.7,Quality was acceptable.
+J0027,CON005,W006,,4.19,Very neat finishing.
+J0035,CON004,W006,,4.4,Would hire again.
+J0036,CON005,W006,,4.49,Quality was acceptable.
+J0036,CON005,W006,,4.92,Quality was acceptable.
+J0037,CON004,W006,,4.48,Quality was acceptable.
+J0039,CON005,W006,,4.89,"Good work, finished on time."
+J0016,CON005,W006,,4.28,Very neat finishing.
+J0019,CON005,W006,,4.19,Would hire again.
+J0038,CON006,W007,,4.22,Would hire again.
+J0029,CON001,W007,,4.01,Careful with materials.
+J0032,CON004,W007,,4.25,"Good work, finished on time."
+J0038,CON006,W007,,4.17,Would hire again.
+J0030,CON001,W007,,4.69,Quality was acceptable.
+J0040,CON003,W007,,4.15,Would hire again.
+J0041,CON001,W007,,4.01,"Good work, finished on time."
+J0033,CON006,W007,,3.96,Careful with materials.
+J0033,CON006,W007,,4.64,"Strong team, well coordinated."
+J0040,CON003,W007,,4.48,"Strong team, well coordinated."
+J0041,CON001,W007,,4.58,Careful with materials.
+J0030,CON001,W007,,4.12,Would hire again.
+J0042,CON001,W007,,4.59,Quality was acceptable.
+J0041,CON001,W007,,4.79,Quality was acceptable.
+J0039,CON005,W007,,4.45,Very neat finishing.
+J0040,CON003,W007,,4.53,Quality was acceptable.
+J0038,CON006,W007,,4.55,Careful with materials.
+J0043,CON001,W007,,4.74,"Strong team, well coordinated."
+J0041,CON001,W007,,4.06,Very neat finishing.
+J0039,CON005,W007,,4.69,Would hire again.
+J0044,CON006,W007,,4.11,Work completed as agreed.
+J0045,CON003,W007,,3.91,Very neat finishing.
+J0027,CON005,W008,,4.39,"Good work, finished on time."
+J0037,CON004,W008,,4.16,Work completed as agreed.
+J0040,CON003,W008,,4.1,"Good work, finished on time."
+J0045,CON003,W008,,4.39,"Strong team, well coordinated."
+J0045,CON003,W008,,4.6,Quality was acceptable.
+J0039,CON005,W008,,4.32,"Strong team, well coordinated."
+J0045,CON003,W008,,4.07,Quality was acceptable.
+J0027,CON005,W008,,4.66,Very neat finishing.
+J0027,CON005,W008,,4.18,"Strong team, well coordinated."
+J0027,CON005,W008,,4.34,Quality was acceptable.
+J0038,CON006,W008,,3.84,Would hire again.
+J0043,CON001,W008,,4.25,"Strong team, well coordinated."
+J0044,CON006,W008,,3.9,Would hire again.
+J0046,CON005,W008,,4.11,Would hire again.
+J0046,CON005,W008,,4.11,Quality was acceptable.
+J0046,CON005,W008,,4.4,Work completed as agreed.
+J0047,CON005,W008,,4.43,Reliable and punctual.
+J0043,CON001,W009,,4.38,Work completed as agreed.
+J0047,CON005,W009,,4.52,"Strong team, well coordinated."
+J0047,CON005,W009,,4.23,Quality was acceptable.
+J0032,CON004,W009,,4.77,Would hire again.
+J0047,CON005,W009,,4.13,Work completed as agreed.
+J0041,CON001,W009,,4.22,Would hire again.
+J0043,CON001,W009,,4.35,Work completed as agreed.
+J0048,CON001,W009,,4.86,Very neat finishing.
+J0038,CON006,W009,,4.11,"Good work, finished on time."
+J0048,CON001,W009,,4.72,"Strong team, well coordinated."
+J0048,CON001,W009,,4.73,Would hire again.
+J0049,CON005,W009,,4.17,Careful with materials.
+J0049,CON005,W009,,4.55,"Strong team, well coordinated."
+J0049,CON005,W009,,4.04,Would hire again.
+J0049,CON005,W009,,4.13,Very neat finishing.
+J0048,CON001,W009,,4.22,"Good work, finished on time."
+J0049,CON005,W009,,4.06,Work completed as agreed.
+J0048,CON001,W009,,4.68,Reliable and punctual.
+J0050,CON001,W009,,4.67,Careful with materials.
+J0049,CON005,W009,,4.79,"Good work, finished on time."
+J0048,CON001,W009,,4.77,Careful with materials.
+J0051,CON004,W009,,4.7,"Strong team, well coordinated."
+J0050,CON001,W009,,4.68,Reliable and punctual.
+J0052,CON003,W009,,4.84,Would hire again.
+J0050,CON001,W009,,4.18,Work completed as agreed.
+J0048,CON001,W009,,4.2,"Strong team, well coordinated."
+J0032,CON004,W010,,4.42,Work completed as agreed.
+J0051,CON004,W010,,3.88,"Good work, finished on time."
+J0052,CON003,W010,,4.03,Quality was acceptable.
+J0032,CON004,W010,,3.96,Very neat finishing.
+J0052,CON003,W010,,4.55,Would hire again.
+J0050,CON001,W010,,4.64,Very neat finishing.
+J0044,CON006,W010,,3.93,Reliable and punctual.
+J0044,CON006,W010,,4.72,"Good work, finished on time."
+J0053,CON001,W010,,4.61,Careful with materials.
+J0050,CON001,W010,,4.57,"Good work, finished on time."
+J0053,CON001,W010,,3.99,Very neat finishing.
+J0054,CON006,W010,,4.67,Work completed as agreed.
+J0050,CON001,W010,,4.05,"Good work, finished on time."
+J0054,CON006,W010,,4.37,"Strong team, well coordinated."
+J0054,CON006,W010,,4.18,"Good work, finished on time."
+J0054,CON006,W010,,4.3,Very neat finishing.
+J0054,CON006,W010,,4.23,Quality was acceptable.
+J0055,CON003,W010,,4.18,Work completed as agreed.
+J0055,CON003,W010,,4.42,"Good work, finished on time."
+J0056,CON005,W011,,4.26,"Strong team, well coordinated."
+J0056,CON005,W011,,3.93,Very neat finishing.
+J0056,CON005,W011,,4.32,"Good work, finished on time."
+J0056,CON005,W011,,4.01,"Strong team, well coordinated."
+J0055,CON003,W011,,4.41,Would hire again.
+J0050,CON001,W011,,4.14,"Strong team, well coordinated."
+J0055,CON003,W011,,4.08,Would hire again.
+J0057,CON004,W011,,4.43,"Good work, finished on time."
+J0055,CON003,W011,,4.3,Would hire again.
+J0057,CON004,W011,,4.47,Quality was acceptable.
+J0057,CON004,W011,,3.97,Quality was acceptable.
+J0058,CON005,W011,,4.39,Reliable and punctual.
+J0057,CON004,W011,,3.99,Quality was acceptable.
+J0057,CON004,W011,,4.1,"Strong team, well coordinated."
+J0058,CON005,W012,,4.29,Reliable and punctual.
+J0058,CON005,W012,,4.2,"Strong team, well coordinated."
+J0059,CON003,W012,,4.07,Quality was acceptable.
+J0059,CON003,W012,,4.07,"Good work, finished on time."
+J0060,CON001,W012,,4.73,"Strong team, well coordinated."
+J0059,CON003,W012,,4.16,Would hire again.
+J0059,CON003,W012,,4.13,Work completed as agreed.
+J0059,CON003,W012,,4.73,"Strong team, well coordinated."
+J0061,CON006,W012,,4.26,"Strong team, well coordinated."
+J0059,CON003,W012,,4.05,Quality was acceptable.
+J0059,CON003,W012,,4.67,Careful with materials.
+J0062,CON003,W012,,4.51,Careful with materials.
+J0062,CON003,W012,,4.6,Work completed as agreed.
+J0062,CON003,W012,,4.08,Careful with materials.
+J0058,CON005,W012,,4.54,Would hire again.
+J0058,CON005,W012,,4.26,Quality was acceptable.
+J0063,CON001,W012,,4.64,Careful with materials.
+J0063,CON001,W012,,4.54,Very neat finishing.
+J0063,CON001,W012,,4.75,Would hire again.
+J0063,CON001,W012,,4.72,Reliable and punctual.
+J0063,CON001,W012,,4.4,Quality was acceptable.
+J0063,CON001,W013,,3.81,Careful with materials.
+J0058,CON005,W013,,4.65,Careful with materials.
+J0065,CON002,W013,,4.69,Would hire again.
+J0065,CON002,W013,,3.85,"Strong team, well coordinated."
+J0066,CON002,W013,,4.15,Would hire again.
+J0066,CON002,W013,,4.4,"Strong team, well coordinated."
+J0065,CON002,W013,,3.83,"Good work, finished on time."
+J0067,CON005,W013,,4.67,Careful with materials.
+J0067,CON005,W013,,4.61,Work completed as agreed.
+J0068,CON005,W013,,3.8,Work completed as agreed.
+J0069,CON002,W013,,4.7,Quality was acceptable.
+J0070,CON001,W013,,4.1,Very neat finishing.
+J0068,CON005,W013,,4.65,Would hire again.
+J0071,CON006,W013,,3.89,Careful with materials.
+J0068,CON005,W013,,3.85,Reliable and punctual.
+J0069,CON002,W013,,4.35,"Strong team, well coordinated."
+J0072,CON004,W014,,4.77,Reliable and punctual.
+J0070,CON001,W014,,4.22,Quality was acceptable.
+J0072,CON004,W014,,4.28,Quality was acceptable.
+J0072,CON004,W014,,4.08,"Good work, finished on time."
+J0072,CON004,W014,,4.5,Reliable and punctual.
+J0070,CON001,W014,,4.56,Careful with materials.
+J0072,CON004,W014,,4.38,Quality was acceptable.
+J0072,CON004,W014,,4.72,Reliable and punctual.
+J0069,CON002,W014,,4.74,"Good work, finished on time."
+J0069,CON002,W014,,4.78,Work completed as agreed.
+J0073,CON004,W014,,4.89,Reliable and punctual.
+J0074,CON002,W014,,4.58,"Strong team, well coordinated."
+J0074,CON002,W014,,4.06,"Strong team, well coordinated."
+J0074,CON002,W014,,4.64,Careful with materials.
+J0069,CON002,W014,,4.7,Very neat finishing.
+J0069,CON002,W014,,4.23,Very neat finishing.
+J0075,CON003,W014,,4.11,Work completed as agreed.
+J0075,CON003,W014,,4.3,Would hire again.
+J0076,CON004,W014,,4.07,Reliable and punctual.
+J0076,CON004,W014,,4.92,Quality was acceptable.
+J0076,CON004,W014,,4.94,Work completed as agreed.
+J0077,CON001,W014,,4.93,Careful with materials.
+J0076,CON004,W014,,4.36,Very neat finishing.
+J0077,CON001,W014,,4.44,Reliable and punctual.
+J0076,CON004,W014,,4.62,Very neat finishing.
+J0076,CON004,W014,,4.42,"Strong team, well coordinated."
+J0078,CON004,W014,,4.26,Reliable and punctual.
+J0079,CON003,W015,,4.25,"Good work, finished on time."
+J0079,CON003,W015,,4.33,Work completed as agreed.
+J0079,CON003,W015,,3.8,Work completed as agreed.
+J0079,CON003,W015,,3.64,"Strong team, well coordinated."
+J0080,CON006,W015,,3.75,Quality was acceptable.
+J0080,CON006,W015,,3.51,"Good work, finished on time."
+J0081,CON001,W015,,4.23,Quality was acceptable.
+J0080,CON006,W015,,3.65,Would hire again.
+J0081,CON001,W015,,3.57,"Good work, finished on time."
+J0081,CON001,W015,,3.67,Careful with materials.
+J0081,CON001,W015,,4.01,"Strong team, well coordinated."
+J0082,CON003,W015,,3.57,Reliable and punctual.
+J0082,CON003,W015,,4.1,"Strong team, well coordinated."
+J0081,CON001,W015,,4.0,Work completed as agreed.
+J0083,CON006,W015,,3.85,Quality was acceptable.
+J0084,CON004,W015,,3.9,"Strong team, well coordinated."
+J0083,CON006,W015,,3.57,Reliable and punctual.
+J0085,CON003,W015,,4.15,"Good work, finished on time."
+J0083,CON006,W015,,3.89,Quality was acceptable.
+J0082,CON003,W015,,4.39,Work completed as agreed.
+J0082,CON003,W015,,4.26,Quality was acceptable.
+J0081,CON001,W015,,4.33,"Good work, finished on time."
+J0082,CON003,W015,,4.05,"Strong team, well coordinated."
+J0084,CON004,W015,,4.33,Reliable and punctual.
+J0087,CON004,W016,,4.83,"Strong team, well coordinated."
+J0088,CON004,W016,,4.66,Careful with materials.
+J0088,CON004,W016,,4.58,Quality was acceptable.
+J0088,CON004,W016,,4.64,Quality was acceptable.
+J0089,CON004,W016,,4.61,Reliable and punctual.
+J0089,CON004,W016,,4.86,Would hire again.
+J0088,CON004,W016,,4.87,Reliable and punctual.
+J0089,CON004,W016,,4.93,Reliable and punctual.
+J0090,CON006,W016,,4.84,"Good work, finished on time."
+J0090,CON006,W016,,4.59,Work completed as agreed.
+J0090,CON006,W016,,4.86,"Good work, finished on time."
+J0091,CON001,W016,,4.65,"Strong team, well coordinated."
+J0090,CON006,W016,,4.53,Very neat finishing.
+J0090,CON006,W016,,4.63,"Strong team, well coordinated."
+J0092,CON006,W016,,4.91,Very neat finishing.
+J0092,CON006,W016,,4.67,Very neat finishing.
+J0091,CON001,W016,,4.92,Reliable and punctual.
+J0093,CON004,W016,,4.85,Would hire again.
+J0093,CON004,W016,,4.89,Very neat finishing.
+J0094,CON004,W016,,4.64,Very neat finishing.
+J0094,CON004,W016,,4.97,Work completed as agreed.
+J0095,CON006,W016,,4.57,Would hire again.
+J0093,CON004,W016,,4.81,Reliable and punctual.
+J0095,CON006,W016,,4.69,Would hire again.
+J0095,CON006,W016,,4.75,Quality was acceptable.
+J0098,CON002,W017,,4.12,Quality was acceptable.
+J0099,CON003,W017,,3.85,Careful with materials.
+J0099,CON003,W017,,4.63,"Good work, finished on time."
+J0099,CON003,W017,,4.39,Quality was acceptable.
+J0099,CON003,W017,,4.15,Reliable and punctual.
+J0099,CON003,W017,,4.6,Work completed as agreed.
+J0099,CON003,W017,,3.87,"Good work, finished on time."
+J0099,CON003,W017,,4.33,"Good work, finished on time."
+J0100,CON005,W017,,4.09,Reliable and punctual.
+J0100,CON005,W017,,4.36,Reliable and punctual.
+J0101,CON003,W017,,4.64,Quality was acceptable.
+J0102,CON006,W017,,4.14,Work completed as agreed.
+J0102,CON006,W017,,4.61,"Good work, finished on time."
+J0101,CON003,W017,,3.88,Reliable and punctual.
+J0102,CON006,W017,,3.85,Would hire again.
+J0101,CON003,W017,,4.63,"Good work, finished on time."
+J0101,CON003,W017,,4.34,Quality was acceptable.
+J0101,CON003,W017,,3.84,Would hire again.
+J0103,CON004,W018,,4.85,Very neat finishing.
+J0103,CON004,W018,,4.13,Very neat finishing.
+J0104,CON005,W019,,4.26,"Good work, finished on time."
+J0105,CON006,W019,,4.17,Quality was acceptable.
+J0105,CON006,W019,,4.17,Would hire again.
+J0106,CON006,W019,,4.35,Quality was acceptable.
+J0106,CON006,W019,,4.54,Quality was acceptable.
+J0106,CON006,W019,,4.35,Work completed as agreed.
+J0105,CON006,W019,,4.2,"Strong team, well coordinated."
+J0106,CON006,W019,,4.51,Reliable and punctual.
+J0107,CON005,W019,,4.01,Quality was acceptable.
+J0108,CON006,W019,,3.98,Work completed as agreed.
+J0108,CON006,W019,,4.32,Careful with materials.
+J0103,CON004,W020,,4.2,"Good work, finished on time."
+J0103,CON004,W020,,3.84,Would hire again.
+J0086,CON003,W021,,4.94,Reliable and punctual.
+J0084,CON004,W021,,4.96,"Good work, finished on time."
+J0084,CON004,W021,,4.98,Careful with materials.
+J0110,CON002,W021,,5.0,Would hire again.
+J0110,CON002,W021,,4.74,Careful with materials.
+J0110,CON002,W021,,4.89,Very neat finishing.
+J0110,CON002,W021,,4.68,Quality was acceptable.
+J0111,CON005,W021,,4.69,Work completed as agreed.
+J0112,CON003,W021,,4.91,Would hire again.
+J0110,CON002,W021,,4.7,Careful with materials.
+J0112,CON003,W021,,4.92,Very neat finishing.
+J0113,CON006,W021,,4.92,Very neat finishing.
+J0114,CON004,W021,,4.66,Quality was acceptable.
+J0111,CON005,W021,,4.74,Work completed as agreed.
+J0114,CON004,W021,,4.97,Quality was acceptable.
+J0114,CON004,W021,,4.72,"Strong team, well coordinated."
+J0111,CON005,W021,,4.75,Quality was acceptable.
+J0115,CON004,W021,,4.77,Quality was acceptable.
+J0116,CON001,W022,,3.92,Work completed as agreed.
+J0109,CON004,W022,,4.32,"Strong team, well coordinated."
+J0109,CON004,W022,,3.52,"Good work, finished on time."
+J0109,CON004,W022,,4.11,Reliable and punctual.
+J0109,CON004,W022,,4.24,Very neat finishing.
+J0109,CON004,W022,,3.6,Reliable and punctual.
+J0116,CON001,W022,,3.73,Quality was acceptable.
+J0117,CON005,W023,,4.7,Work completed as agreed.
+J0117,CON005,W023,,4.65,Quality was acceptable.
+J0117,CON005,W023,,4.24,Would hire again.
+J0117,CON005,W023,,4.61,Quality was acceptable.
+J0117,CON005,W023,,4.29,Reliable and punctual.
+J0117,CON005,W023,,4.33,Work completed as agreed.
+J0118,CON005,W023,,4.84,Reliable and punctual.
+J0117,CON005,W023,,4.2,Reliable and punctual.
+J0116,CON001,W023,,4.47,"Strong team, well coordinated."
+J0116,CON001,W023,,4.56,Would hire again.
+J0119,CON005,W023,,4.74,"Strong team, well coordinated."
+J0119,CON005,W023,,4.19,Very neat finishing.
+J0120,CON004,W023,,4.1,Quality was acceptable.
+J0119,CON005,W023,,4.54,Quality was acceptable.
+J0119,CON005,W023,,4.38,"Good work, finished on time."
+J0121,CON005,W023,,4.75,"Strong team, well coordinated."
+J0121,CON005,W023,,4.4,Quality was acceptable.
+J0122,CON006,W024,,4.44,"Good work, finished on time."
+J0122,CON006,W024,,4.51,Quality was acceptable.
+J0122,CON006,W024,,4.77,Quality was acceptable.
+J0122,CON006,W024,,4.9,Very neat finishing.
+J0122,CON006,W024,,4.54,Careful with materials.
+J0122,CON006,W024,,5.0,Quality was acceptable.
+J0122,CON006,W024,,4.5,Very neat finishing.
+J0123,CON006,W024,,4.67,"Good work, finished on time."
+J0124,CON001,W024,,4.63,Quality was acceptable.
+J0124,CON001,W024,,4.82,"Strong team, well coordinated."
+J0125,CON001,W024,,4.8,Careful with materials.
+J0126,CON005,W024,,4.72,"Strong team, well coordinated."
+J0127,CON001,W024,,4.94,Reliable and punctual.
+J0127,CON001,W024,,4.9,Would hire again.
+J0127,CON001,W024,,4.81,Reliable and punctual.
+J0124,CON001,W024,,4.54,"Strong team, well coordinated."
+J0123,CON006,W024,,4.64,Work completed as agreed.
+J0124,CON001,W024,,4.62,Work completed as agreed.
+J0127,CON001,W024,,4.94,Very neat finishing.
+J0123,CON006,W024,,4.97,"Strong team, well coordinated."
+J0123,CON006,W024,,4.5,Would hire again.
+J0123,CON006,W024,,4.45,Reliable and punctual.
+J0128,CON006,W024,,4.59,Quality was acceptable.
+J0126,CON005,W024,,4.64,Reliable and punctual.
+J0126,CON005,W024,,4.8,"Good work, finished on time."
+J0129,CON004,W024,,4.47,Would hire again.
+J0126,CON005,W024,,4.99,"Good work, finished on time."
+J0130,CON006,W024,,4.85,"Good work, finished on time."
+J0130,CON006,W024,,4.93,"Strong team, well coordinated."
+J0111,CON005,W025,,4.01,"Strong team, well coordinated."
+J0111,CON005,W025,,3.49,"Strong team, well coordinated."
+J0113,CON006,W025,,4.2,Very neat finishing.
+J0113,CON006,W025,,4.35,Very neat finishing.
+J0113,CON006,W025,,4.29,"Strong team, well coordinated."
+J0113,CON006,W025,,3.64,Reliable and punctual.
+J0113,CON006,W025,,3.5,"Good work, finished on time."
+J0131,CON006,W025,,4.09,"Good work, finished on time."
+J0131,CON006,W025,,4.07,"Good work, finished on time."
+J0131,CON006,W025,,4.0,Careful with materials.
+J0132,CON003,W025,,3.59,Quality was acceptable.
+J0131,CON006,W025,,3.49,Careful with materials.
+J0115,CON004,W025,,4.3,Work completed as agreed.
+J0132,CON003,W025,,3.77,Work completed as agreed.
+J0131,CON006,W025,,4.34,Very neat finishing.
+J0133,CON005,W025,,3.71,Quality was acceptable.
+J0134,CON003,W025,,4.2,Very neat finishing.
+J0115,CON004,W025,,3.64,"Strong team, well coordinated."
+J0133,CON005,W025,,3.92,"Strong team, well coordinated."
+J0132,CON003,W025,,4.25,Very neat finishing.
+J0134,CON003,W025,,3.52,Would hire again.
+J0133,CON005,W025,,4.32,Reliable and punctual.
+J0133,CON005,W025,,3.75,Quality was acceptable.
+J0135,CON004,W025,,3.83,Work completed as agreed.
+J0132,CON003,W025,,4.13,Careful with materials.
+J0132,CON003,W025,,3.54,Quality was acceptable.
+J0136,CON006,W025,,4.35,Work completed as agreed.
+J0132,CON003,W025,,3.55,Would hire again.
+J0132,CON003,W025,,3.84,Would hire again.
+J0135,CON004,W026,,4.39,Careful with materials.
+J0137,CON002,W026,,4.67,Very neat finishing.
+J0137,CON002,W026,,3.79,Very neat finishing.
+J0137,CON002,W026,,4.23,Would hire again.
+J0137,CON002,W026,,3.84,Very neat finishing.
+J0138,CON003,W026,,4.07,"Good work, finished on time."
+J0138,CON003,W026,,4.08,Would hire again.
+J0135,CON004,W026,,3.93,Very neat finishing.
+J0135,CON004,W026,,4.0,Very neat finishing.
+J0135,CON004,W026,,4.07,"Strong team, well coordinated."
+J0135,CON004,W026,,4.33,Reliable and punctual.
+J0139,CON002,W026,,4.38,"Good work, finished on time."
+J0139,CON002,W026,,4.17,Careful with materials.
+J0139,CON002,W026,,4.39,Careful with materials.
+J0140,CON001,W026,,4.13,Would hire again.
+J0141,CON003,W026,,4.62,"Good work, finished on time."
+J0141,CON003,W026,,4.29,Work completed as agreed.
+J0141,CON003,W026,,4.62,Quality was acceptable.
+J0141,CON003,W026,,4.67,Quality was acceptable.
+J0142,CON003,W026,,3.84,Careful with materials.
+J0142,CON003,W026,,4.55,Quality was acceptable.
+J0142,CON003,W026,,4.46,Careful with materials.
+J0143,CON003,W026,,3.96,Reliable and punctual.
+J0143,CON003,W026,,4.5,Would hire again.
+J0143,CON003,W026,,3.99,Work completed as agreed.
+J0144,CON003,W026,,3.91,Would hire again.
+J0144,CON003,W026,,4.47,Reliable and punctual.
+J0143,CON003,W026,,4.05,Quality was acceptable.
+J0143,CON003,W026,,4.53,Reliable and punctual.
+J0144,CON003,W026,,4.41,Work completed as agreed.
+J0144,CON003,W026,,3.79,"Strong team, well coordinated."
+J0145,CON004,W027,,4.07,"Strong team, well coordinated."
+J0146,CON006,W027,,3.47,Work completed as agreed.
+J0147,CON006,W027,,3.73,"Good work, finished on time."
+J0146,CON006,W027,,4.21,"Strong team, well coordinated."
+J0147,CON006,W027,,3.72,Reliable and punctual.
+J0146,CON006,W027,,3.8,Quality was acceptable.
+J0146,CON006,W027,,4.22,Would hire again.
+J0146,CON006,W027,,4.17,Reliable and punctual.
+J0148,CON002,W027,,3.72,Reliable and punctual.
+J0149,CON006,W027,,3.58,"Good work, finished on time."
+J0148,CON002,W027,,3.88,Very neat finishing.
+J0148,CON002,W027,,4.0,Reliable and punctual.
+J0148,CON002,W027,,3.53,Quality was acceptable.
+J0148,CON002,W027,,3.55,"Good work, finished on time."
+J0150,CON006,W027,,3.42,Very neat finishing.
+J0150,CON006,W027,,3.37,Reliable and punctual.
+J0150,CON006,W027,,4.13,Reliable and punctual.
+J0150,CON006,W027,,3.39,"Strong team, well coordinated."
+J0145,CON004,W027,,3.87,"Good work, finished on time."
+J0151,CON006,W027,,3.93,Reliable and punctual.
+J0145,CON004,W027,,4.23,"Good work, finished on time."
+J0151,CON006,W027,,3.88,Careful with materials.
+J0145,CON004,W027,,4.18,Very neat finishing.
+J0145,CON004,W027,,3.38,Quality was acceptable.
+J0152,CON002,W027,,3.6,"Good work, finished on time."
+J0152,CON002,W027,,4.05,Work completed as agreed.
+J0153,CON006,W027,,3.51,"Strong team, well coordinated."
+J0153,CON006,W027,,4.02,Very neat finishing.
+J0153,CON006,W027,,4.09,"Good work, finished on time."
+J0153,CON006,W027,,3.43,Careful with materials.
+J0153,CON006,W027,,3.67,"Strong team, well coordinated."
+J0121,CON005,W028,,4.99,Work completed as agreed.
+J0120,CON004,W028,,4.85,Would hire again.
+J0155,CON001,W028,,4.71,Work completed as agreed.
+J0078,CON004,W029,,3.86,"Strong team, well coordinated."
+J0078,CON004,W029,,4.42,Careful with materials.
+J0156,CON004,W029,,4.14,Very neat finishing.
+J0078,CON004,W029,,3.83,Reliable and punctual.
+J0156,CON004,W029,,4.45,Careful with materials.
+J0157,CON002,W030,,4.79,Quality was acceptable.
+J0157,CON002,W030,,4.82,Reliable and punctual.
+J0157,CON002,W030,,4.82,Reliable and punctual.
+J0157,CON002,W030,,4.84,Reliable and punctual.
+J0158,CON005,W030,,4.95,Quality was acceptable.
+J0158,CON005,W030,,4.96,Would hire again.
+J0158,CON005,W030,,4.96,Quality was acceptable.
+J0158,CON005,W030,,4.94,"Good work, finished on time."
+J0158,CON005,W030,,4.81,Careful with materials.
+J0159,CON005,W030,,4.8,Very neat finishing.
+J0160,CON003,W030,,4.82,"Strong team, well coordinated."
+J0161,CON001,W030,,4.81,Careful with materials.
+J0162,CON006,W030,,4.78,Would hire again.
+J0162,CON006,W030,,4.96,"Strong team, well coordinated."
+J0162,CON006,W030,,4.99,"Good work, finished on time."
+J0162,CON006,W030,,4.94,Would hire again.
+J0162,CON006,W030,,4.83,"Strong team, well coordinated."
+J0163,CON005,W030,,4.78,"Good work, finished on time."
+J0161,CON001,W030,,4.78,Work completed as agreed.
+J0161,CON001,W030,,5.0,Very neat finishing.
+J0161,CON001,W030,,4.95,Would hire again.
+J0164,CON002,W030,,4.98,Very neat finishing.
+J0161,CON001,W030,,4.79,Careful with materials.
+J0165,CON005,W030,,4.97,"Strong team, well coordinated."
+J0166,CON002,W030,,4.84,Work completed as agreed.
+J0166,CON002,W030,,4.83,"Strong team, well coordinated."
+J0161,CON001,W030,,4.97,Very neat finishing.
+J0166,CON002,W030,,4.96,Would hire again.
+J0166,CON002,W030,,5.0,Very neat finishing.
+J0166,CON002,W030,,4.84,Quality was acceptable.
+J0167,CON005,W030,,4.99,Reliable and punctual.
+J0167,CON005,W030,,4.82,"Strong team, well coordinated."
+J0167,CON005,W030,,4.79,Would hire again.
+J0167,CON005,W030,,5.0,"Strong team, well coordinated."
+J0168,CON005,W030,,4.99,"Good work, finished on time."
+J0169,CON002,W030,,4.94,"Strong team, well coordinated."
+J0120,CON004,W031,,4.77,Careful with materials.
+J0120,CON004,W031,,4.82,Very neat finishing.
+J0120,CON004,W031,,4.94,Reliable and punctual.
+J0155,CON001,W031,,4.95,"Strong team, well coordinated."
+J0170,CON002,W031,,4.78,Quality was acceptable.
+J0170,CON002,W031,,4.99,Reliable and punctual.
+J0170,CON002,W031,,4.77,Careful with materials.
+J0170,CON002,W031,,4.78,Very neat finishing.
+J0171,CON006,W031,,4.99,Very neat finishing.
+J0171,CON006,W031,,4.81,Would hire again.
+J0172,CON003,W031,,4.99,"Strong team, well coordinated."
+J0173,CON002,W031,,4.95,Work completed as agreed.
+J0171,CON006,W031,,4.98,Quality was acceptable.
+J0170,CON002,W031,,4.8,"Strong team, well coordinated."
+J0173,CON002,W031,,4.79,Quality was acceptable.
+J0173,CON002,W031,,4.94,Quality was acceptable.
+J0171,CON006,W031,,4.96,Reliable and punctual.
+J0173,CON002,W031,,4.8,Work completed as agreed.
+J0170,CON002,W031,,4.78,Careful with materials.
+J0170,CON002,W031,,4.94,Work completed as agreed.
+J0174,CON002,W031,,4.97,Reliable and punctual.
+J0174,CON002,W031,,4.82,Would hire again.
+J0174,CON002,W031,,4.8,Very neat finishing.
+J0174,CON002,W031,,4.98,"Good work, finished on time."
+J0175,CON004,W031,,4.79,Quality was acceptable.
+J0175,CON004,W031,,4.99,"Good work, finished on time."
+J0175,CON004,W031,,4.94,Would hire again.
+J0176,CON006,W031,,4.82,Would hire again.
+J0176,CON006,W031,,4.96,Quality was acceptable.
+J0176,CON006,W031,,4.78,Would hire again.
+J0177,CON004,W031,,4.97,Very neat finishing.
+J0177,CON004,W031,,4.96,"Strong team, well coordinated."
+J0177,CON004,W031,,4.98,"Good work, finished on time."
+J0177,CON004,W031,,4.82,Would hire again.
+J0172,CON003,W031,,4.81,Work completed as agreed.
+J0178,CON006,W031,,4.77,Reliable and punctual.
+J0179,CON004,W031,,4.98,Very neat finishing.
+J0178,CON006,W031,,4.77,"Good work, finished on time."
+J0108,CON006,W032,,4.0,Reliable and punctual.
+J0180,CON006,W032,,4.31,"Good work, finished on time."
+J0180,CON006,W032,,4.18,"Strong team, well coordinated."
+J0181,CON001,W032,,3.77,Reliable and punctual.
+J0180,CON006,W032,,3.81,Would hire again.
+J0181,CON001,W032,,3.44,"Strong team, well coordinated."
+J0180,CON006,W032,,3.59,Careful with materials.
+J0108,CON006,W032,,3.73,"Good work, finished on time."
+J0182,CON001,W032,,3.56,"Good work, finished on time."
+J0183,CON006,W032,,4.15,"Good work, finished on time."
+J0180,CON006,W032,,3.43,Quality was acceptable.
+J0180,CON006,W032,,4.18,Quality was acceptable.
+J0181,CON001,W032,,3.48,"Good work, finished on time."
+J0181,CON001,W032,,4.28,Quality was acceptable.
+J0184,CON001,W032,,4.1,Reliable and punctual.
+J0184,CON001,W032,,3.54,Reliable and punctual.
+J0185,CON006,W032,,3.49,Quality was acceptable.
+J0184,CON001,W032,,4.3,Reliable and punctual.
+J0186,CON006,W032,,3.64,Careful with materials.
+J0184,CON001,W032,,4.26,Would hire again.
+J0186,CON006,W032,,4.01,Quality was acceptable.
+J0185,CON006,W032,,3.71,Careful with materials.
+J0185,CON006,W032,,4.18,"Strong team, well coordinated."
+J0185,CON006,W032,,3.96,Reliable and punctual.
+J0187,CON006,W032,,3.97,"Good work, finished on time."
+J0186,CON006,W032,,3.56,Very neat finishing.
+J0187,CON006,W032,,4.2,"Good work, finished on time."
+J0185,CON006,W032,,3.44,Quality was acceptable.
+J0185,CON006,W032,,3.97,Very neat finishing.
+J0188,CON005,W032,,3.93,Very neat finishing.
+J0189,CON004,W032,,3.56,Work completed as agreed.
+J0189,CON004,W032,,3.46,"Strong team, well coordinated."
+J0190,CON006,W032,,4.03,Very neat finishing.
+J0191,CON006,W032,,3.77,Careful with materials.
+J0191,CON006,W032,,4.3,Very neat finishing.
+J0190,CON006,W032,,4.25,"Good work, finished on time."
+J0190,CON006,W032,,3.78,Careful with materials.
+J0192,CON001,W032,,3.74,"Strong team, well coordinated."
+J0193,CON002,,RAVI01,4.98,"Strong team, well coordinated."
+J0194,CON003,,RAVI01,4.7,Would hire again.
+J0195,CON004,,RAVI01,4.63,Quality was acceptable.
+J0196,CON003,,RAVI01,4.68,"Strong team, well coordinated."
+J0197,CON004,,RAVI01,4.96,"Strong team, well coordinated."
+J0198,CON004,,RAVI01,4.92,"Good work, finished on time."
+J0199,CON002,,RAVI01,4.69,Quality was acceptable.
+J0200,CON002,,RAVI01,4.74,"Strong team, well coordinated."
+J0201,CON002,,RAVI01,4.65,"Strong team, well coordinated."
+J0202,CON002,,RAVI01,4.62,"Strong team, well coordinated."
+J0203,CON006,,RAVI01,4.64,"Strong team, well coordinated."
+J0204,CON001,,RAVI01,4.97,Reliable and punctual.
+J0205,CON005,,RAVI01,4.95,"Strong team, well coordinated."
+J0206,CON004,,RAVI01,4.92,Careful with materials.
+J0207,CON003,,RAVI01,4.97,"Strong team, well coordinated."
+J0208,CON001,,RAVI01,4.75,Quality was acceptable.
+J0209,CON004,,RAVI01,4.86,"Good work, finished on time."
+J0210,CON001,,RAVI01,4.62,Quality was acceptable.
+J0211,CON004,,RAVI01,4.85,Would hire again.
+J0212,CON006,,RAVI01,4.9,"Strong team, well coordinated."
+J0213,CON004,,RAVI01,4.98,Very neat finishing.
+J0214,CON006,,RAVI01,4.91,"Strong team, well coordinated."
+J0215,CON001,,RAVI01,4.62,Very neat finishing.
+J0216,CON002,,RAVI01,4.69,Careful with materials.
+J0217,CON001,,RAVI01,4.91,Would hire again.
+J0218,CON001,,RAVI01,4.96,Work completed as agreed.
+J0219,CON006,,RAVI01,4.92,Reliable and punctual.
+J0220,CON003,,RAVI01,4.68,"Strong team, well coordinated."
+J0221,CON001,,RAVI01,4.64,Reliable and punctual.
+J0222,CON005,,RAVI01,4.68,Careful with materials.
+J0223,CON003,,RAVI01,4.98,Reliable and punctual.
+J0224,CON003,,RAVI01,4.63,"Strong team, well coordinated."
+J0225,CON001,,M001,4.47,Would hire again.
+J0226,CON006,,M001,4.99,Reliable and punctual.
+J0227,CON003,,M001,4.21,Quality was acceptable.
+J0228,CON004,,M001,4.41,Would hire again.
+J0229,CON006,,M001,4.42,Work completed as agreed.
+J0230,CON004,,M001,4.26,Work completed as agreed.
+J0231,CON002,,M001,4.78,Quality was acceptable.
+J0232,CON005,,M001,4.4,"Good work, finished on time."
+J0233,CON005,,M001,4.89,Reliable and punctual.
+J0234,CON004,,M001,4.73,Would hire again.
+J0235,CON001,,M001,4.29,"Good work, finished on time."
+J0236,CON006,,M001,4.91,Very neat finishing.
+J0237,CON003,,M001,4.39,Reliable and punctual.
+J0238,CON005,,M001,4.82,"Strong team, well coordinated."
+J0239,CON003,,M001,4.31,"Strong team, well coordinated."
+J0240,CON002,,M001,4.8,Very neat finishing.
+J0241,CON006,,M001,4.6,"Strong team, well coordinated."
+J0242,CON004,,M001,4.81,Work completed as agreed.
+J0243,CON003,,M001,4.94,Would hire again.
+J0244,CON004,,M001,4.79,Would hire again.
+J0245,CON006,,M001,4.38,Work completed as agreed.
+J0246,CON004,,C003,4.15,Very neat finishing.
+J0247,CON003,,C003,4.3,Would hire again.
+J0248,CON005,,C003,4.8,Work completed as agreed.
+J0249,CON003,,C003,4.01,"Good work, finished on time."
+J0250,CON003,,C003,4.81,Reliable and punctual.
+J0251,CON003,,C003,4.72,Quality was acceptable.
+J0252,CON001,,C003,3.99,"Strong team, well coordinated."
+J0253,CON004,,C003,4.79,Quality was acceptable.
+J0254,CON004,,C003,4.08,"Good work, finished on time."
+J0255,CON004,,C003,4.61,Careful with materials.
+J0256,CON001,,C003,4.01,Very neat finishing.
+J0257,CON005,,C003,4.26,Careful with materials.
+J0258,CON002,,C003,4.0,Work completed as agreed.
+J0259,CON006,,C003,4.68,"Good work, finished on time."
+J0260,CON003,,C003,4.54,Quality was acceptable.
+J0261,CON005,,C003,4.08,"Strong team, well coordinated."
+J0262,CON001,,C003,4.19,Work completed as agreed.
+J0263,CON002,,C003,4.72,"Good work, finished on time."
+J0264,CON004,,C003,4.12,Careful with materials.
+J0265,CON001,,C003,4.79,"Good work, finished on time."
+J0266,CON005,,C003,4.65,Work completed as agreed.
+J0267,CON003,,C003,4.5,"Good work, finished on time."
+J0268,CON002,,C004,4.91,Would hire again.
+J0269,CON004,,C004,4.32,Careful with materials.
+J0270,CON004,,C004,4.91,Reliable and punctual.
+J0271,CON001,,C004,4.29,Careful with materials.
+J0272,CON004,,C004,4.35,Reliable and punctual.
+J0273,CON001,,C004,4.44,Reliable and punctual.
+J0274,CON005,,C004,4.99,"Strong team, well coordinated."
+J0275,CON005,,C004,4.88,Work completed as agreed.
+J0276,CON005,,C004,4.21,"Strong team, well coordinated."
+J0277,CON006,,C004,4.76,Careful with materials.
+J0278,CON006,,C004,4.22,Work completed as agreed.
+J0279,CON001,,C004,4.29,Would hire again.
+J0280,CON005,,C004,4.6,Careful with materials.
+J0281,CON004,,C004,4.85,"Strong team, well coordinated."
+J0282,CON005,,C004,4.98,Work completed as agreed.
+J0283,CON006,,C005,4.44,Reliable and punctual.
+J0284,CON006,,C005,4.62,"Good work, finished on time."
+J0285,CON001,,C005,4.56,Reliable and punctual.
+J0286,CON005,,C005,4.74,Reliable and punctual.
+J0287,CON006,,C005,4.5,Quality was acceptable.
+J0288,CON006,,C005,4.68,Quality was acceptable.
+J0289,CON006,,C005,4.4,"Strong team, well coordinated."
+J0290,CON003,,C005,4.38,Very neat finishing.
+J0291,CON002,,C005,4.72,"Strong team, well coordinated."

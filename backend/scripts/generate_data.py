@@ -193,6 +193,21 @@ def ratings_with_exact_mean(count: int, target: float) -> list[float]:
     return ratings
 
 
+def reliability_formula(attendance_rate, average_rating, no_shows):
+    """
+    The same formula the application uses at runtime.
+
+    Kept identical to app.agent.reputation.reliability on purpose: if the
+    generator and the runtime disagreed, a worker's score would jump the
+    first time they finished a job.
+    """
+    if average_rating is None or attendance_rate is None:
+        return None
+    attendance_part = float(attendance_rate) / 100 * 5
+    score = (attendance_part + float(average_rating)) / 2 - (no_shows * 0.15)
+    return round(max(0.0, min(5.0, score)), 2)
+
+
 def scatter(lat: float, lng: float) -> tuple[float, float]:
     return (round(lat + random.uniform(-0.02, 0.02), 6),
             round(lng + random.uniform(-0.02, 0.02), 6))
@@ -434,7 +449,12 @@ def build_history(workers, crews, plan):
         for rating_value in ratings_with_exact_mean(count, wanted["rating"]):
             job_id, contractor = job_for(worker_id, wanted["skill"])
 
-            assignments.append([job_id, worker_id, "", "individual", "completed"])
+            # A job runs for a few days. Attendance is worked out from
+            # these two numbers, so it is derived like everything else
+            # rather than typed in.
+            days = random.randint(2, 5)
+            assignments.append([job_id, worker_id, "", "individual",
+                                "completed", days, days])
             ratings.append([job_id, contractor[0], worker_id, "",
                             rating_value, random.choice(RATING_COMMENTS)])
 
@@ -442,7 +462,9 @@ def build_history(workers, crews, plan):
         # These are recorded but are NOT completed jobs and earn no rating.
         for _ in range(random.randint(0, 2)):
             job_id, _contractor = job_for(worker_id, wanted["skill"])
-            assignments.append([job_id, worker_id, "", "individual", "no_show"])
+            days = random.randint(2, 4)
+            assignments.append([job_id, worker_id, "", "individual",
+                                "no_show", days, 0])
 
     # --- crew work history ---
     for crew_id, crew in crews.items():
@@ -463,7 +485,8 @@ def build_history(workers, crews, plan):
             # The crew brought a team, so the job needed several people.
             job_rows[job_id][5] = random.randint(3, 8)
 
-            assignments.append([job_id, "", crew_id, "crew", "completed"])
+            assignments.append([job_id, "", crew_id, "crew", "completed",
+                                random.randint(3, 6), random.randint(3, 6)])
             ratings.append([job_id, contractor[0], "", crew_id,
                             rating_value, random.choice(RATING_COMMENTS)])
 
@@ -480,7 +503,8 @@ def build_history(workers, crews, plan):
     # needed eight workers while showing one assignment would be the first
     # thing a careful reader noticed.
     people_on_job = defaultdict(int)
-    for job_id, worker_id, crew_id, kind, _status in assignments:
+    for row in assignments:
+        job_id, _worker_id, _crew_id, kind = row[0], row[1], row[2], row[3]
         if kind == "individual":
             people_on_job[job_id] += 1
 
@@ -493,6 +517,59 @@ def build_history(workers, crews, plan):
             row[5] = 1
 
     return jobs, assignments, ratings
+
+
+def tune_attendance(assignments, plan):
+    """
+    Adjust the day counts so each worker's attendance comes out at their
+    target.
+
+    Attendance is now days-attended over days-booked, so the target cannot
+    simply be written onto the worker -- it has to be produced. This nudges
+    the attended_days on completed assignments until the ratio matches.
+
+    A completed assignment never drops below one attended day, because a
+    completed job where nobody turned up is a contradiction.
+    """
+    by_worker = defaultdict(list)
+    for row in assignments:
+        _job, worker_id, _crew, kind, _status = row[:5]
+        if kind == "individual":
+            by_worker[worker_id].append(row)
+
+    for worker_id, target in plan.items():
+        rows = by_worker.get(worker_id)
+        if not rows or target is None:
+            continue
+
+        booked = sum(row[5] for row in rows)
+        desired = round(booked * target / 100)
+        current = sum(row[6] for row in rows)
+
+        # Too many days attended: take some back off completed rows.
+        surplus = current - desired
+        for row in rows:
+            if surplus <= 0:
+                break
+            if row[4] != "completed":
+                continue
+            can_remove = min(surplus, row[6] - 1)
+            if can_remove > 0:
+                row[6] -= can_remove
+                surplus -= can_remove
+
+        # Too few: shorten the no-show bookings instead, which raises the
+        # ratio without inventing attendance.
+        shortfall = desired - sum(row[6] for row in rows)
+        for row in rows:
+            if shortfall <= 0:
+                break
+            if row[4] != "no_show":
+                continue
+            can_shorten = min(shortfall, row[5] - 1)
+            if can_shorten > 0:
+                row[5] -= can_shorten
+                shortfall -= can_shorten
 
 
 def derive_reputation(workers, crews, assignments, ratings):
@@ -508,11 +585,22 @@ def derive_reputation(workers, crews, assignments, ratings):
     no_shows = defaultdict(int)
     crew_completed = defaultdict(int)
 
-    for _job_id, worker_id, crew_id, kind, status in assignments:
+    booked_days = defaultdict(int)
+    attended_days = defaultdict(int)
+
+    for row in assignments:
+        _job_id, worker_id, crew_id, kind, status = row[:5]
+        scheduled, attended = row[5], row[6]
+
         if kind == "crew":
             if status == "completed":
                 crew_completed[crew_id] += 1
-        elif status == "completed":
+            continue
+
+        booked_days[worker_id] += scheduled
+        attended_days[worker_id] += attended
+
+        if status == "completed":
             completed[worker_id] += 1
         elif status == "no_show":
             no_shows[worker_id] += 1
@@ -532,17 +620,16 @@ def derive_reputation(workers, crews, assignments, ratings):
             round(sum(values) / len(values), 2) if values else None
         )
 
-        # Reliability blends how often they turn up, how well they are
-        # rated, and how many no-shows they have. It is a prototype
-        # formula, stated openly rather than hidden.
-        if values:
-            attendance_part = worker["attendance_rate"] / 100 * 5
-            rating_part = worker["average_rating"]
-            penalty = no_shows[worker_id] * 0.15
-            worker["reliability_score"] = round(
-                max(0.0, min(5.0, (attendance_part + rating_part) / 2 - penalty)), 2)
-        else:
-            worker["reliability_score"] = None
+        # Attendance is days turned up over days booked -- the same
+        # calculation the running application uses, so the demonstration
+        # data and live updates cannot drift apart.
+        booked = booked_days[worker_id]
+        worker["attendance_rate"] = (
+            round(attended_days[worker_id] / booked * 100, 2) if booked else None
+        )
+        worker["reliability_score"] = reliability_formula(
+            worker["attendance_rate"], worker["average_rating"],
+            no_shows[worker_id])
 
     for crew_id, crew in crews.items():
         values = crew_ratings[crew_id]
@@ -608,6 +695,13 @@ def main():
     workers, worker_skills, plan = build_people()
     crews, memberships = build_crews(workers)
     jobs, assignments, ratings = build_history(workers, crews, plan)
+
+    # Attendance is derived from day counts, so the demonstration figures
+    # have to be produced rather than asserted.
+    tune_attendance(assignments,
+                    {worker_id: worker["attendance_rate"]
+                     for worker_id, worker in workers.items()})
+
     derive_reputation(workers, crews, assignments, ratings)
     availability = build_availability(workers)
 
@@ -659,7 +753,8 @@ def main():
     ], jobs)
 
     write_csv("job_assignments.csv",
-              ["job_id", "worker_id", "crew_id", "assignment_type", "status"],
+              ["job_id", "worker_id", "crew_id", "assignment_type", "status",
+               "scheduled_days", "attended_days"],
               assignments)
 
     write_csv("ratings.csv",

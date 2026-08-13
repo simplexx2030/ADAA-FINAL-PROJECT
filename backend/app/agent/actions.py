@@ -381,10 +381,191 @@ def _execute_confirm_assignment(payload: dict) -> dict:
             "note": "Confirmed workers are now marked booked for that day."}
 
 
+def _execute_complete_job(payload: dict) -> dict:
+    """
+    Mark a job finished, record who turned up, and update reputation.
+
+    ``outcomes`` says, for each confirmed assignment, how many days the
+    person was booked for and how many they actually worked. Those two
+    numbers are what attendance is calculated from, so this is the moment a
+    worker's record genuinely changes.
+
+    Somebody who attended none of their days is recorded as a no_show
+    rather than a completed job. That is the honest reading, and it means a
+    no-show cannot quietly count towards completed_jobs.
+    """
+    from app.agent import reputation
+
+    job = fetch_one("select id, title, status from jobs where id=%s",
+                    (payload["job_id"],))
+    if job is None:
+        raise ActionError(f"No job with id {payload['job_id']}.")
+    if job["status"] == "completed":
+        raise ActionError("That job is already marked completed.")
+
+    outcomes = payload.get("outcomes") or []
+    if not outcomes:
+        raise ActionError("No outcomes given, so there is nothing to record.")
+
+    recorded = []
+
+    with connect() as conn:
+        with conn.cursor() as cur:
+            for outcome in outcomes:
+                assignment_id = outcome["assignment_id"]
+                scheduled = int(outcome.get("scheduled_days", 1))
+                attended = int(outcome.get("attended_days", scheduled))
+
+                if scheduled < 1:
+                    raise ActionError("scheduled_days must be at least 1.")
+                if not 0 <= attended <= scheduled:
+                    raise ActionError(
+                        f"attended_days ({attended}) must be between 0 and "
+                        f"scheduled_days ({scheduled}).")
+
+                row = fetch_one(
+                    "select id, status, worker_id, crew_id from job_assignments "
+                    "where id=%s and job_id=%s",
+                    (assignment_id, payload["job_id"]),
+                )
+                if row is None:
+                    raise ActionError(
+                        f"Assignment {assignment_id} is not on job "
+                        f"{payload['job_id']}.")
+                if row["status"] not in ("confirmed", "accepted"):
+                    raise ActionError(
+                        f"Assignment {assignment_id} is {row['status']}; only "
+                        "confirmed work can be completed.")
+
+                status = "completed" if attended > 0 else "no_show"
+                cur.execute(
+                    """
+                    update job_assignments
+                       set status=%s, scheduled_days=%s, attended_days=%s,
+                           completed_at=now()
+                     where id=%s
+                    """,
+                    (status, scheduled, attended, assignment_id),
+                )
+                recorded.append({
+                    "assignment_id": assignment_id, "status": status,
+                    "worker_id": row["worker_id"], "crew_id": row["crew_id"],
+                    "scheduled_days": scheduled, "attended_days": attended,
+                })
+
+            cur.execute("update jobs set status='completed', updated_at=now() "
+                        "where id=%s", (payload["job_id"],))
+        conn.commit()
+
+    # Reputation is recounted from the records, not adjusted by hand.
+    updated = reputation.recalculate_for_job(payload["job_id"])
+
+    return {
+        "job_id": payload["job_id"], "status": "completed",
+        "outcomes": recorded,
+        "reputation_updated": {
+            "workers": [{"worker_id": w["worker_id"],
+                         "completed_jobs": w["completed_jobs"],
+                         "attendance_rate": w["attendance_rate"]}
+                        for w in updated["workers"]],
+            "crews": [{"crew_id": c["crew_id"],
+                       "completed_jobs": c["completed_jobs"]}
+                      for c in updated["crews"]],
+        },
+        "note": ("Reputation was recalculated from the job records. Ratings "
+                 "are recorded separately, by the contractor."),
+    }
+
+
+def record_rating(job_id: str, rater_id: str, rating: float,
+                  worker_id: str | None = None, crew_id: str | None = None,
+                  comment: str = "") -> dict:
+    """
+    A contractor rates a worker or a crew for a completed job.
+
+    Exactly one of worker_id or crew_id. A rating belongs to one or the
+    other and never to both -- that separation is business rule 3, and it
+    is enforced by a database constraint as well as here.
+
+    There is no agent tool for this. Reputation is something people give
+    each other; the AI does not get to award it.
+    """
+    from app.agent import reputation
+
+    if bool(worker_id) == bool(crew_id):
+        raise ActionError("Give exactly one of worker_id or crew_id.")
+    if not 0 <= float(rating) <= 5:
+        raise ActionError("A rating must be between 0 and 5.")
+
+    job = fetch_one("select id, status from jobs where id=%s", (job_id,))
+    if job is None:
+        raise ActionError(f"No job with id {job_id}.")
+    if job["status"] != "completed":
+        raise ActionError(
+            "Only completed work can be rated. Mark the job completed first.")
+
+    if fetch_one("select id from contractors where id=%s", (rater_id,)) is None:
+        raise ActionError(f"No contractor with id {rater_id}.")
+
+    worked = fetch_one(
+        """
+        select id from job_assignments
+         where job_id=%s and status='completed'
+           and (worker_id = %s or crew_id = %s)
+        """,
+        (job_id, worker_id, crew_id),
+    )
+    if worked is None:
+        raise ActionError(
+            "That worker or crew did not complete this job, so they cannot "
+            "be rated for it.")
+
+    already = fetch_one(
+        """
+        select id from ratings
+         where job_id=%s and coalesce(worker_id,'') = coalesce(%s,'')
+           and coalesce(crew_id,'') = coalesce(%s,'')
+        """,
+        (job_id, worker_id, crew_id),
+    )
+    if already is not None:
+        raise ActionError("They have already been rated for this job.")
+
+    with connect() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                insert into ratings
+                    (job_id, rater_id, worker_id, crew_id, rating, comment)
+                values (%s,%s,%s,%s,%s,%s) returning id
+                """,
+                (job_id, rater_id, worker_id, crew_id, rating, comment or None),
+            )
+            rating_id = cur.fetchone()[0]
+        conn.commit()
+
+    if worker_id:
+        figures = reputation.recalculate_worker(worker_id)
+        who = {"worker_id": worker_id,
+               "average_rating": figures["average_rating"],
+               "ratings_count": figures["ratings_count"],
+               "note": "This rating belongs to the worker, not to any crew."}
+    else:
+        figures = reputation.recalculate_crew(crew_id)
+        who = {"crew_id": crew_id, "rating": figures["rating"],
+               "ratings_count": figures["ratings_count"],
+               "note": ("This rating belongs to the crew. No member's own "
+                        "rating was changed by it.")}
+
+    return {"rating_id": rating_id, "job_id": job_id, "rating": float(rating),
+            **who}
+
+
 _HANDLERS = {
     "create_job": _execute_create_job,
     "send_offers": _execute_send_offers,
     "confirm_assignment": _execute_confirm_assignment,
+    "complete_job": _execute_complete_job,
 }
 
 

@@ -7,8 +7,11 @@ What it can do:
   - compose a workforce with the deterministic matching engine
   - talk to the Gemini agent, which searches the database through its tools
 
-What it cannot do yet: create jobs, send offers, confirm anyone, or change
-any record. Those arrive at STEP 7 and will require confirmation first.
+  - carry a job from request to confirmed workers, and record how it went
+  - recount reputation from the job records
+
+Anything consequential is PROPOSED, then confirmed by a person through
+/api/actions/{id}/confirm. The agent cannot confirm its own proposal.
 
 Run it with:
     backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend
@@ -19,7 +22,7 @@ from datetime import date, timedelta
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from app.agent import actions as agent_actions, audit, cache as reply_cache
+from app.agent import actions as agent_actions, audit, cache as reply_cache, reputation
 from app.agent.actions import ActionError
 from app.agent.agent import GeminiUnavailable, Turn, chat, parse_request
 from app.agent.matching import (
@@ -39,7 +42,7 @@ app = FastAPI(
         "workforce data only through tools. Read 'tools_used' on any agent "
         "reply to see exactly what was looked up."
     ),
-    version="0.5.0",
+    version="0.8.0",
 )
 
 
@@ -67,7 +70,7 @@ def root():
     """
     return {
         "name": "ADAA Workforce Coordination Agent",
-        "step": "STEP 5 - agent tools connected",
+        "step": "STEP 8 - reputation from job history",
         "environment": settings.app_env,
         "gemini_model": settings.gemini_model,
         "gemini_key_configured": bool(settings.gemini_api_key),
@@ -551,6 +554,119 @@ def confirm_assignments(job_id: str, request: ConfirmAssignments):
         {"assignment_ids": request.assignment_ids, "job_id": job_id},
         summary,
     )
+
+
+# ---------------------------------------------------------------------------
+# Reputation (business rules 3 and 4)
+# ---------------------------------------------------------------------------
+
+class JobOutcome(BaseModel):
+    assignment_id: int
+    scheduled_days: int = Field(default=1, description="Days they were booked for")
+    attended_days: int = Field(default=1, description="Days they actually worked")
+
+
+class CompleteJob(BaseModel):
+    outcomes: list[JobOutcome] = Field(
+        description="One entry per confirmed assignment on this job")
+
+
+@app.post("/api/jobs/{job_id}/complete")
+def complete_job(job_id: str, request: CompleteJob):
+    """
+    Propose marking a job finished and recording who turned up.
+
+    Completing a job changes people's permanent records, so it is a
+    proposal like any other consequential action: post the returned
+    action_id to /api/actions/{id}/confirm to carry it out.
+
+    Somebody who attended none of their booked days is recorded as a
+    no-show rather than a completed job.
+    """
+    job = fetch_one("select id, title from jobs where id = %s", (job_id,))
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"No job with id {job_id}")
+
+    summary = (f"Mark job {job_id} ({job['title']}) completed, recording "
+               f"attendance for {len(request.outcomes)} assignment(s). This "
+               "updates completed jobs, attendance and reliability.")
+
+    return agent_actions.propose(
+        "complete_job",
+        {"job_id": job_id,
+         "outcomes": [o.model_dump() for o in request.outcomes]},
+        summary,
+    )
+
+
+class NewRating(BaseModel):
+    job_id: str
+    rater_id: str = Field(description="The contractor giving the rating")
+    rating: float = Field(description="0 to 5")
+    worker_id: str | None = Field(default=None, description="Rate a worker")
+    crew_id: str | None = Field(default=None, description="Or rate a crew")
+    comment: str = ""
+
+
+@app.post("/api/ratings")
+def add_rating(request: NewRating):
+    """
+    A contractor rates a worker or a crew for completed work.
+
+    Exactly one of worker_id or crew_id. A rating belongs to one or the
+    other, never both -- that is business rule 3, and it is enforced by a
+    database constraint as well as here.
+
+    There is no agent tool for this. Reputation is something people give
+    each other; the AI does not award it.
+    """
+    try:
+        return agent_actions.record_rating(
+            request.job_id, request.rater_id, request.rating,
+            worker_id=request.worker_id, crew_id=request.crew_id,
+            comment=request.comment)
+    except ActionError as error:
+        raise HTTPException(status_code=409, detail=str(error))
+
+
+@app.get("/api/workers/{worker_id}/reputation")
+def worker_reputation(worker_id: str):
+    """
+    A worker's reputation, recounted from the records right now.
+
+    Nothing here is read from the workers table. It is all counted from
+    job_assignments and ratings, so you can compare it with the stored
+    figures and see that they agree. That is what "the database is the
+    source of truth" means for reputation.
+    """
+    if fetch_one("select id from workers where id=%s", (worker_id,)) is None:
+        raise HTTPException(status_code=404, detail=f"No worker with id {worker_id}")
+    return reputation.worker_figures(worker_id)
+
+
+@app.get("/api/crews/{crew_id}/reputation")
+def crew_reputation(crew_id: str):
+    """
+    A crew's reputation, recounted from the records.
+
+    Only ratings aimed at the crew are counted. Its members' own ratings
+    are deliberately excluded: they belong to the members (rule 3).
+    """
+    if fetch_one("select id from crews where id=%s", (crew_id,)) is None:
+        raise HTTPException(status_code=404, detail=f"No crew with id {crew_id}")
+    return reputation.crew_figures(crew_id)
+
+
+@app.get("/api/reputation/check")
+def reputation_check():
+    """
+    Compare every stored reputation figure with the records.
+
+    Should always return an empty list. It exists so the claim that every
+    number is derived can be checked rather than trusted.
+    """
+    problems = reputation.check_all()
+    return {"consistent": not problems, "disagreements": problems}
 
 
 @app.get("/api/agent/tool-usage")

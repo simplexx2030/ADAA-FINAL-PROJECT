@@ -125,11 +125,11 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0 through 7 complete.** Next: STEP 8 — reputation updates after a completed job.
+**STEP 0 through 8 complete.** Next: STEP 9 — independence readiness scoring.
 
-The agent reaches data **only** through `backend/app/agent/tools.py`. All seven tools are
-read-only, and a test asserts none of them writes. Write actions (create job, send offer,
-confirm) arrive at STEP 7 and need confirmation first (rule 7).
+The agent reaches data **only** through `backend/app/agent/tools.py`. The read tools never
+write; the `propose_*` tools write a proposal and nothing else. A person confirms via the
+API — the agent has no tool that confirms, and no tool that awards a rating.
 
 `grounded` on a chat reply is true only when a tool actually ran. Keep it that way — it is
 the mechanical check behind rule 9.
@@ -153,6 +153,16 @@ re-checked at execution, because a worker free at propose time may be booked by 
 **Tests that write must clean up.** Confirming an assignment marks workers `booked`, which
 silently breaks the 8-mason demo for everyone afterwards. See the `sandbox` fixture in
 `tests/test_agent_actions.py`. If the demo ever looks wrong, re-run `seed_database.py`.
+
+**Reputation** (`app/agent/reputation.py`): every figure is **counted**, never written by
+hand — `completed_jobs`, `average_rating`, `attendance_rate` (days attended ÷ days booked)
+and `reliability_score`. The same module is used by `generate_data.py` and at runtime, so
+demo data and live updates cannot drift apart. `check_all()` must always return `[]`.
+
+Two rules live in the SQL, not the prompt: `worker_figures` reads only ratings whose
+`worker_id` matches and `crew_figures` only those whose `crew_id` matches (rule 3), and
+**neither ever joins `crew_members`** — that is what makes a worker keep their history after
+leaving a crew (rule 4). A test asserts both.
 
 The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
 without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).

@@ -158,6 +158,12 @@ create table job_assignments (
     confirmed_at    timestamptz,
     completed_at    timestamptz,
 
+    -- A construction job runs for several days. Attendance is calculated
+    -- from these two columns rather than stored as a percentage, so it is
+    -- derived from records like every other reputation figure.
+    scheduled_days  integer not null default 1,
+    attended_days   integer not null default 0,
+
     constraint job_assignments_type_ck check (
         assignment_type in ('individual', 'crew', 'subcontractor')),
     constraint job_assignments_status_ck check (

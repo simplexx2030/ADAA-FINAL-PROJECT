@@ -125,7 +125,7 @@ The agent calls `get_worker_profile("W001")`. Evidence in the database:
 |---|---|
 | Completed jobs | **31** |
 | Average rating | **4.70** |
-| Attendance | **96%** |
+| Attendance | **96.4%** (108 of 112 days worked) |
 | Verified skill | Mason |
 | Current crew | Ravi Crew |
 | Contractors worked for | 5 different firms, with repeat work |
@@ -140,8 +140,11 @@ http://127.0.0.1:8000/api/workers/W001
 ```
 
 The 31 jobs and the 4.70 rating are **not typed into the worker record**. They are counted
-from 31 rows in `job_assignments` and averaged from 31 rows in `ratings`. Every number is
-traceable. (The full scoring tool, `check_independence_readiness`, is STEP 9 — not built
+from 31 rows in `job_assignments` and averaged from 31 rows in `ratings`. Attendance is 108
+days worked out of 112 booked. Every number is traceable.
+
+If they press, open `/api/reputation/check`. It recomputes **every** figure for **every**
+worker and crew and lists anything that disagrees. It comes back empty. (The full scoring tool, `check_independence_readiness`, is STEP 9 — not built
 yet. Say so; do not imply otherwise.)
 
 ---

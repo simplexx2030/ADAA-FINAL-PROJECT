@@ -59,11 +59,17 @@ One step at a time. After each step: run the tests, verify manually, then contin
       Confirming books the workers, so a confirmed worker stops appearing as available.
       *Success: contractor → job → offer → response → confirmation.* ✅ **Done**
 
-- [ ] **STEP 8 — Reputation** ⬅️ **Next**
-      Ratings, completed jobs, attendance, reliability, worker history, crew history.
+- [x] **STEP 8 — Reputation**
+      `backend/app/agent/reputation.py`. Nothing is typed in: completed jobs, average
+      rating, attendance and reliability are all **counted** from `job_assignments` and
+      `ratings`. Attendance became days-attended over days-booked, which needed two new
+      columns — it was the last hand-written number.
+      `/api/reputation/check` recomputes every figure and reports any disagreement; it
+      returns an empty list, and a test asserts that.
       *Success: a completed job updates the correct worker and crew records — separately.*
+      ✅ **Done**
 
-- [ ] **STEP 9 — Independence intelligence**
+- [ ] **STEP 9 — Independence intelligence** ⬅️ **Next**
       `check_independence_readiness()` returning score, evidence and recommendation.
       Not presented as scientifically validated — it is decision support.
 

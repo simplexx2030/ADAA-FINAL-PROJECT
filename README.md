@@ -5,12 +5,13 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–7 complete** — the agent understands a request in plain language,
+**Current status: STEPS 0–8 complete** — the agent understands a request in plain language,
 searches the real database, composes a workforce it can explain, keeps an audit trail of every
-tool call, and can carry a job from request through to confirmed workers.
+tool call, carries a job from request through to confirmed workers, and updates reputation from
+what actually happened.
 
 It **proposes** anything consequential; a person confirms it. The agent has no way to confirm
-its own proposal. There is no user interface yet.
+its own proposal, and no way to award anyone a rating. There is no user interface yet.
 
 **Presenting this?** Read [`docs/demo-script.md`](docs/demo-script.md) first. The Gemini
 free tier allows only 20 requests a day, which is about one rehearsal and one live run.
@@ -27,9 +28,9 @@ ADAA understands the request, searches real workforce data, and proposes a workf
 This is the actual output of the matching engine against the seeded database:
 
 ```text
-Ravi Crew  — 6 workers    score 90.2   (6 of 6 available members)
-Mahesh     — 1 worker     score 88.9   rating 4.6,  24 jobs
-Ramesh     — 1 worker     score 85.6   rating 4.06, 17 jobs
+Ravi Crew  — 6 workers   (6 of 6 available verified masons)
+Bhaskar    — 1 worker    rating 4.5, 27 jobs, 91% attendance
+Mahesh     — 1 worker    rating 4.6, 24 jobs, 93% attendance
 Total      = 8 workers
 ```
 
@@ -154,6 +155,19 @@ Actions that change something follow a two-step flow (business rule 7):
 | `GET /api/jobs/{id}/offers` | who was offered the job, and how they answered |
 | `POST /api/offers/{id}/respond` | a worker accepts or declines |
 | `POST /api/jobs/{id}/confirm` | propose confirming workers onto the job |
+| `POST /api/jobs/{id}/complete` | propose finishing the job and recording attendance |
+| `POST /api/ratings` | a contractor rates a worker **or** a crew |
+
+Reputation is never typed in — it is counted from the job records:
+
+| Endpoint | What it shows |
+|---|---|
+| `GET /api/workers/{id}/reputation` | recounted from `job_assignments` and `ratings` |
+| `GET /api/crews/{id}/reputation` | the crew's own record, separate from its members' |
+| `GET /api/reputation/check` | compares every stored figure with the records |
+
+`/api/reputation/check` should always come back empty. It exists so the claim that every
+number is derived can be checked rather than trusted.
 
 Replies are cached, so asking the same question twice only costs Gemini quota once. The cache
 invalidates itself when the workforce data changes or the day rolls over, and every reply says
@@ -167,7 +181,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **182 passed** and 1 skipped. Tests that need the database are skipped automatically if it
+You should see **201 passed** and 1 skipped. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -208,6 +222,7 @@ ADAA-AI-AGENT/
 │   │       ├── prompts.py    what Gemini is told
 │   │       ├── audit.py      the record of what the agent did
 │   │       ├── actions.py    propose, confirm, execute
+│   │       ├── reputation.py counting history into reputation
 │   │       └── cache.py      remembering replies, to save quota
 │   ├── database/
 │   │   └── schema.sql   the eleven tables
