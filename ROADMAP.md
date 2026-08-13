@@ -8,19 +8,21 @@ One step at a time. After each step: run the tests, verify manually, then contin
       Repository, documentation, Python virtual environment, FastAPI project, `.env.example`.
       *Success: `GET /health` returns `{"status": "ok"}`.* ✅ **Done**
 
-- [ ] **STEP 1 — Sample workforce data**
-      CSV files: workers, crews, crew members, contractors, jobs, ratings, availability.
-      At least 20 workers across several skills, locations, ratings, job histories and
-      availability states — some in crews, some independent.
-      *Success: the backend can read the sample data.* ⬅️ **Next**
+- [x] **STEP 1 — Sample workforce data**
+      Ten CSV files in `data/`, produced by `backend/scripts/generate_data.py` under a
+      fixed random seed: 32 workers, 5 crews, 6 contractors, 14 jobs, 448 availability
+      rows. Mixed skills, locations, ratings, verification and availability states — some
+      workers in crews, some independent.
+      *Success: the backend reads the sample data.* ✅ **Done**
 
-- [ ] **STEP 2 — Database**
-      Move from CSV to PostgreSQL. Target project is ready: **`adaa-ai agent`**
-      (`plqpwsnylgpecdlcftqs`), `ap-south-1` Mumbai, PostgreSQL 17, active and empty.
-      Tables, relationships, seed data, CRUD tested.
-      *Success: the application retrieves real workforce records from PostgreSQL.*
+- [x] **STEP 2 — Database**
+      PostgreSQL on Supabase — project **`adaa-ai agent`** (`plqpwsnylgpecdlcftqs`),
+      `ap-south-1` Mumbai, PostgreSQL 17.6. All 11 tables created from
+      `backend/database/schema.sql` and seeded by `backend/scripts/seed_database.py`.
+      API endpoints read live records.
+      *Success: the application retrieves real workforce records from PostgreSQL.* ✅ **Done**
 
-- [ ] **STEP 3 — Deterministic matching engine**
+- [ ] **STEP 3 — Deterministic matching engine** ⬅️ **Next**
       Skill, availability and location filtering; reliability, rating, ranking, crew
       composition. Built **before** Gemini so it can be tested on its own.
       *Success: given "8 masons, Guntur, tomorrow" it returns suitable candidates.*

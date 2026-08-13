@@ -1,0 +1,13 @@
+job_id,rater_id,worker_id,crew_id,rating,comment
+J001,CON006,,C004,4.33,"Strong team, well coordinated."
+J002,CON004,,C004,4.64,Work completed as agreed.
+J003,CON006,W002,,4.43,Quality was acceptable.
+J003,CON006,W026,,4.79,Quality was acceptable.
+J003,CON006,W006,,3.48,"Strong team, well coordinated."
+J004,CON002,,C004,4.12,"Strong team, well coordinated."
+J005,CON004,,C004,4.03,Reliable and punctual.
+J006,CON006,,C005,3.77,Would hire again.
+J007,CON004,,RAVI01,4.72,"Good work, finished on time."
+J008,CON006,W013,,4.74,Quality was acceptable.
+J009,CON004,,C004,4.57,Very neat finishing.
+J010,CON006,,C003,4.7,Quality was acceptable.

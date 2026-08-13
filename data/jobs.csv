@@ -1,0 +1,15 @@
+id,contractor_id,title,description,skill_required,workers_required,location_name,location_lat,location_lng,site_address,date,start_time,wage,status
+J001,CON006,"Concrete pour, ground floor","Concrete pour, ground floor at Tenali.",Concrete Worker,6,Tenali,16.239243,80.653349,"Site 20, Tenali",2026-05-20,08:00,750,completed
+J002,CON004,Internal wall plastering,Internal wall plastering at Amaravati.,Plasterer,7,Amaravati,16.5721,80.356186,"Site 14, Amaravati",2026-05-21,08:00,850,completed
+J003,CON006,Exterior painting,Exterior painting at Tenali.,Painter,3,Tenali,16.234351,80.646554,"Site 40, Tenali",2026-05-14,08:00,750,completed
+J004,CON002,Column shuttering,Column shuttering at Narasaraopet.,Shuttering Carpenter,5,Narasaraopet,16.220894,80.031849,"Site 31, Narasaraopet",2026-07-09,08:00,850,completed
+J005,CON004,Column shuttering,Column shuttering at Ponnur.,Shuttering Carpenter,5,Ponnur,16.075434,80.562059,"Site 26, Ponnur",2026-04-15,08:00,700,completed
+J006,CON006,Steel binding for footings,Steel binding for footings at Guntur.,Bar Bender,3,Guntur,16.317837,80.425254,"Site 52, Guntur",2026-05-02,08:00,900,completed
+J007,CON004,Compound wall masonry,Compound wall masonry at Guntur.,Mason,5,Guntur,16.323399,80.421354,"Site 9, Guntur",2026-05-27,08:00,1000,completed
+J008,CON006,Exterior painting,Exterior painting at Bapatla.,Painter,7,Bapatla,15.922402,80.482757,"Site 40, Bapatla",2026-05-27,08:00,1000,completed
+J009,CON004,Compound wall masonry,Compound wall masonry at Bapatla.,Mason,4,Bapatla,15.914146,80.466087,"Site 17, Bapatla",2026-06-10,08:00,1000,completed
+J010,CON006,Internal wall plastering,Internal wall plastering at Narasaraopet.,Plasterer,10,Narasaraopet,16.234384,80.03957,"Site 29, Narasaraopet",2026-04-30,08:00,650,completed
+J011,CON002,"Floor tiling, two apartments","Floor tiling, two apartments at Narasaraopet.",Tile Layer,4,Narasaraopet,16.250721,80.033223,"Site 10, Narasaraopet",2026-08-19,08:00,900,open
+J012,CON006,Steel binding for footings,Steel binding for footings at Mangalagiri.,Bar Bender,5,Mangalagiri,16.427004,80.569704,"Site 27, Mangalagiri",2026-08-15,08:00,800,open
+J013,CON004,"Concrete pour, ground floor","Concrete pour, ground floor at Amaravati.",Concrete Worker,8,Amaravati,16.588726,80.361528,"Site 31, Amaravati",2026-08-14,08:00,850,open
+J014,CON004,"Floor tiling, two apartments","Floor tiling, two apartments at Ponnur.",Tile Layer,7,Ponnur,16.076085,80.578695,"Site 58, Ponnur",2026-08-22,08:00,900,open

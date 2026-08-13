@@ -95,7 +95,23 @@ If a milestone appears already complete, verify it before skipping it.
 - **Model name**: `gemini-3.1-pro-preview` is set via `GEMINI_MODEL` in `.env` and is never
   hard-coded. Verify it with `backend/scripts/check_gemini.py`.
 
+## Known environment facts
+
+- **Gemini model.** `gemini-3.1-pro-preview` exists and the API key is valid, but the
+  **free tier grants it zero quota** (429 RESOURCE_EXHAUSTED, `limit: 0`). Models confirmed
+  working on this key: `gemini-3.5-flash`, `gemini-3.1-flash-lite`, `gemini-flash-latest`.
+  Using Pro requires billing on the Google Cloud project. Decide at STEP 4.
+- **Supabase connection.** Use the **session pooler** host
+  (`aws-0-ap-south-1.pooler.supabase.com:5432`). The direct host `db.<ref>.supabase.co` is
+  IPv6-only and does not resolve on this network. `aws-1-...` is the wrong pooler for this
+  project.
+- **RLS.** Supabase's platform event trigger `ensure_rls` auto-enables row level security on
+  every new table in `public`. Our tables therefore have RLS on with no policies, which
+  correctly blocks the public REST API. The backend connects as the `postgres` role and
+  bypasses RLS. Policies are only needed if the frontend ever talks to Supabase directly —
+  it should not; it goes through FastAPI.
+
 ## Current position
 
-**STEP 0 complete.** Next: STEP 1 — sample workforce CSV data.
+**STEP 0, 1 and 2 complete.** Next: STEP 3 — the deterministic matching engine.
 See [`ROADMAP.md`](ROADMAP.md) for the full checklist.

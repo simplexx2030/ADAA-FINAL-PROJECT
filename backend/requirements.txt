@@ -5,6 +5,7 @@ fastapi              # the web framework that serves the ADAA API
 uvicorn[standard]    # the server that actually runs FastAPI
 pydantic-settings    # reads and validates settings from the .env file
 google-genai         # the official Google SDK used to talk to Gemini
+psycopg[binary]      # connects Python to the PostgreSQL database (Supabase)
 
 # Testing
 pytest               # runs our tests

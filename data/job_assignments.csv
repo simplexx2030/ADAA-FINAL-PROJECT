@@ -1,0 +1,13 @@
+job_id,worker_id,crew_id,assignment_type,status
+J001,,C004,crew,completed
+J002,,C004,crew,completed
+J003,W002,,individual,completed
+J003,W026,,individual,completed
+J003,W006,,individual,completed
+J004,,C004,crew,completed
+J005,,C004,crew,completed
+J006,,C005,crew,completed
+J007,,RAVI01,crew,completed
+J008,W013,,individual,completed
+J009,,C004,crew,completed
+J010,,C003,crew,completed

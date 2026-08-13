@@ -5,8 +5,9 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEP 0 complete** — environment set up, API server runs, health check passes.
-There is no database, no AI agent and no user interface yet. Those arrive in later steps.
+**Current status: STEPS 0–2 complete** — the environment is set up, the sample workforce
+dataset exists, and the API reads real records from PostgreSQL.
+There is no AI agent, no matching engine and no user interface yet. Those arrive next.
 
 ---
 
@@ -70,6 +71,21 @@ GEMINI_MODEL=gemini-3.1-pro-preview
 
 ---
 
+### 3. Create the sample data and load the database
+
+```bash
+backend/.venv/Scripts/python backend/scripts/generate_data.py
+backend/.venv/Scripts/python backend/scripts/seed_database.py
+```
+
+The first command writes ten CSV files into `data/`. The second creates all the database
+tables and loads those files into PostgreSQL.
+
+Both are safe to run again at any time. The data generator uses a fixed random seed, so it
+always produces exactly the same dataset, and the seeder rebuilds the tables from scratch.
+
+---
+
 ## Running it
 
 ### Start the server
@@ -83,8 +99,20 @@ Then open in your browser:
 | Address | What you should see |
 |---|---|
 | <http://127.0.0.1:8000/health> | `{"status":"ok"}` |
+| <http://127.0.0.1:8000/health/database> | `{"status":"ok","workers":32}` |
 | <http://127.0.0.1:8000/> | Project name and current status |
 | <http://127.0.0.1:8000/docs> | Interactive API documentation |
+
+Things worth trying in the browser:
+
+| Address | What it shows |
+|---|---|
+| `/api/workers` | every worker, best rated first |
+| `/api/workers?skill=Mason` | only workers with a **verified** masonry skill |
+| `/api/workers/W001` | Suresh: profile, skills, crew history, ratings |
+| `/api/crews` | all crews with their member counts |
+| `/api/crews/RAVI01` | Ravi Crew, and each member's **own** rating |
+| `/api/skills` | the twelve skills ADAA knows about |
 
 Press `Ctrl+C` in the terminal to stop the server.
 
@@ -94,7 +122,8 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **2 passed**.
+You should see **17 passed**. Tests that need the database are skipped automatically if it
+cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
 
@@ -124,13 +153,18 @@ ADAA-AI-AGENT/
 ├── backend/
 │   ├── requirements.txt
 │   ├── app/
-│   │   ├── main.py      the API (currently just /health)
-│   │   └── config.py    all settings, read from .env
+│   │   ├── main.py      the API endpoints
+│   │   ├── config.py    all settings, read from .env
+│   │   └── database.py  the PostgreSQL connection
+│   ├── database/
+│   │   └── schema.sql   the eleven tables
 │   ├── scripts/
-│   │   └── check_gemini.py
+│   │   ├── check_gemini.py
+│   │   ├── generate_data.py    writes the CSV files
+│   │   └── seed_database.py    loads them into PostgreSQL
 │   └── tests/
 │
-├── data/                sample workforce data (added at STEP 1)
+├── data/                the sample workforce data (CSV)
 └── docs/                notes and diagrams
 ```
 

@@ -1,0 +1,7 @@
+id,name,phone,company_name,location,verification_status,rating,completed_jobs
+CON001,Rajesh Kumar,+919373506211,Sri Venkateswara Constructions,Guntur,verified,4.34,36
+CON002,Anitha Reddy,+919965984448,Reddy Builders,Vijayawada,verified,4.62,15
+CON003,Mohan Rao,+919491079829,Amaravati Infra Projects,Amaravati,verified,4.85,24
+CON004,Sudhakar Naidu,+919769108025,Naidu Civil Works,Tenali,verified,4.75,22
+CON005,Prasad Varma,+919644518647,Varma Housing,Mangalagiri,verified,4.31,28
+CON006,Lakshmi Devi,+919848621833,Sai Ram Constructions,Guntur,verified,4.03,29

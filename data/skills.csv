@@ -1,0 +1,13 @@
+id,name,category
+1,Mason,Masonry
+2,Helper,General
+3,Carpenter,Carpentry
+4,Shuttering Carpenter,Carpentry
+5,Bar Bender,Steel
+6,Welder,Steel
+7,Painter,Finishing
+8,Plasterer,Finishing
+9,Tile Layer,Finishing
+10,Electrician,Services
+11,Plumber,Services
+12,Concrete Worker,General
