@@ -5,10 +5,12 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–4 complete** — the environment is set up, the sample workforce
-dataset exists, the API reads real records from PostgreSQL, the matching engine composes a
-workforce, and Gemini can read a request in plain language.
-The agent cannot search the database yet, and there is no user interface. Those arrive next.
+**Current status: STEPS 0–5 complete** — the agent understands a request in plain language,
+searches the real database through its tools, and composes a workforce it can explain.
+It cannot yet create jobs or send offers, and there is no user interface. Those come next.
+
+**Presenting this?** Read [`docs/demo-script.md`](docs/demo-script.md) first. The Gemini
+free tier allows only 20 requests a day, which is about one rehearsal and one live run.
 
 ---
 
@@ -125,7 +127,10 @@ And two that use Gemini (POST, so use `/docs` to try them):
 | Endpoint | What it does |
 |---|---|
 | `POST /api/jobs/parse` | reads a sentence into structured job details |
-| `POST /api/agent/chat` | talks to the agent |
+| `POST /api/agent/chat` | talks to the agent, which searches the database |
+
+The agent's reply includes `tools_used` and `grounded`. If `grounded` is false, no tool ran,
+so nothing in that reply came from the database.
 
 Press `Ctrl+C` in the terminal to stop the server.
 
@@ -135,7 +140,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **105 passed** and 1 skipped. Tests that need the database are skipped automatically if it
+You should see **134 passed** and 1 skipped. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -171,6 +176,7 @@ ADAA-AI-AGENT/
 │   │   ├── database.py  the PostgreSQL connection
 │   │   └── agent/
 │   │       ├── matching.py   who is eligible, and who ranks highest
+│   │       ├── tools.py      what Gemini is allowed to look up
 │   │       ├── agent.py      the Gemini connection
 │   │       └── prompts.py    what Gemini is told
 │   ├── database/

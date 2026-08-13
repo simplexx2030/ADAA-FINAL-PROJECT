@@ -106,3 +106,36 @@ def fetch_one(sql: str, params: tuple = ()) -> dict | None:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(sql, params)
             return cur.fetchone()
+
+
+# ---------------------------------------------------------------------------
+# Locations
+# ---------------------------------------------------------------------------
+#
+# ADAA has no separate table of places. A location is simply somewhere
+# workers are recorded, so the list comes from the workers themselves
+# rather than from a hard-coded list that could drift out of date.
+
+_LOCATION_SQL = """
+    select location_name as name,
+           round(avg(location_lat)::numeric, 6)::float8 as lat,
+           round(avg(location_lng)::numeric, 6)::float8 as lng,
+           count(*) as workers
+      from workers
+     where location_name is not null
+"""
+
+
+def all_locations() -> list[dict]:
+    """Every place ADAA has workforce in, busiest first."""
+    return fetch_all(
+        _LOCATION_SQL + " group by location_name order by count(*) desc, location_name"
+    )
+
+
+def find_location(name: str) -> dict | None:
+    """Turn a place name such as 'Guntur' into coordinates, or None."""
+    return fetch_one(
+        _LOCATION_SQL + " and lower(location_name) = lower(%s) group by location_name",
+        (name,),
+    )

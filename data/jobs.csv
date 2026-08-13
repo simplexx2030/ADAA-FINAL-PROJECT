@@ -1,15 +1,298 @@
 id,contractor_id,title,description,skill_required,workers_required,location_name,location_lat,location_lng,site_address,date,start_time,wage,status
-J001,CON006,"Concrete pour, ground floor","Concrete pour, ground floor at Tenali.",Concrete Worker,6,Tenali,16.239243,80.653349,"Site 20, Tenali",2026-05-20,08:00,750,completed
-J002,CON004,Internal wall plastering,Internal wall plastering at Amaravati.,Plasterer,7,Amaravati,16.5721,80.356186,"Site 14, Amaravati",2026-05-21,08:00,850,completed
-J003,CON006,Exterior painting,Exterior painting at Tenali.,Painter,3,Tenali,16.234351,80.646554,"Site 40, Tenali",2026-05-14,08:00,750,completed
-J004,CON002,Column shuttering,Column shuttering at Narasaraopet.,Shuttering Carpenter,5,Narasaraopet,16.220894,80.031849,"Site 31, Narasaraopet",2026-07-09,08:00,850,completed
-J005,CON004,Column shuttering,Column shuttering at Ponnur.,Shuttering Carpenter,5,Ponnur,16.075434,80.562059,"Site 26, Ponnur",2026-04-15,08:00,700,completed
-J006,CON006,Steel binding for footings,Steel binding for footings at Guntur.,Bar Bender,3,Guntur,16.317837,80.425254,"Site 52, Guntur",2026-05-02,08:00,900,completed
-J007,CON004,Compound wall masonry,Compound wall masonry at Guntur.,Mason,5,Guntur,16.323399,80.421354,"Site 9, Guntur",2026-05-27,08:00,1000,completed
-J008,CON006,Exterior painting,Exterior painting at Bapatla.,Painter,7,Bapatla,15.922402,80.482757,"Site 40, Bapatla",2026-05-27,08:00,1000,completed
-J009,CON004,Compound wall masonry,Compound wall masonry at Bapatla.,Mason,4,Bapatla,15.914146,80.466087,"Site 17, Bapatla",2026-06-10,08:00,1000,completed
-J010,CON006,Internal wall plastering,Internal wall plastering at Narasaraopet.,Plasterer,10,Narasaraopet,16.234384,80.03957,"Site 29, Narasaraopet",2026-04-30,08:00,650,completed
-J011,CON002,"Floor tiling, two apartments","Floor tiling, two apartments at Narasaraopet.",Tile Layer,4,Narasaraopet,16.250721,80.033223,"Site 10, Narasaraopet",2026-08-19,08:00,900,open
-J012,CON006,Steel binding for footings,Steel binding for footings at Mangalagiri.,Bar Bender,5,Mangalagiri,16.427004,80.569704,"Site 27, Mangalagiri",2026-08-15,08:00,800,open
-J013,CON004,"Concrete pour, ground floor","Concrete pour, ground floor at Amaravati.",Concrete Worker,8,Amaravati,16.588726,80.361528,"Site 31, Amaravati",2026-08-14,08:00,850,open
-J014,CON004,"Floor tiling, two apartments","Floor tiling, two apartments at Ponnur.",Tile Layer,7,Ponnur,16.076085,80.578695,"Site 58, Ponnur",2026-08-22,08:00,900,open
+J0001,CON004,Block work for partition walls,Block work for partition walls at Tenali.,Mason,4,Tenali,16.23225,80.647758,"Site 14, Tenali",2026-03-15,08:00,800,completed
+J0002,CON001,Compound wall masonry,Compound wall masonry at Guntur.,Mason,6,Guntur,16.32441,80.428445,"Site 55, Guntur",2025-04-02,08:30,850,completed
+J0003,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Ponnur.,Mason,7,Ponnur,16.070376,80.57322,"Site 42, Ponnur",2026-07-07,08:30,700,completed
+J0004,CON003,Compound wall masonry,Compound wall masonry at Chilakaluripet.,Mason,7,Chilakaluripet,16.069975,80.168777,"Site 15, Chilakaluripet",2026-05-12,09:00,650,completed
+J0005,CON002,Block work for partition walls,Block work for partition walls at Amaravati.,Mason,4,Amaravati,16.559595,80.343549,"Site 8, Amaravati",2026-07-14,09:00,700,completed
+J0006,CON004,Compound wall masonry,Compound wall masonry at Narasaraopet.,Mason,4,Narasaraopet,16.219324,80.031027,"Site 37, Narasaraopet",2026-02-17,09:00,800,completed
+J0007,CON001,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,4,Vijayawada,16.506438,80.641649,"Site 53, Vijayawada",2025-07-20,08:30,650,completed
+J0008,CON001,Compound wall masonry,Compound wall masonry at Chilakaluripet.,Mason,3,Chilakaluripet,16.091994,80.173928,"Site 2, Chilakaluripet",2025-11-27,08:30,1000,completed
+J0009,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Chilakaluripet.,Mason,3,Chilakaluripet,16.100917,80.150922,"Site 26, Chilakaluripet",2025-03-19,09:00,700,completed
+J0010,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Narasaraopet.,Mason,5,Narasaraopet,16.225056,80.034826,"Site 21, Narasaraopet",2025-10-30,08:00,900,completed
+J0011,CON001,Compound wall masonry,Compound wall masonry at Mangalagiri.,Mason,2,Mangalagiri,16.42255,80.562435,"Site 1, Mangalagiri",2026-04-23,09:00,850,completed
+J0012,CON001,Compound wall masonry,Compound wall masonry at Amaravati.,Mason,7,Amaravati,16.564874,80.357649,"Site 12, Amaravati",2026-07-22,08:00,750,completed
+J0013,CON004,Brickwork for first floor slab,Brickwork for first floor slab at Ponnur.,Mason,2,Ponnur,16.051291,80.555692,"Site 59, Ponnur",2026-01-13,08:30,1000,completed
+J0014,CON005,Compound wall masonry,Compound wall masonry at Chilakaluripet.,Mason,3,Chilakaluripet,16.072418,80.148794,"Site 48, Chilakaluripet",2025-03-16,08:30,850,completed
+J0015,CON006,Compound wall masonry,Compound wall masonry at Tenali.,Mason,6,Tenali,16.24182,80.64606,"Site 12, Tenali",2026-06-23,09:00,800,completed
+J0016,CON006,Compound wall masonry,Compound wall masonry at Mangalagiri.,Mason,1,Mangalagiri,16.431438,80.572905,"Site 41, Mangalagiri",2026-06-09,08:30,1000,completed
+J0017,CON002,Brickwork for first floor slab,Brickwork for first floor slab at Vijayawada.,Mason,7,Vijayawada,16.495188,80.661656,"Site 30, Vijayawada",2025-06-12,08:00,900,completed
+J0018,CON004,Block work for partition walls,Block work for partition walls at Guntur.,Mason,7,Guntur,16.298014,80.428442,"Site 38, Guntur",2025-11-03,09:00,800,completed
+J0019,CON004,Brickwork for first floor slab,Brickwork for first floor slab at Chilakaluripet.,Mason,3,Chilakaluripet,16.104095,80.148636,"Site 16, Chilakaluripet",2025-09-13,09:00,900,completed
+J0020,CON002,Block work for partition walls,Block work for partition walls at Amaravati.,Mason,3,Amaravati,16.565466,80.376981,"Site 17, Amaravati",2025-08-15,08:30,1000,completed
+J0021,CON002,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,3,Amaravati,16.565335,80.366471,"Site 54, Amaravati",2025-08-01,09:00,800,completed
+J0022,CON003,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,7,Amaravati,16.585577,80.34726,"Site 40, Amaravati",2025-12-11,08:30,900,completed
+J0023,CON002,Assisting concrete pour,Assisting concrete pour at Ponnur.,Helper,3,Ponnur,16.085391,80.578884,"Site 6, Ponnur",2025-12-15,08:30,650,completed
+J0024,CON006,Assisting concrete pour,Assisting concrete pour at Guntur.,Helper,6,Guntur,16.311482,80.454227,"Site 59, Guntur",2025-04-08,09:00,700,completed
+J0025,CON002,Assisting concrete pour,Assisting concrete pour at Narasaraopet.,Helper,3,Narasaraopet,16.216309,80.044821,"Site 29, Narasaraopet",2025-06-12,08:00,1000,completed
+J0026,CON004,Site clearing and material shifting,Site clearing and material shifting at Mangalagiri.,Helper,2,Mangalagiri,16.436368,80.571886,"Site 4, Mangalagiri",2026-05-02,08:30,700,completed
+J0027,CON002,Assisting concrete pour,Assisting concrete pour at Tenali.,Helper,1,Tenali,16.254546,80.643839,"Site 55, Tenali",2025-09-01,08:00,700,completed
+J0028,CON001,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,3,Vijayawada,16.502632,80.662944,"Site 56, Vijayawada",2025-08-31,09:00,650,completed
+J0029,CON005,Compound wall masonry,Compound wall masonry at Amaravati.,Mason,6,Amaravati,16.590663,80.371678,"Site 2, Amaravati",2026-07-08,08:00,750,completed
+J0030,CON003,Block work for partition walls,Block work for partition walls at Tenali.,Mason,6,Tenali,16.229296,80.644714,"Site 6, Tenali",2026-06-11,08:30,800,completed
+J0031,CON001,Compound wall masonry,Compound wall masonry at Narasaraopet.,Mason,7,Narasaraopet,16.219607,80.030834,"Site 11, Narasaraopet",2025-06-02,09:00,800,completed
+J0032,CON004,Compound wall masonry,Compound wall masonry at Sattenapalle.,Mason,3,Sattenapalle,16.379738,80.132731,"Site 41, Sattenapalle",2025-09-07,08:30,1000,completed
+J0033,CON001,Block work for partition walls,Block work for partition walls at Ponnur.,Mason,7,Ponnur,16.065208,80.568873,"Site 58, Ponnur",2025-03-02,08:00,800,completed
+J0034,CON003,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,7,Vijayawada,16.508519,80.643463,"Site 47, Vijayawada",2025-08-31,09:00,850,completed
+J0035,CON004,Compound wall masonry,Compound wall masonry at Bapatla.,Mason,6,Bapatla,15.893967,80.485724,"Site 58, Bapatla",2025-12-07,08:00,750,completed
+J0036,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Chilakaluripet.,Mason,1,Chilakaluripet,16.104165,80.169382,"Site 46, Chilakaluripet",2026-06-11,09:00,1000,completed
+J0037,CON005,Compound wall masonry,Compound wall masonry at Sattenapalle.,Mason,1,Sattenapalle,16.383131,80.169781,"Site 15, Sattenapalle",2025-03-07,08:00,750,completed
+J0038,CON003,Block work for partition walls,Block work for partition walls at Mangalagiri.,Mason,1,Mangalagiri,16.433527,80.555493,"Site 6, Mangalagiri",2025-08-07,09:00,750,completed
+J0039,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Ponnur.,Mason,2,Ponnur,16.085942,80.556846,"Site 23, Ponnur",2026-06-20,08:00,750,completed
+J0040,CON003,Block work for partition walls,Block work for partition walls at Bapatla.,Mason,6,Bapatla,15.897942,80.472812,"Site 30, Bapatla",2025-08-08,09:00,800,completed
+J0041,CON004,Block work for partition walls,Block work for partition walls at Narasaraopet.,Mason,7,Narasaraopet,16.229279,80.061234,"Site 22, Narasaraopet",2026-01-20,08:30,650,completed
+J0042,CON003,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,2,Vijayawada,16.509157,80.649178,"Site 21, Vijayawada",2025-05-06,09:00,750,completed
+J0043,CON001,Block work for partition walls,Block work for partition walls at Narasaraopet.,Mason,2,Narasaraopet,16.243162,80.038583,"Site 19, Narasaraopet",2025-11-08,09:00,800,completed
+J0044,CON003,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,6,Vijayawada,16.5082,80.639614,"Site 55, Vijayawada",2025-08-13,08:00,900,completed
+J0045,CON001,Block work for partition walls,Block work for partition walls at Mangalagiri.,Mason,7,Mangalagiri,16.442315,80.549051,"Site 37, Mangalagiri",2026-03-14,08:30,800,completed
+J0046,CON006,Brickwork for first floor slab,Brickwork for first floor slab at Chilakaluripet.,Mason,5,Chilakaluripet,16.087833,80.167894,"Site 57, Chilakaluripet",2026-05-20,09:00,900,completed
+J0047,CON001,Compound wall masonry,Compound wall masonry at Guntur.,Mason,5,Guntur,16.324642,80.447341,"Site 42, Guntur",2026-05-12,08:00,1000,completed
+J0048,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,4,Amaravati,16.582345,80.346093,"Site 32, Amaravati",2025-09-02,09:00,800,completed
+J0049,CON004,Compound wall masonry,Compound wall masonry at Narasaraopet.,Mason,5,Narasaraopet,16.2441,80.060554,"Site 3, Narasaraopet",2026-03-19,08:30,650,completed
+J0050,CON005,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,2,Vijayawada,16.501956,80.659796,"Site 36, Vijayawada",2026-03-25,08:30,1000,completed
+J0051,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Tenali.,Mason,7,Tenali,16.236119,80.644523,"Site 26, Tenali",2025-02-22,09:00,900,completed
+J0052,CON005,Block work for partition walls,Block work for partition walls at Guntur.,Mason,7,Guntur,16.310041,80.42332,"Site 47, Guntur",2025-12-13,09:00,1000,completed
+J0053,CON005,Compound wall masonry,Compound wall masonry at Bapatla.,Mason,6,Bapatla,15.921748,80.478916,"Site 19, Bapatla",2025-08-11,08:00,850,completed
+J0054,CON001,Block work for partition walls,Block work for partition walls at Guntur.,Mason,4,Guntur,16.313493,80.437742,"Site 15, Guntur",2025-11-28,08:00,650,completed
+J0055,CON001,Compound wall masonry,Compound wall masonry at Narasaraopet.,Mason,5,Narasaraopet,16.237718,80.034292,"Site 19, Narasaraopet",2026-07-25,08:30,900,completed
+J0056,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Sattenapalle.,Mason,4,Sattenapalle,16.401411,80.132485,"Site 30, Sattenapalle",2025-11-09,08:30,700,completed
+J0057,CON004,Block work for partition walls,Block work for partition walls at Guntur.,Mason,1,Guntur,16.302538,80.449158,"Site 14, Guntur",2025-09-22,09:00,650,completed
+J0058,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Guntur.,Mason,6,Guntur,16.298184,80.423699,"Site 50, Guntur",2025-04-07,09:00,900,completed
+J0059,CON004,Brickwork for first floor slab,Brickwork for first floor slab at Bapatla.,Mason,5,Bapatla,15.88972,80.481511,"Site 12, Bapatla",2026-05-13,09:00,800,completed
+J0060,CON003,Block work for partition walls,Block work for partition walls at Tenali.,Mason,5,Tenali,16.243156,80.631571,"Site 37, Tenali",2026-06-07,08:30,850,completed
+J0061,CON004,Block work for partition walls,Block work for partition walls at Guntur.,Mason,2,Guntur,16.309195,80.455211,"Site 34, Guntur",2025-04-16,08:00,800,completed
+J0062,CON004,Brickwork for first floor slab,Brickwork for first floor slab at Narasaraopet.,Mason,7,Narasaraopet,16.230087,80.054199,"Site 56, Narasaraopet",2026-06-12,08:00,700,completed
+J0063,CON006,Compound wall masonry,Compound wall masonry at Ponnur.,Mason,6,Ponnur,16.083305,80.568783,"Site 25, Ponnur",2026-01-06,08:30,850,completed
+J0064,CON005,Compound wall masonry,Compound wall masonry at Chilakaluripet.,Mason,7,Chilakaluripet,16.10786,80.172868,"Site 30, Chilakaluripet",2025-11-13,08:00,900,completed
+J0065,CON002,Brickwork for first floor slab,Brickwork for first floor slab at Vijayawada.,Mason,4,Vijayawada,16.512349,80.662329,"Site 6, Vijayawada",2025-09-30,08:30,800,completed
+J0066,CON001,Block work for partition walls,Block work for partition walls at Mangalagiri.,Mason,1,Mangalagiri,16.419157,80.582725,"Site 31, Mangalagiri",2026-06-21,08:30,650,completed
+J0067,CON003,Brickwork for first floor slab,Brickwork for first floor slab at Sattenapalle.,Mason,4,Sattenapalle,16.374326,80.138286,"Site 49, Sattenapalle",2026-02-01,09:00,1000,completed
+J0068,CON001,Block work for partition walls,Block work for partition walls at Ponnur.,Mason,4,Ponnur,16.055986,80.549741,"Site 50, Ponnur",2026-04-25,09:00,850,completed
+J0069,CON003,Block work for partition walls,Block work for partition walls at Vijayawada.,Mason,3,Vijayawada,16.496919,80.6432,"Site 10, Vijayawada",2026-05-20,09:00,800,completed
+J0070,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,3,Amaravati,16.578167,80.356814,"Site 20, Amaravati",2025-03-14,08:00,800,completed
+J0071,CON002,Compound wall masonry,Compound wall masonry at Sattenapalle.,Mason,3,Sattenapalle,16.397828,80.157812,"Site 21, Sattenapalle",2025-09-30,08:00,800,completed
+J0072,CON002,Compound wall masonry,Compound wall masonry at Ponnur.,Mason,5,Ponnur,16.057912,80.578135,"Site 8, Ponnur",2025-09-04,09:00,700,completed
+J0073,CON005,Block work for partition walls,Block work for partition walls at Tenali.,Mason,7,Tenali,16.248333,80.629681,"Site 10, Tenali",2025-03-10,09:00,800,completed
+J0074,CON003,Block work for partition walls,Block work for partition walls at Bapatla.,Mason,7,Bapatla,15.891378,80.453505,"Site 28, Bapatla",2025-11-27,08:30,700,completed
+J0075,CON004,Block work for partition walls,Block work for partition walls at Vijayawada.,Mason,4,Vijayawada,16.496694,80.662505,"Site 41, Vijayawada",2025-04-22,08:30,850,completed
+J0076,CON006,Compound wall masonry,Compound wall masonry at Amaravati.,Mason,1,Amaravati,16.577107,80.365384,"Site 8, Amaravati",2025-10-03,08:00,750,completed
+J0077,CON001,Block work for partition walls,Block work for partition walls at Tenali.,Mason,4,Tenali,16.230805,80.635358,"Site 33, Tenali",2025-03-25,09:00,800,completed
+J0078,CON001,Compound wall masonry,Compound wall masonry at Bapatla.,Mason,3,Bapatla,15.904832,80.470009,"Site 50, Bapatla",2025-03-14,09:00,1000,completed
+J0079,CON005,Compound wall masonry,Compound wall masonry at Bapatla.,Mason,3,Bapatla,15.895643,80.468651,"Site 46, Bapatla",2025-08-09,08:30,750,completed
+J0080,CON003,Brickwork for first floor slab,Brickwork for first floor slab at Tenali.,Mason,5,Tenali,16.261511,80.651428,"Site 18, Tenali",2026-04-28,09:00,700,completed
+J0081,CON003,Roof truss carpentry,Roof truss carpentry at Guntur.,Carpenter,2,Guntur,16.291669,80.450806,"Site 30, Guntur",2025-04-20,08:00,800,completed
+J0082,CON001,Door and window frame fitting,Door and window frame fitting at Sattenapalle.,Carpenter,6,Sattenapalle,16.40028,80.155956,"Site 26, Sattenapalle",2026-05-11,09:00,750,completed
+J0083,CON001,Roof truss carpentry,Roof truss carpentry at Vijayawada.,Carpenter,7,Vijayawada,16.490328,80.642702,"Site 9, Vijayawada",2026-05-04,08:30,1000,completed
+J0084,CON006,Roof truss carpentry,Roof truss carpentry at Vijayawada.,Carpenter,7,Vijayawada,16.491801,80.632926,"Site 23, Vijayawada",2026-05-07,08:30,750,completed
+J0085,CON003,Door and window frame fitting,Door and window frame fitting at Mangalagiri.,Carpenter,4,Mangalagiri,16.440614,80.559822,"Site 51, Mangalagiri",2025-02-28,08:00,800,completed
+J0086,CON001,Door and window frame fitting,Door and window frame fitting at Guntur.,Carpenter,3,Guntur,16.297187,80.418093,"Site 51, Guntur",2026-05-26,08:30,850,completed
+J0087,CON001,Door and window frame fitting,Door and window frame fitting at Amaravati.,Carpenter,1,Amaravati,16.578872,80.371881,"Site 20, Amaravati",2025-06-29,09:00,800,completed
+J0088,CON004,Sanitary line installation,Sanitary line installation at Amaravati.,Plumber,1,Amaravati,16.580465,80.343113,"Site 3, Amaravati",2026-04-20,08:00,700,completed
+J0089,CON006,Overhead tank plumbing,Overhead tank plumbing at Guntur.,Plumber,4,Guntur,16.308815,80.453058,"Site 15, Guntur",2026-02-01,08:30,700,completed
+J0090,CON004,Sanitary line installation,Sanitary line installation at Narasaraopet.,Plumber,5,Narasaraopet,16.228092,80.052124,"Site 24, Narasaraopet",2025-10-18,08:00,750,completed
+J0091,CON005,Sanitary line installation,Sanitary line installation at Tenali.,Plumber,4,Tenali,16.223255,80.636401,"Site 35, Tenali",2025-11-25,08:30,900,completed
+J0092,CON003,Overhead tank plumbing,Overhead tank plumbing at Amaravati.,Plumber,1,Amaravati,16.557323,80.343841,"Site 5, Amaravati",2026-05-09,09:00,850,completed
+J0093,CON004,Overhead tank plumbing,Overhead tank plumbing at Sattenapalle.,Plumber,2,Sattenapalle,16.410742,80.145718,"Site 21, Sattenapalle",2025-11-09,08:30,750,completed
+J0094,CON004,Overhead tank plumbing,Overhead tank plumbing at Narasaraopet.,Plumber,5,Narasaraopet,16.249099,80.033617,"Site 53, Narasaraopet",2025-04-16,09:00,900,completed
+J0095,CON005,Sanitary line installation,Sanitary line installation at Vijayawada.,Plumber,2,Vijayawada,16.504682,80.660156,"Site 8, Vijayawada",2025-11-21,08:00,650,completed
+J0096,CON001,Overhead tank plumbing,Overhead tank plumbing at Vijayawada.,Plumber,1,Vijayawada,16.487072,80.630579,"Site 52, Vijayawada",2025-11-11,08:00,650,completed
+J0097,CON006,Column shuttering,Column shuttering at Mangalagiri.,Shuttering Carpenter,1,Mangalagiri,16.436406,80.579888,"Site 41, Mangalagiri",2025-05-31,09:00,1000,completed
+J0098,CON003,Slab shuttering and props,Slab shuttering and props at Bapatla.,Shuttering Carpenter,1,Bapatla,15.915657,80.460861,"Site 25, Bapatla",2025-03-30,08:30,700,completed
+J0099,CON006,Slab shuttering and props,Slab shuttering and props at Guntur.,Shuttering Carpenter,2,Guntur,16.319046,80.435367,"Site 50, Guntur",2025-10-20,09:00,700,completed
+J0100,CON002,Slab shuttering and props,Slab shuttering and props at Mangalagiri.,Shuttering Carpenter,2,Mangalagiri,16.433728,80.587307,"Site 23, Mangalagiri",2026-06-07,08:00,700,completed
+J0101,CON001,Column shuttering,Column shuttering at Amaravati.,Shuttering Carpenter,3,Amaravati,16.576044,80.361024,"Site 54, Amaravati",2025-08-08,08:30,850,completed
+J0102,CON002,Slab shuttering and props,Slab shuttering and props at Tenali.,Shuttering Carpenter,5,Tenali,16.23663,80.627098,"Site 4, Tenali",2026-01-09,08:00,700,completed
+J0103,CON001,Slab shuttering and props,Slab shuttering and props at Ponnur.,Shuttering Carpenter,1,Ponnur,16.070141,80.560162,"Site 9, Ponnur",2025-07-17,08:00,900,completed
+J0104,CON005,Column shuttering,Column shuttering at Tenali.,Shuttering Carpenter,2,Tenali,16.247096,80.656842,"Site 41, Tenali",2026-07-01,09:00,650,completed
+J0105,CON006,Column shuttering,Column shuttering at Chilakaluripet.,Shuttering Carpenter,1,Chilakaluripet,16.069656,80.155587,"Site 23, Chilakaluripet",2025-08-25,08:30,1000,completed
+J0106,CON004,Bathroom wall tiling,Bathroom wall tiling at Ponnur.,Tile Layer,7,Ponnur,16.060749,80.561714,"Site 51, Ponnur",2025-03-17,09:00,900,completed
+J0107,CON005,Column reinforcement cage,Column reinforcement cage at Mangalagiri.,Bar Bender,2,Mangalagiri,16.449676,80.564371,"Site 43, Mangalagiri",2025-08-29,08:30,750,completed
+J0108,CON005,Column reinforcement cage,Column reinforcement cage at Vijayawada.,Bar Bender,2,Vijayawada,16.497982,80.654481,"Site 13, Vijayawada",2025-05-23,08:00,650,completed
+J0109,CON003,Steel binding for footings,Steel binding for footings at Chilakaluripet.,Bar Bender,2,Chilakaluripet,16.088764,80.173642,"Site 42, Chilakaluripet",2025-06-22,09:00,800,completed
+J0110,CON006,Column reinforcement cage,Column reinforcement cage at Narasaraopet.,Bar Bender,7,Narasaraopet,16.23259,80.040536,"Site 37, Narasaraopet",2026-06-19,08:00,700,completed
+J0111,CON006,Steel binding for footings,Steel binding for footings at Bapatla.,Bar Bender,4,Bapatla,15.911883,80.484554,"Site 31, Bapatla",2025-06-01,08:30,650,completed
+J0112,CON001,Door and window frame fitting,Door and window frame fitting at Narasaraopet.,Carpenter,3,Narasaraopet,16.227438,80.063714,"Site 56, Narasaraopet",2025-08-23,08:00,700,completed
+J0113,CON004,Door and window frame fitting,Door and window frame fitting at Amaravati.,Carpenter,4,Amaravati,16.579322,80.346017,"Site 59, Amaravati",2025-06-03,08:30,900,completed
+J0114,CON002,Door and window frame fitting,Door and window frame fitting at Ponnur.,Carpenter,2,Ponnur,16.052126,80.580752,"Site 12, Ponnur",2025-03-03,08:00,1000,completed
+J0115,CON002,Door and window frame fitting,Door and window frame fitting at Ponnur.,Carpenter,5,Ponnur,16.072116,80.551655,"Site 16, Ponnur",2025-03-04,08:30,800,completed
+J0116,CON002,Roof truss carpentry,Roof truss carpentry at Narasaraopet.,Carpenter,4,Narasaraopet,16.231952,80.045059,"Site 30, Narasaraopet",2025-09-25,08:30,700,completed
+J0117,CON004,Door and window frame fitting,Door and window frame fitting at Mangalagiri.,Carpenter,5,Mangalagiri,16.416697,80.578619,"Site 52, Mangalagiri",2025-10-02,09:00,800,completed
+J0118,CON004,Bathroom wall tiling,Bathroom wall tiling at Narasaraopet.,Tile Layer,2,Narasaraopet,16.218904,80.035118,"Site 47, Narasaraopet",2026-01-30,09:00,1000,completed
+J0119,CON006,Bathroom wall tiling,Bathroom wall tiling at Sattenapalle.,Tile Layer,1,Sattenapalle,16.388567,80.153423,"Site 55, Sattenapalle",2025-05-30,08:00,800,completed
+J0120,CON004,Bathroom wall tiling,Bathroom wall tiling at Vijayawada.,Tile Layer,7,Vijayawada,16.5209,80.643267,"Site 27, Vijayawada",2025-03-09,08:00,1000,completed
+J0121,CON005,Bathroom wall tiling,Bathroom wall tiling at Mangalagiri.,Tile Layer,5,Mangalagiri,16.419751,80.583079,"Site 9, Mangalagiri",2026-07-30,08:00,800,completed
+J0122,CON004,Bathroom wall tiling,Bathroom wall tiling at Mangalagiri.,Tile Layer,6,Mangalagiri,16.417295,80.584276,"Site 2, Mangalagiri",2025-08-01,08:00,700,completed
+J0123,CON001,"Floor tiling, two apartments","Floor tiling, two apartments at Amaravati.",Tile Layer,2,Amaravati,16.558209,80.343061,"Site 32, Amaravati",2025-02-26,08:00,850,completed
+J0124,CON003,"Floor tiling, two apartments","Floor tiling, two apartments at Narasaraopet.",Tile Layer,2,Narasaraopet,16.221415,80.051926,"Site 45, Narasaraopet",2025-06-10,08:30,750,completed
+J0125,CON005,Bathroom wall tiling,Bathroom wall tiling at Vijayawada.,Tile Layer,3,Vijayawada,16.515143,80.632052,"Site 42, Vijayawada",2025-02-26,08:00,800,completed
+J0126,CON004,Exterior painting,Exterior painting at Tenali.,Painter,6,Tenali,16.247453,80.651167,"Site 56, Tenali",2025-05-12,09:00,1000,completed
+J0127,CON006,Exterior painting,Exterior painting at Sattenapalle.,Painter,5,Sattenapalle,16.374194,80.164733,"Site 43, Sattenapalle",2025-11-09,08:30,850,completed
+J0128,CON001,Interior emulsion painting,Interior emulsion painting at Tenali.,Painter,7,Tenali,16.243223,80.638772,"Site 56, Tenali",2026-07-23,08:00,650,completed
+J0129,CON006,Exterior painting,Exterior painting at Sattenapalle.,Painter,5,Sattenapalle,16.388234,80.132171,"Site 55, Sattenapalle",2025-04-23,08:30,750,completed
+J0130,CON006,Exterior painting,Exterior painting at Chilakaluripet.,Painter,4,Chilakaluripet,16.087496,80.170773,"Site 32, Chilakaluripet",2026-03-30,08:00,850,completed
+J0131,CON006,Interior emulsion painting,Interior emulsion painting at Tenali.,Painter,3,Tenali,16.227142,80.646301,"Site 33, Tenali",2026-02-07,08:30,800,completed
+J0132,CON006,Exterior painting,Exterior painting at Sattenapalle.,Painter,1,Sattenapalle,16.410548,80.135307,"Site 33, Sattenapalle",2025-10-10,09:00,900,completed
+J0133,CON004,Door and window frame fitting,Door and window frame fitting at Sattenapalle.,Carpenter,1,Sattenapalle,16.403904,80.151865,"Site 50, Sattenapalle",2025-12-16,09:00,700,completed
+J0134,CON001,Door and window frame fitting,Door and window frame fitting at Guntur.,Carpenter,2,Guntur,16.30384,80.438764,"Site 11, Guntur",2025-07-13,09:00,1000,completed
+J0135,CON003,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,5,Chilakaluripet,16.100796,80.169206,"Site 51, Chilakaluripet",2025-09-29,09:00,750,completed
+J0136,CON002,Door and window frame fitting,Door and window frame fitting at Bapatla.,Carpenter,3,Bapatla,15.905881,80.450778,"Site 57, Bapatla",2025-06-04,08:00,900,completed
+J0137,CON001,Door and window frame fitting,Door and window frame fitting at Sattenapalle.,Carpenter,1,Sattenapalle,16.391527,80.16618,"Site 3, Sattenapalle",2026-04-08,09:00,750,completed
+J0138,CON003,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,1,Chilakaluripet,16.070954,80.183131,"Site 21, Chilakaluripet",2025-05-04,09:00,650,completed
+J0139,CON003,Roof truss carpentry,Roof truss carpentry at Mangalagiri.,Carpenter,5,Mangalagiri,16.437513,80.578943,"Site 54, Mangalagiri",2026-05-28,08:00,700,completed
+J0140,CON005,Roof truss carpentry,Roof truss carpentry at Ponnur.,Carpenter,6,Ponnur,16.062221,80.571909,"Site 21, Ponnur",2025-11-12,08:00,800,completed
+J0141,CON003,Roof truss carpentry,Roof truss carpentry at Narasaraopet.,Carpenter,5,Narasaraopet,16.242092,80.066567,"Site 1, Narasaraopet",2026-03-09,09:00,1000,completed
+J0142,CON003,Roof truss carpentry,Roof truss carpentry at Sattenapalle.,Carpenter,5,Sattenapalle,16.408815,80.148514,"Site 50, Sattenapalle",2026-03-19,08:30,800,completed
+J0143,CON002,Door and window frame fitting,Door and window frame fitting at Vijayawada.,Carpenter,4,Vijayawada,16.515297,80.663684,"Site 53, Vijayawada",2025-11-07,09:00,850,completed
+J0144,CON003,Roof truss carpentry,Roof truss carpentry at Sattenapalle.,Carpenter,5,Sattenapalle,16.3894,80.165658,"Site 9, Sattenapalle",2026-03-04,08:30,850,completed
+J0145,CON006,Roof truss carpentry,Roof truss carpentry at Amaravati.,Carpenter,2,Amaravati,16.575274,80.345454,"Site 24, Amaravati",2025-11-07,09:00,900,completed
+J0146,CON003,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,2,Chilakaluripet,16.096209,80.166361,"Site 42, Chilakaluripet",2026-04-09,08:30,650,completed
+J0147,CON002,Roof truss carpentry,Roof truss carpentry at Tenali.,Carpenter,1,Tenali,16.23333,80.627202,"Site 39, Tenali",2026-06-07,09:00,900,completed
+J0148,CON003,Door and window frame fitting,Door and window frame fitting at Tenali.,Carpenter,4,Tenali,16.231775,80.636431,"Site 51, Tenali",2025-03-28,09:00,1000,completed
+J0149,CON002,Door and window frame fitting,Door and window frame fitting at Vijayawada.,Carpenter,1,Vijayawada,16.489928,80.654376,"Site 58, Vijayawada",2025-03-06,09:00,900,completed
+J0150,CON003,Door and window frame fitting,Door and window frame fitting at Sattenapalle.,Carpenter,1,Sattenapalle,16.397262,80.159656,"Site 28, Sattenapalle",2025-07-09,08:00,750,completed
+J0151,CON006,"Concrete pour, ground floor","Concrete pour, ground floor at Mangalagiri.",Concrete Worker,4,Mangalagiri,16.428564,80.575972,"Site 7, Mangalagiri",2026-04-04,08:00,850,completed
+J0152,CON002,"Concrete pour, ground floor","Concrete pour, ground floor at Ponnur.",Concrete Worker,5,Ponnur,16.085283,80.546912,"Site 53, Ponnur",2026-02-20,08:00,800,completed
+J0153,CON006,Foundation concreting,Foundation concreting at Mangalagiri.,Concrete Worker,5,Mangalagiri,16.444723,80.58523,"Site 13, Mangalagiri",2026-07-24,08:00,1000,completed
+J0154,CON005,"Concrete pour, ground floor","Concrete pour, ground floor at Sattenapalle.",Concrete Worker,1,Sattenapalle,16.412232,80.14106,"Site 30, Sattenapalle",2025-08-12,08:30,850,completed
+J0155,CON005,"Concrete pour, ground floor","Concrete pour, ground floor at Chilakaluripet.",Concrete Worker,4,Chilakaluripet,16.107842,80.169727,"Site 49, Chilakaluripet",2025-11-20,08:30,1000,completed
+J0156,CON006,"Concrete pour, ground floor","Concrete pour, ground floor at Ponnur.",Concrete Worker,3,Ponnur,16.072046,80.586468,"Site 52, Ponnur",2026-05-26,08:30,800,completed
+J0157,CON002,Foundation concreting,Foundation concreting at Mangalagiri.,Concrete Worker,1,Mangalagiri,16.419868,80.581398,"Site 10, Mangalagiri",2025-11-05,08:00,650,completed
+J0158,CON005,Foundation concreting,Foundation concreting at Chilakaluripet.,Concrete Worker,3,Chilakaluripet,16.084048,80.159817,"Site 32, Chilakaluripet",2026-06-21,08:00,1000,completed
+J0159,CON002,"Concrete pour, ground floor","Concrete pour, ground floor at Sattenapalle.",Concrete Worker,5,Sattenapalle,16.389449,80.157454,"Site 30, Sattenapalle",2025-03-07,08:00,900,completed
+J0160,CON006,"Concrete pour, ground floor","Concrete pour, ground floor at Chilakaluripet.",Concrete Worker,1,Chilakaluripet,16.076396,80.152446,"Site 53, Chilakaluripet",2025-10-21,08:00,900,completed
+J0161,CON001,Bathroom wall tiling,Bathroom wall tiling at Guntur.,Tile Layer,3,Guntur,16.293764,80.436484,"Site 51, Guntur",2025-04-06,08:30,750,completed
+J0162,CON004,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,2,Vijayawada,16.489364,80.641745,"Site 21, Vijayawada",2025-06-15,09:00,750,completed
+J0163,CON006,Brickwork for first floor slab,Brickwork for first floor slab at Ponnur.,Mason,1,Ponnur,16.053393,80.580868,"Site 47, Ponnur",2025-04-29,08:00,900,completed
+J0164,CON005,Internal wall plastering,Internal wall plastering at Guntur.,Plasterer,5,Guntur,16.307633,80.446832,"Site 23, Guntur",2026-07-24,08:30,800,completed
+J0165,CON002,Internal wall plastering,Internal wall plastering at Ponnur.,Plasterer,6,Ponnur,16.055524,80.549868,"Site 34, Ponnur",2025-06-30,09:00,1000,completed
+J0166,CON002,Internal wall plastering,Internal wall plastering at Tenali.,Plasterer,1,Tenali,16.261893,80.631285,"Site 46, Tenali",2026-07-12,08:30,900,completed
+J0167,CON006,Ceiling plastering,Ceiling plastering at Mangalagiri.,Plasterer,7,Mangalagiri,16.424377,80.560463,"Site 24, Mangalagiri",2025-03-16,08:30,900,completed
+J0168,CON006,Ceiling plastering,Ceiling plastering at Chilakaluripet.,Plasterer,1,Chilakaluripet,16.084765,80.185649,"Site 11, Chilakaluripet",2026-01-02,09:00,900,completed
+J0169,CON002,Internal wall plastering,Internal wall plastering at Mangalagiri.,Plasterer,4,Mangalagiri,16.425117,80.550084,"Site 8, Mangalagiri",2025-10-02,08:00,900,completed
+J0170,CON002,Ceiling plastering,Ceiling plastering at Sattenapalle.,Plasterer,3,Sattenapalle,16.404532,80.139949,"Site 6, Sattenapalle",2026-02-26,09:00,850,completed
+J0171,CON004,Internal wall plastering,Internal wall plastering at Guntur.,Plasterer,1,Guntur,16.31427,80.430827,"Site 17, Guntur",2026-01-18,08:00,800,completed
+J0172,CON005,Internal wall plastering,Internal wall plastering at Narasaraopet.,Plasterer,4,Narasaraopet,16.249706,80.053947,"Site 5, Narasaraopet",2025-04-11,09:00,700,completed
+J0173,CON002,Ceiling plastering,Ceiling plastering at Ponnur.,Plasterer,3,Ponnur,16.076046,80.582017,"Site 50, Ponnur",2025-03-03,09:00,700,completed
+J0174,CON006,Ceiling plastering,Ceiling plastering at Vijayawada.,Plasterer,1,Vijayawada,16.505615,80.63195,"Site 43, Vijayawada",2026-01-09,08:30,850,completed
+J0175,CON006,Bathroom wall tiling,Bathroom wall tiling at Ponnur.,Tile Layer,5,Ponnur,16.077267,80.563924,"Site 39, Ponnur",2025-07-19,08:00,850,completed
+J0176,CON002,"Floor tiling, two apartments","Floor tiling, two apartments at Narasaraopet.",Tile Layer,7,Narasaraopet,16.215263,80.069376,"Site 55, Narasaraopet",2026-03-18,08:30,650,completed
+J0177,CON002,"Floor tiling, two apartments","Floor tiling, two apartments at Vijayawada.",Tile Layer,2,Vijayawada,16.487709,80.642226,"Site 17, Vijayawada",2026-02-26,08:30,850,completed
+J0178,CON002,Bathroom wall tiling,Bathroom wall tiling at Amaravati.,Tile Layer,5,Amaravati,16.586281,80.342315,"Site 3, Amaravati",2025-03-22,09:00,1000,completed
+J0179,CON006,Bathroom wall tiling,Bathroom wall tiling at Ponnur.,Tile Layer,5,Ponnur,16.05262,80.560147,"Site 37, Ponnur",2025-10-11,09:00,650,completed
+J0180,CON006,"Floor tiling, two apartments","Floor tiling, two apartments at Amaravati.",Tile Layer,7,Amaravati,16.579716,80.369287,"Site 23, Amaravati",2025-08-16,09:00,1000,completed
+J0181,CON004,Bathroom wall tiling,Bathroom wall tiling at Amaravati.,Tile Layer,6,Amaravati,16.590569,80.37325,"Site 1, Amaravati",2025-11-28,08:30,900,completed
+J0182,CON002,Bathroom wall tiling,Bathroom wall tiling at Vijayawada.,Tile Layer,3,Vijayawada,16.501746,80.638852,"Site 56, Vijayawada",2026-07-26,08:00,650,completed
+J0183,CON004,Column reinforcement cage,Column reinforcement cage at Narasaraopet.,Bar Bender,2,Narasaraopet,16.23272,80.067351,"Site 10, Narasaraopet",2025-06-08,08:00,650,completed
+J0184,CON006,Steel binding for footings,Steel binding for footings at Mangalagiri.,Bar Bender,2,Mangalagiri,16.411989,80.578582,"Site 60, Mangalagiri",2026-01-18,08:30,800,completed
+J0185,CON001,Column reinforcement cage,Column reinforcement cage at Ponnur.,Bar Bender,5,Ponnur,16.062895,80.548373,"Site 47, Ponnur",2025-11-24,08:30,800,completed
+J0186,CON003,Steel binding for footings,Steel binding for footings at Tenali.,Bar Bender,3,Tenali,16.239898,80.644525,"Site 45, Tenali",2025-04-18,09:00,700,completed
+J0187,CON006,Steel binding for footings,Steel binding for footings at Ponnur.,Bar Bender,2,Ponnur,16.063242,80.564735,"Site 30, Ponnur",2026-03-18,09:00,900,completed
+J0188,CON006,Steel binding for footings,Steel binding for footings at Sattenapalle.,Bar Bender,1,Sattenapalle,16.377112,80.158291,"Site 25, Sattenapalle",2025-04-30,09:00,800,completed
+J0189,CON006,Column reinforcement cage,Column reinforcement cage at Tenali.,Bar Bender,7,Tenali,16.230155,80.648482,"Site 20, Tenali",2026-02-18,08:30,900,completed
+J0190,CON001,Steel binding for footings,Steel binding for footings at Chilakaluripet.,Bar Bender,2,Chilakaluripet,16.089105,80.167146,"Site 39, Chilakaluripet",2026-07-22,08:30,700,completed
+J0191,CON006,Column reinforcement cage,Column reinforcement cage at Amaravati.,Bar Bender,4,Amaravati,16.567908,80.339934,"Site 21, Amaravati",2025-04-24,08:30,800,completed
+J0192,CON001,Column reinforcement cage,Column reinforcement cage at Vijayawada.,Bar Bender,2,Vijayawada,16.513985,80.638977,"Site 34, Vijayawada",2026-03-19,08:00,900,completed
+J0193,CON006,Column reinforcement cage,Column reinforcement cage at Ponnur.,Bar Bender,2,Ponnur,16.071054,80.55936,"Site 60, Ponnur",2025-10-13,08:00,850,completed
+J0194,CON006,Column reinforcement cage,Column reinforcement cage at Vijayawada.,Bar Bender,2,Vijayawada,16.515699,80.636293,"Site 27, Vijayawada",2025-04-14,08:00,750,completed
+J0195,CON002,Brickwork for first floor slab,Brickwork for first floor slab at Narasaraopet.,Mason,6,Narasaraopet,16.243211,80.04258,"Site 18, Narasaraopet",2026-04-06,08:30,650,completed
+J0196,CON003,Brickwork for first floor slab,Brickwork for first floor slab at Narasaraopet.,Mason,4,Narasaraopet,16.223646,80.042093,"Site 24, Narasaraopet",2025-04-28,08:00,1000,completed
+J0197,CON004,Brickwork for first floor slab,Brickwork for first floor slab at Guntur.,Mason,8,Guntur,16.318661,80.452698,"Site 13, Guntur",2025-03-03,08:30,800,completed
+J0198,CON003,Block work for partition walls,Block work for partition walls at Vijayawada.,Mason,3,Vijayawada,16.519086,80.665521,"Site 9, Vijayawada",2026-03-10,08:00,900,completed
+J0199,CON004,Block work for partition walls,Block work for partition walls at Guntur.,Mason,6,Guntur,16.299139,80.418261,"Site 56, Guntur",2026-04-07,08:00,750,completed
+J0200,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Guntur.,Mason,5,Guntur,16.309802,80.428986,"Site 21, Guntur",2025-09-18,08:00,700,completed
+J0201,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Chilakaluripet.,Mason,7,Chilakaluripet,16.096045,80.158106,"Site 18, Chilakaluripet",2025-09-11,08:00,650,completed
+J0202,CON002,Block work for partition walls,Block work for partition walls at Bapatla.,Mason,4,Bapatla,15.897139,80.452762,"Site 52, Bapatla",2025-08-10,08:30,850,completed
+J0203,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,8,Amaravati,16.58919,80.360123,"Site 9, Amaravati",2025-09-19,08:00,800,completed
+J0204,CON001,Block work for partition walls,Block work for partition walls at Guntur.,Mason,8,Guntur,16.290145,80.432177,"Site 39, Guntur",2025-07-07,09:00,900,completed
+J0205,CON005,Block work for partition walls,Block work for partition walls at Narasaraopet.,Mason,6,Narasaraopet,16.228293,80.037926,"Site 52, Narasaraopet",2025-08-04,09:00,650,completed
+J0206,CON001,Block work for partition walls,Block work for partition walls at Vijayawada.,Mason,4,Vijayawada,16.504423,80.655379,"Site 50, Vijayawada",2025-04-11,08:30,800,completed
+J0207,CON002,Block work for partition walls,Block work for partition walls at Sattenapalle.,Mason,6,Sattenapalle,16.389383,80.157985,"Site 22, Sattenapalle",2025-11-12,08:30,800,completed
+J0208,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Vijayawada.,Mason,7,Vijayawada,16.500258,80.64645,"Site 19, Vijayawada",2025-04-04,08:30,850,completed
+J0209,CON005,Compound wall masonry,Compound wall masonry at Ponnur.,Mason,5,Ponnur,16.079402,80.57857,"Site 36, Ponnur",2026-04-20,09:00,650,completed
+J0210,CON004,Compound wall masonry,Compound wall masonry at Mangalagiri.,Mason,4,Mangalagiri,16.435535,80.569918,"Site 25, Mangalagiri",2025-06-06,08:00,750,completed
+J0211,CON004,Block work for partition walls,Block work for partition walls at Bapatla.,Mason,7,Bapatla,15.912165,80.454023,"Site 5, Bapatla",2025-08-18,09:00,900,completed
+J0212,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Sattenapalle.,Mason,7,Sattenapalle,16.395904,80.162881,"Site 20, Sattenapalle",2025-04-16,08:30,650,completed
+J0213,CON006,Brickwork for first floor slab,Brickwork for first floor slab at Sattenapalle.,Mason,8,Sattenapalle,16.393472,80.156407,"Site 14, Sattenapalle",2025-07-11,08:00,850,completed
+J0214,CON002,Block work for partition walls,Block work for partition walls at Chilakaluripet.,Mason,8,Chilakaluripet,16.09045,80.162799,"Site 29, Chilakaluripet",2026-03-04,08:00,700,completed
+J0215,CON003,Brickwork for first floor slab,Brickwork for first floor slab at Ponnur.,Mason,7,Ponnur,16.075412,80.583305,"Site 38, Ponnur",2025-09-26,08:00,850,completed
+J0216,CON002,Brickwork for first floor slab,Brickwork for first floor slab at Guntur.,Mason,5,Guntur,16.301469,80.438455,"Site 1, Guntur",2025-10-06,09:00,850,completed
+J0217,CON003,Block work for partition walls,Block work for partition walls at Mangalagiri.,Mason,6,Mangalagiri,16.427969,80.571607,"Site 21, Mangalagiri",2026-07-03,09:00,800,completed
+J0218,CON004,Compound wall masonry,Compound wall masonry at Tenali.,Mason,6,Tenali,16.241995,80.627529,"Site 54, Tenali",2025-12-30,08:30,1000,completed
+J0219,CON003,Brickwork for first floor slab,Brickwork for first floor slab at Tenali.,Mason,6,Tenali,16.223464,80.645936,"Site 47, Tenali",2026-03-28,08:30,900,completed
+J0220,CON001,Block work for partition walls,Block work for partition walls at Ponnur.,Mason,4,Ponnur,16.081106,80.582443,"Site 39, Ponnur",2026-03-16,08:30,850,completed
+J0221,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Bapatla.,Mason,3,Bapatla,15.917203,80.462489,"Site 12, Bapatla",2025-05-26,08:30,850,completed
+J0222,CON006,Block work for partition walls,Block work for partition walls at Bapatla.,Mason,7,Bapatla,15.89517,80.484163,"Site 24, Bapatla",2025-12-04,08:00,650,completed
+J0223,CON006,Brickwork for first floor slab,Brickwork for first floor slab at Vijayawada.,Mason,7,Vijayawada,16.509411,80.66647,"Site 10, Vijayawada",2025-07-22,09:00,900,completed
+J0224,CON004,Brickwork for first floor slab,Brickwork for first floor slab at Vijayawada.,Mason,8,Vijayawada,16.507134,80.652403,"Site 31, Vijayawada",2025-02-20,09:00,900,completed
+J0225,CON006,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,6,Amaravati,16.555611,80.352242,"Site 31, Amaravati",2025-09-18,08:30,850,completed
+J0226,CON004,Block work for partition walls,Block work for partition walls at Narasaraopet.,Mason,7,Narasaraopet,16.226568,80.031413,"Site 48, Narasaraopet",2025-08-07,08:30,900,completed
+J0227,CON005,Block work for partition walls,Block work for partition walls at Sattenapalle.,Mason,6,Sattenapalle,16.413063,80.168694,"Site 60, Sattenapalle",2026-07-01,08:00,1000,completed
+J0228,CON004,Block work for partition walls,Block work for partition walls at Chilakaluripet.,Mason,8,Chilakaluripet,16.09824,80.153891,"Site 47, Chilakaluripet",2025-12-03,08:30,650,completed
+J0229,CON001,Compound wall masonry,Compound wall masonry at Tenali.,Mason,6,Tenali,16.241561,80.639049,"Site 48, Tenali",2026-06-11,09:00,700,completed
+J0230,CON004,Compound wall masonry,Compound wall masonry at Tenali.,Mason,8,Tenali,16.244218,80.637389,"Site 60, Tenali",2025-11-08,08:30,800,completed
+J0231,CON005,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,5,Vijayawada,16.522908,80.653497,"Site 40, Vijayawada",2026-06-22,09:00,1000,completed
+J0232,CON003,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,4,Vijayawada,16.496414,80.651367,"Site 50, Vijayawada",2025-11-03,09:00,900,completed
+J0233,CON005,Brickwork for first floor slab,Brickwork for first floor slab at Tenali.,Mason,6,Tenali,16.235531,80.620423,"Site 54, Tenali",2025-08-23,08:00,650,completed
+J0234,CON005,Compound wall masonry,Compound wall masonry at Chilakaluripet.,Mason,7,Chilakaluripet,16.083261,80.17621,"Site 13, Chilakaluripet",2026-04-19,08:00,650,completed
+J0235,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Amaravati.,Mason,6,Amaravati,16.579023,80.366823,"Site 6, Amaravati",2025-12-24,09:00,700,completed
+J0236,CON001,Brickwork for first floor slab,Brickwork for first floor slab at Narasaraopet.,Mason,6,Narasaraopet,16.226783,80.056419,"Site 41, Narasaraopet",2026-01-27,08:30,750,completed
+J0237,CON003,Compound wall masonry,Compound wall masonry at Vijayawada.,Mason,5,Vijayawada,16.497291,80.630495,"Site 22, Vijayawada",2026-02-19,08:00,750,completed
+J0238,CON004,Compound wall masonry,Compound wall masonry at Chilakaluripet.,Mason,3,Chilakaluripet,16.108377,80.155227,"Site 12, Chilakaluripet",2026-05-24,09:00,800,completed
+J0239,CON005,Compound wall masonry,Compound wall masonry at Mangalagiri.,Mason,3,Mangalagiri,16.435259,80.55225,"Site 46, Mangalagiri",2025-05-19,08:30,650,completed
+J0240,CON001,Block work for partition walls,Block work for partition walls at Chilakaluripet.,Mason,8,Chilakaluripet,16.069951,80.167108,"Site 41, Chilakaluripet",2025-11-20,08:00,650,completed
+J0241,CON003,Block work for partition walls,Block work for partition walls at Sattenapalle.,Mason,6,Sattenapalle,16.409885,80.152986,"Site 46, Sattenapalle",2026-03-01,08:30,800,completed
+J0242,CON006,Block work for partition walls,Block work for partition walls at Bapatla.,Mason,7,Bapatla,15.893434,80.462477,"Site 53, Bapatla",2026-05-24,08:30,650,completed
+J0243,CON003,Block work for partition walls,Block work for partition walls at Ponnur.,Mason,5,Ponnur,16.048908,80.586581,"Site 6, Ponnur",2025-09-27,08:30,850,completed
+J0244,CON004,Compound wall masonry,Compound wall masonry at Mangalagiri.,Mason,8,Mangalagiri,16.417765,80.549573,"Site 43, Mangalagiri",2025-10-11,08:00,750,completed
+J0245,CON001,Block work for partition walls,Block work for partition walls at Chilakaluripet.,Mason,4,Chilakaluripet,16.072594,80.172512,"Site 13, Chilakaluripet",2025-08-01,08:00,650,completed
+J0246,CON006,Block work for partition walls,Block work for partition walls at Chilakaluripet.,Mason,6,Chilakaluripet,16.084751,80.17891,"Site 20, Chilakaluripet",2025-12-02,08:30,850,completed
+J0247,CON001,Compound wall masonry,Compound wall masonry at Guntur.,Mason,8,Guntur,16.300209,80.44534,"Site 8, Guntur",2025-08-21,08:00,1000,completed
+J0248,CON004,Door and window frame fitting,Door and window frame fitting at Ponnur.,Carpenter,3,Ponnur,16.059669,80.585734,"Site 21, Ponnur",2025-08-23,08:00,1000,completed
+J0249,CON003,Door and window frame fitting,Door and window frame fitting at Vijayawada.,Carpenter,4,Vijayawada,16.497156,80.658302,"Site 45, Vijayawada",2026-05-31,08:30,850,completed
+J0250,CON002,Roof truss carpentry,Roof truss carpentry at Tenali.,Carpenter,6,Tenali,16.226999,80.653895,"Site 50, Tenali",2026-06-23,08:00,650,completed
+J0251,CON001,Roof truss carpentry,Roof truss carpentry at Tenali.,Carpenter,6,Tenali,16.260045,80.64827,"Site 27, Tenali",2026-07-27,09:00,1000,completed
+J0252,CON002,Door and window frame fitting,Door and window frame fitting at Narasaraopet.,Carpenter,7,Narasaraopet,16.235923,80.046481,"Site 40, Narasaraopet",2026-03-10,09:00,650,completed
+J0253,CON006,Roof truss carpentry,Roof truss carpentry at Amaravati.,Carpenter,7,Amaravati,16.591512,80.363588,"Site 23, Amaravati",2025-03-10,08:30,650,completed
+J0254,CON002,Door and window frame fitting,Door and window frame fitting at Bapatla.,Carpenter,4,Bapatla,15.923472,80.471857,"Site 30, Bapatla",2026-04-05,09:00,900,completed
+J0255,CON001,Roof truss carpentry,Roof truss carpentry at Vijayawada.,Carpenter,8,Vijayawada,16.518065,80.65541,"Site 32, Vijayawada",2026-01-17,08:00,700,completed
+J0256,CON001,Roof truss carpentry,Roof truss carpentry at Narasaraopet.,Carpenter,3,Narasaraopet,16.223384,80.040055,"Site 3, Narasaraopet",2025-07-27,08:00,900,completed
+J0257,CON002,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,7,Chilakaluripet,16.089796,80.150034,"Site 47, Chilakaluripet",2026-07-05,08:30,850,completed
+J0258,CON004,Door and window frame fitting,Door and window frame fitting at Sattenapalle.,Carpenter,6,Sattenapalle,16.382903,80.134405,"Site 7, Sattenapalle",2026-01-12,08:00,900,completed
+J0259,CON004,Roof truss carpentry,Roof truss carpentry at Vijayawada.,Carpenter,6,Vijayawada,16.50504,80.647376,"Site 10, Vijayawada",2025-12-21,08:00,850,completed
+J0260,CON004,Roof truss carpentry,Roof truss carpentry at Tenali.,Carpenter,4,Tenali,16.24131,80.627766,"Site 18, Tenali",2025-07-17,08:00,750,completed
+J0261,CON006,Roof truss carpentry,Roof truss carpentry at Narasaraopet.,Carpenter,5,Narasaraopet,16.22046,80.064066,"Site 27, Narasaraopet",2026-06-03,08:00,1000,completed
+J0262,CON003,Door and window frame fitting,Door and window frame fitting at Amaravati.,Carpenter,7,Amaravati,16.589723,80.361625,"Site 6, Amaravati",2026-02-24,08:30,1000,completed
+J0263,CON002,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,7,Chilakaluripet,16.080367,80.176401,"Site 16, Chilakaluripet",2025-04-06,08:30,800,completed
+J0264,CON005,Door and window frame fitting,Door and window frame fitting at Amaravati.,Carpenter,7,Amaravati,16.58943,80.355211,"Site 3, Amaravati",2026-03-04,08:30,900,completed
+J0265,CON004,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,3,Chilakaluripet,16.101589,80.175066,"Site 29, Chilakaluripet",2025-06-26,08:30,700,completed
+J0266,CON006,Door and window frame fitting,Door and window frame fitting at Mangalagiri.,Carpenter,5,Mangalagiri,16.416008,80.559832,"Site 2, Mangalagiri",2025-06-13,08:30,900,completed
+J0267,CON006,Roof truss carpentry,Roof truss carpentry at Amaravati.,Carpenter,8,Amaravati,16.583391,80.339477,"Site 30, Amaravati",2025-04-20,08:00,1000,completed
+J0268,CON002,Door and window frame fitting,Door and window frame fitting at Chilakaluripet.,Carpenter,7,Chilakaluripet,16.097356,80.147255,"Site 25, Chilakaluripet",2025-07-20,09:00,750,completed
+J0269,CON003,Door and window frame fitting,Door and window frame fitting at Narasaraopet.,Carpenter,7,Narasaraopet,16.242922,80.0545,"Site 51, Narasaraopet",2025-05-24,09:00,650,completed
+J0270,CON006,Interior emulsion painting,Interior emulsion painting at Mangalagiri.,Painter,5,Mangalagiri,16.423519,80.583917,"Site 18, Mangalagiri",2026-01-01,08:00,650,completed
+J0271,CON004,Interior emulsion painting,Interior emulsion painting at Bapatla.,Painter,8,Bapatla,15.905467,80.452008,"Site 29, Bapatla",2025-03-24,09:00,750,completed
+J0272,CON002,Interior emulsion painting,Interior emulsion painting at Vijayawada.,Painter,5,Vijayawada,16.489407,80.663918,"Site 5, Vijayawada",2025-04-22,08:00,700,completed
+J0273,CON006,Exterior painting,Exterior painting at Chilakaluripet.,Painter,7,Chilakaluripet,16.07522,80.15537,"Site 19, Chilakaluripet",2026-03-05,08:30,900,completed
+J0274,CON004,Interior emulsion painting,Interior emulsion painting at Ponnur.,Painter,4,Ponnur,16.064454,80.572487,"Site 13, Ponnur",2025-08-13,08:00,650,completed
+J0275,CON004,Interior emulsion painting,Interior emulsion painting at Sattenapalle.,Painter,4,Sattenapalle,16.393146,80.156634,"Site 30, Sattenapalle",2025-08-17,08:30,850,completed
+J0276,CON002,Exterior painting,Exterior painting at Mangalagiri.,Painter,6,Mangalagiri,16.43007,80.586829,"Site 10, Mangalagiri",2025-11-10,08:30,750,completed
+J0277,CON005,Exterior painting,Exterior painting at Bapatla.,Painter,3,Bapatla,15.89581,80.486028,"Site 11, Bapatla",2026-02-20,08:00,650,completed
+J0278,CON005,Exterior painting,Exterior painting at Chilakaluripet.,Painter,4,Chilakaluripet,16.079616,80.15458,"Site 43, Chilakaluripet",2026-03-27,08:30,750,completed
+J0279,CON004,Interior emulsion painting,Interior emulsion painting at Bapatla.,Painter,4,Bapatla,15.896462,80.483917,"Site 60, Bapatla",2026-02-18,08:30,1000,completed
+J0280,CON003,Interior emulsion painting,Interior emulsion painting at Guntur.,Painter,6,Guntur,16.325506,80.438346,"Site 42, Guntur",2026-02-25,09:00,750,completed
+J0281,CON005,Interior emulsion painting,Interior emulsion painting at Amaravati.,Painter,6,Amaravati,16.582642,80.375392,"Site 45, Amaravati",2026-03-06,08:00,900,completed
+J0282,CON002,Exterior painting,Exterior painting at Narasaraopet.,Painter,5,Narasaraopet,16.215992,80.054701,"Site 29, Narasaraopet",2026-04-06,08:30,650,completed
+J0283,CON005,Interior emulsion painting,Interior emulsion painting at Amaravati.,Painter,7,Amaravati,16.574557,80.369751,"Site 13, Amaravati",2026-01-16,08:00,650,completed
+J0284,CON006,Exterior painting,Exterior painting at Bapatla.,Painter,6,Bapatla,15.900177,80.466719,"Site 59, Bapatla",2026-05-06,09:00,750,completed
+J0285,CON006,Column reinforcement cage,Column reinforcement cage at Chilakaluripet.,Bar Bender,7,Chilakaluripet,16.080745,80.179427,"Site 47, Chilakaluripet",2025-06-04,08:30,700,completed
+J0286,CON002,Column reinforcement cage,Column reinforcement cage at Narasaraopet.,Bar Bender,6,Narasaraopet,16.233985,80.064701,"Site 5, Narasaraopet",2026-01-03,09:00,1000,completed
+J0287,CON001,Steel binding for footings,Steel binding for footings at Narasaraopet.,Bar Bender,6,Narasaraopet,16.231581,80.052233,"Site 13, Narasaraopet",2025-06-10,08:00,1000,completed
+J0288,CON005,Column reinforcement cage,Column reinforcement cage at Guntur.,Bar Bender,6,Guntur,16.319612,80.42858,"Site 32, Guntur",2025-03-19,09:00,900,completed
+J0289,CON001,Column reinforcement cage,Column reinforcement cage at Tenali.,Bar Bender,5,Tenali,16.233507,80.658241,"Site 8, Tenali",2026-08-01,09:00,900,completed
+J0290,CON002,Column reinforcement cage,Column reinforcement cage at Mangalagiri.,Bar Bender,5,Mangalagiri,16.411838,80.578589,"Site 5, Mangalagiri",2025-03-18,09:00,900,completed
+J0291,CON005,Steel binding for footings,Steel binding for footings at Narasaraopet.,Bar Bender,7,Narasaraopet,16.24012,80.049042,"Site 24, Narasaraopet",2025-05-14,09:00,900,completed
+J0292,CON003,Steel binding for footings,Steel binding for footings at Amaravati.,Bar Bender,5,Amaravati,16.55584,80.351287,"Site 23, Amaravati",2026-02-18,08:00,650,completed
+J0293,CON004,Steel binding for footings,Steel binding for footings at Guntur.,Bar Bender,8,Guntur,16.298294,80.437684,"Site 33, Guntur",2025-08-04,08:00,1000,completed
+J0294,CON005,Assisting concrete pour,Assisting concrete pour at Bapatla.,Helper,7,Bapatla,15.897304,80.459748,"Site 18, Bapatla",2026-08-16,09:00,900,open
+J0295,CON001,Grill and railing welding,Grill and railing welding at Amaravati.,Welder,8,Amaravati,16.567565,80.344249,"Site 34, Amaravati",2026-08-22,08:30,750,open
+J0296,CON004,Internal wall plastering,Internal wall plastering at Tenali.,Plasterer,6,Tenali,16.227097,80.626182,"Site 54, Tenali",2026-08-19,08:00,1000,open
+J0297,CON006,Electrical conduit laying,Electrical conduit laying at Bapatla.,Electrician,2,Bapatla,15.912902,80.475191,"Site 27, Bapatla",2026-08-22,08:30,650,open

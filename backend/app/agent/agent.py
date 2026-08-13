@@ -1,14 +1,15 @@
 """
 The ADAA agent's connection to Gemini.
 
-At this build step the agent can do two things:
+The agent can:
 
-  chat()           hold a conversation about workforce needs
+  chat()           hold a conversation, using the tools in tools.py to
+                   search the real database
   parse_request()  turn a sentence into structured facts
 
-It cannot yet look anything up. The tools that search the database arrive
-at the next step, and until then the prompt tells Gemini to say so rather
-than inventing a crew.
+Every reply reports which tools actually ran. That is how a caller tells
+the difference between an answer built from database rows and an answer the
+model produced on its own -- ``grounded`` is true only when a tool ran.
 
 One decision is worth pointing out, because it is the whole architecture in
 miniature. When a contractor says "tomorrow", Gemini does NOT work out the
@@ -19,6 +20,7 @@ owns. The model reads language; it does not decide numbers.
 
 import json
 import re
+import time
 from dataclasses import dataclass
 from datetime import date, timedelta
 
@@ -29,6 +31,10 @@ from app.config import settings
 # specification asks whether the agent is consistent on unchanged data
 # (section 23), and a chatty, creative model makes that impossible.
 TEMPERATURE = 0.2
+
+# The free tier caps requests per minute. A demonstration asks several
+# questions in a row, so a rate limit is waited out instead of failing.
+MAX_RATE_LIMIT_RETRIES = 2
 
 
 class GeminiUnavailable(RuntimeError):
@@ -78,16 +84,60 @@ def _client():
     return _cached_client
 
 
+def _retry_after(error: Exception) -> float | None:
+    """
+    How long Google says to wait, if this failure is worth waiting out.
+
+    A 429 means one of two very different things, and the difference
+    matters. "limit: 0" means the model is not available on this billing
+    tier at all, and waiting will never help. Any other limit is a rate
+    cap -- usually a few requests per minute -- and waiting fixes it.
+    """
+    text = str(error)
+    if "RESOURCE_EXHAUSTED" not in text and "429" not in text:
+        return None
+    if "limit: 0" in text:
+        return None
+    # A per-DAY allowance does not come back for hours. Google still sends
+    # a short retryDelay with it, which is misleading -- waiting 55 seconds
+    # achieves nothing. Only per-minute caps are worth waiting out.
+    if "PerDay" in text:
+        return None
+
+    match = re.search(r"retry in ([\d.]+)s", text)
+    if match:
+        return min(float(match.group(1)) + 1, 65.0)
+
+    match = re.search(r"'retryDelay': '(\d+)s'", text)
+    if match:
+        return min(float(match.group(1)) + 1, 65.0)
+
+    return 30.0
+
+
 def _explain_failure(error: Exception) -> str:
     """Turn a raw API error into something a person can act on."""
     text = str(error)
 
+    if "limit: 0" in text:
+        return (
+            f"The model '{settings.gemini_model}' gets zero quota on this "
+            "API key's free tier, so it cannot be used at all without "
+            "billing enabled on the Google Cloud project. Set GEMINI_MODEL "
+            "in .env to a model your tier allows, such as gemini-3.5-flash."
+        )
+    if "PerDay" in text:
+        return (
+            f"The daily free-tier allowance for '{settings.gemini_model}' is "
+            "used up. It resets after midnight Pacific time. To keep working "
+            "today, set GEMINI_MODEL in .env to another model such as "
+            "gemini-3.1-flash-lite, which has its own separate allowance."
+        )
     if "RESOURCE_EXHAUSTED" in text or "429" in text:
         return (
-            f"The model '{settings.gemini_model}' has no quota left on this "
-            "API key. Some models (the Pro ones) get zero quota on the free "
-            "tier and need billing enabled. Try setting GEMINI_MODEL to "
-            "gemini-3.5-flash in your .env file."
+            f"Too many requests to '{settings.gemini_model}' in a short "
+            "time. The free tier allows only a few requests per minute. "
+            "Wait about a minute and try again."
         )
     if "NOT_FOUND" in text or "404" in text:
         return (
@@ -99,7 +149,8 @@ def _explain_failure(error: Exception) -> str:
     return f"Could not reach Gemini: {type(error).__name__}"
 
 
-def _generate(contents, system_instruction: str, json_schema: dict | None = None):
+def _generate(contents, system_instruction: str, json_schema: dict | None = None,
+              tools: list | None = None):
     """Send one request to Gemini and return the raw response."""
     from google.genai import types
 
@@ -110,32 +161,76 @@ def _generate(contents, system_instruction: str, json_schema: dict | None = None
     if json_schema is not None:
         config.response_mime_type = "application/json"
         config.response_schema = json_schema
+    if tools:
+        # The SDK reads each Python function's name, arguments and
+        # docstring to describe it to Gemini, then calls it for us when the
+        # model asks. That keeps tools.py as ordinary readable Python
+        # rather than a pile of JSON schemas.
+        config.tools = tools
 
-    try:
-        return _client().models.generate_content(
-            model=settings.gemini_model,
-            contents=contents,
-            config=config,
-        )
-    except GeminiUnavailable:
-        raise
-    except Exception as error:
-        raise GeminiUnavailable(_explain_failure(error)) from error
+    # The free tier allows only a handful of requests per minute. A live
+    # demonstration runs several questions back to back and will hit that,
+    # so a rate limit is waited out rather than shown to the audience.
+    # A missing-quota error is different and is not retried, because
+    # waiting would never fix it.
+    for attempt in range(MAX_RATE_LIMIT_RETRIES + 1):
+        try:
+            return _client().models.generate_content(
+                model=settings.gemini_model,
+                contents=contents,
+                config=config,
+            )
+        except GeminiUnavailable:
+            raise
+        except Exception as error:
+            wait = _retry_after(error)
+            if wait is None or attempt == MAX_RATE_LIMIT_RETRIES:
+                raise GeminiUnavailable(_explain_failure(error)) from error
+            time.sleep(wait)
 
 
 # ---------------------------------------------------------------------------
 # Conversation
 # ---------------------------------------------------------------------------
 
+def _tools_that_ran(response) -> list[dict]:
+    """
+    Work out which tools Gemini actually called, and with what.
+
+    This is not decoration. Business rule 9 says never claim something
+    happened unless a tool confirms it, so a caller has to be able to see
+    the difference between an answer built from database rows and an answer
+    the model produced on its own.
+    """
+    used = []
+    history = getattr(response, "automatic_function_calling_history", None) or []
+
+    for entry in history:
+        for part in getattr(entry, "parts", None) or []:
+            call = getattr(part, "function_call", None)
+            if call is not None and call.name:
+                used.append({
+                    "tool": call.name,
+                    "arguments": dict(call.args or {}),
+                })
+    return used
+
+
 def chat(message: str, history: list[Turn] | None = None,
-         tools_available: bool = False) -> dict:
+         use_tools: bool = True) -> dict:
     """
     Answer one message from the user.
 
     ``history`` is the conversation so far, oldest first, so the agent can
     follow a request across several messages.
+
+    With ``use_tools`` on, Gemini can search the ADAA database through the
+    functions in tools.py. The reply reports which tools ran, so nothing
+    has to be taken on trust.
     """
     from google.genai import types
+
+    from app.agent.tools import ALL_TOOLS
 
     contents = []
     for turn in history or []:
@@ -144,13 +239,22 @@ def chat(message: str, history: list[Turn] | None = None,
                                       parts=[types.Part(text=turn.text)]))
     contents.append(types.Content(role="user", parts=[types.Part(text=message)]))
 
-    response = _generate(contents, system_prompt(tools_available))
+    response = _generate(
+        contents,
+        system_prompt(tools_available=use_tools),
+        tools=ALL_TOOLS if use_tools else None,
+    )
+
+    tools_used = _tools_that_ran(response) if use_tools else []
 
     return {
         "reply": (response.text or "").strip(),
         "model": settings.gemini_model,
-        "tools_used": [],          # none yet; the tools arrive at STEP 5
-        "grounded": False,         # nothing here came from the database
+        "tools_used": tools_used,
+        # "grounded" means: at least one claim in this reply can be traced
+        # to a database row. If no tool ran, nothing here came from ADAA's
+        # data, whatever the reply sounds like.
+        "grounded": bool(tools_used),
     }
 
 

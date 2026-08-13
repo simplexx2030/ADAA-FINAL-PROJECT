@@ -37,14 +37,17 @@ One step at a time. After each step: run the tests, verify manually, then contin
       *Success: "I need 8 masons tomorrow at 8 AM near Guntur" → skill Mason, quantity 8,
       date 2026-08-14, time 08:00, location Guntur.* ✅ **Done**
 
-- [ ] **STEP 5 — Agent tools** ⬅️ **Next**
-      `search_workers`, `search_crews`, `get_worker_profile`, `get_crew_profile`,
-      `check_availability`, `calculate_distance`.
-      *Success: Gemini retrieves actual database information.*
+- [x] **STEP 5 — Agent tools**
+      Seven read-only tools in `backend/app/agent/tools.py`: `search_workers`,
+      `search_crews`, `get_worker_profile`, `get_crew_profile`, `check_availability`,
+      `distance_between`, plus `recommend_workforce`, which runs the whole composition.
+      Every reply reports `tools_used`, and `grounded` is true only when a tool ran.
+      *Success: Gemini retrieves actual database information.* ✅ **Done**
 
-- [ ] **STEP 6 — Workforce coordination agent**
-      The full loop: understand → tool calls → deterministic matching → composition →
-      explanation.
+- [ ] **STEP 6 — Workforce coordination agent** ⬅️ **Next**
+      The loop works already through `recommend_workforce`. STEP 6 is about making it
+      reliable and observable, and adding the agent action logging in spec §24, which is
+      designed but not yet built.
       *Success: the agent solves the 8-mason scenario using real data.*
 
 - [ ] **STEP 7 — Job coordination**

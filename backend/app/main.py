@@ -1,12 +1,14 @@
 """
 The ADAA backend API.
 
-Right now it can:
-  - report that it is alive           (STEP 0)
-  - read workers and crews from the   (STEP 2)
-    PostgreSQL database
+What it can do:
+  - report that it is alive and that the database is reachable
+  - read workers, crews, skills and locations from PostgreSQL
+  - compose a workforce with the deterministic matching engine
+  - talk to the Gemini agent, which searches the database through its tools
 
-The AI agent and the matching engine come in later steps.
+What it cannot do yet: create jobs, send offers, confirm anyone, or change
+any record. Those arrive at STEP 7 and will require confirmation first.
 
 Run it with:
     backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend
@@ -25,16 +27,17 @@ from app.agent.matching import (
     compose_workforce,
 )
 from app.config import settings
-from app.database import fetch_all, fetch_one
+from app.database import all_locations, fetch_all, fetch_one, find_location
 
 app = FastAPI(
     title="ADAA Workforce Coordination Agent",
     description=(
         "Backend API for ADAA, a construction workforce coordination "
-        "platform. The AI agent is powered by Gemini and is added in a "
-        "later build step."
+        "platform. The AI agent is powered by Gemini, which reaches the "
+        "workforce data only through tools. Read 'tools_used' on any agent "
+        "reply to see exactly what was looked up."
     ),
-    version="0.2.0",
+    version="0.5.0",
 )
 
 
@@ -62,7 +65,7 @@ def root():
     """
     return {
         "name": "ADAA Workforce Coordination Agent",
-        "step": "STEP 2 - database connected",
+        "step": "STEP 5 - agent tools connected",
         "environment": settings.app_env,
         "gemini_model": settings.gemini_model,
         "gemini_key_configured": bool(settings.gemini_api_key),
@@ -281,30 +284,14 @@ def list_locations():
     Coordinates are averaged from the workers recorded at each place, so
     this list comes from the data rather than from a hard-coded table.
     """
-    return {"locations": fetch_all(LOCATION_SQL)}
-
-
-LOCATION_SQL = """
-    select location_name as name,
-           round(avg(location_lat)::numeric, 6)::float8 as lat,
-           round(avg(location_lng)::numeric, 6)::float8 as lng,
-           count(*) as workers
-      from workers
-     where location_name is not null
-     group by location_name
-     order by count(*) desc, location_name
-"""
+    return {"locations": all_locations()}
 
 
 def resolve_location(name: str) -> dict:
     """Turn a place name such as 'Guntur' into coordinates."""
-    row = fetch_one(
-        LOCATION_SQL.replace("where location_name is not null",
-                             "where lower(location_name) = lower(%s)"),
-        (name,),
-    )
+    row = find_location(name)
     if row is None:
-        known = [r["name"] for r in fetch_all(LOCATION_SQL)]
+        known = [r["name"] for r in all_locations()]
         raise HTTPException(
             status_code=400,
             detail=f"Unknown location '{name}'. Known locations: {', '.join(known)}",
@@ -405,11 +392,14 @@ def agent_chat(request: ChatRequest):
     """
     Talk to the ADAA agent.
 
-    The agent is powered by Gemini. It can currently understand a request
-    and ask for anything missing, but it cannot look workers up yet -- the
-    database tools are connected at the next build step. Until then it is
-    instructed to say so rather than invent a crew, so nothing it returns
-    should be treated as workforce data.
+    The agent is powered by Gemini and can search the ADAA database through
+    its tools: workers, crews, profiles, availability, distances, and a
+    full workforce recommendation.
+
+    Read "tools_used" in the response. It lists every tool that actually
+    ran, with its arguments. "grounded" is true only when at least one tool
+    ran -- if it is false, nothing in the reply came from the database,
+    however confident the wording sounds.
     """
     try:
         return chat(

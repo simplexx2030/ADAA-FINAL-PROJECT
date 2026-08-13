@@ -103,6 +103,11 @@ If a milestone appears already complete, verify it before skipping it.
   quota** (429, `limit: 0`) — that is not exhaustion, Pro is simply never free. Confirmed
   working on this key: `gemini-3.5-flash`, `gemini-3.1-flash-lite`, `gemini-flash-latest`.
   Moving to Pro is one line in `.env` once billing is enabled.
+- **Free-tier limits are tight: 5 requests/minute and 20/day PER MODEL.** A tool-using turn
+  costs two requests. Each model has its own separate allowance, so changing `GEMINI_MODEL`
+  buys a fresh one. Per-minute limits are retried automatically; per-day ones are not,
+  because waiting cannot fix them. This is the main risk to a live demonstration — see
+  [`docs/demo-script.md`](docs/demo-script.md).
 - **Never swap Gemini for Claude.** This was raised and declined once already. Spec Rule B
   and §29 forbid it, the Claude Code subscription is not API access, and the Gemini free
   tier works.
@@ -120,11 +125,14 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0 through 4 complete.** Next: STEP 5 — agent tools.
+**STEP 0 through 5 complete.** Next: STEP 6 — the coordination agent and action logging.
 
-Gemini can converse and parse requests but has **no database access yet**. Until the tools
-land, `prompts.NO_TOOLS_YET` tells the model to say so rather than invent a crew — delete
-that block at STEP 5.
+The agent reaches data **only** through `backend/app/agent/tools.py`. All seven tools are
+read-only, and a test asserts none of them writes. Write actions (create job, send offer,
+confirm) arrive at STEP 7 and need confirmation first (rule 7).
+
+`grounded` on a chat reply is true only when a tool actually ran. Keep it that way — it is
+the mechanical check behind rule 9.
 
 The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
 without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).

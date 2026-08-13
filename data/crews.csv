@@ -1,6 +1,6 @@
 id,name,leader_worker_id,primary_trade,location_name,location_lat,location_lng,travel_radius_km,availability_status,rating,completed_jobs,reliability_score,verification_status
-RAVI01,Ravi Crew,W005,Masonry,Guntur,16.3067,80.4365,30,available,4.8,32,4.75,verified
-M001,Mahesh Crew,W002,Masonry,Guntur,16.3067,80.4365,25,available,4.6,21,4.4,verified
-C003,Venkat Crew,W020,Carpentry,Mangalagiri,16.4307,80.568,30,available,4.62,11,3.85,verified
-C004,Srinivas Crew,W017,Finishing,Vijayawada,16.5062,80.648,25,available,4.2,21,3.96,verified
-C005,Nagaraju Crew,W025,Steel,Guntur,16.3067,80.4365,30,available,4.59,17,4.27,verified
+RAVI01,Ravi Crew,W005,Masonry,Guntur,16.3067,80.4365,30,available,4.8,32,4.8,verified
+M001,Mahesh Crew,W002,Masonry,Guntur,16.3067,80.4365,25,available,4.6,21,4.6,verified
+C003,Nagaraju Crew,W023,Carpentry,Sattenapalle,16.3937,80.15,30,available,4.4,22,4.4,verified
+C004,Prasad Crew,W020,Finishing,Vijayawada,16.5062,80.648,30,busy,4.6,15,4.6,verified
+C005,Vijay Crew,W025,Steel,Guntur,16.3067,80.4365,25,busy,4.56,9,4.56,verified

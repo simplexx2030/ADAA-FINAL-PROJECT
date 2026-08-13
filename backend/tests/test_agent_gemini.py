@@ -8,7 +8,7 @@ around the model:
   - that the application, not the model, decides the calendar date
   - that a missing detail is reported rather than filled in
   - that API failures become a readable message instead of a stack trace
-  - that the prompt tells the model it has no database yet
+  - that the prompt keeps the model honest about what it looked up
 
 There is one optional test at the end that really does call Gemini. It is
 skipped unless you ask for it, so a normal test run never uses your quota.
@@ -27,6 +27,17 @@ from app.agent.prompts import system_prompt
 TODAY = date(2026, 8, 13)
 
 
+def flat(text: str) -> str:
+    """
+    Collapse line breaks so a test can look for a sentence.
+
+    The prompt is hard-wrapped for readability, so a phrase we care about
+    is often split across two lines. What matters is that the instruction
+    is there, not where the line happens to break.
+    """
+    return " ".join(text.split())
+
+
 class FakeResponse:
     def __init__(self, text):
         self.text = text
@@ -43,10 +54,12 @@ def fake_gemini(monkeypatch):
     def use(reply):
         captured = {}
 
-        def fake_generate(contents, system_instruction, json_schema=None):
+        def fake_generate(contents, system_instruction, json_schema=None,
+                          tools=None):
             captured["contents"] = contents
             captured["system_instruction"] = system_instruction
             captured["json_schema"] = json_schema
+            captured["tools"] = tools
             body = reply if isinstance(reply, str) else json.dumps(reply)
             return FakeResponse(body)
 
@@ -138,57 +151,101 @@ def test_bad_json_from_the_model_is_reported_clearly(fake_gemini):
 
 # --- the prompt ------------------------------------------------------------
 
-def test_the_prompt_tells_the_model_it_has_no_database_yet():
+def test_without_tools_the_model_is_told_it_cannot_look_anything_up():
     """
-    Until the tools exist, the model must be told plainly that it cannot
-    look anything up. Without this it will happily produce a convincing
-    crew of masons that does not exist.
+    A model with nothing to search will still produce a convincing crew of
+    masons if asked, so when tools are off we say so plainly.
     """
-    prompt = system_prompt(tools_available=False)
+    prompt = flat(system_prompt(tools_available=False))
 
-    assert "do NOT yet have access to the ADAA database" in prompt
+    assert "do NOT have access to the ADAA database" in prompt
     assert "Never invent names" in prompt
 
 
-def test_the_limitation_notice_disappears_once_tools_exist():
-    prompt = system_prompt(tools_available=True)
+def test_with_tools_the_model_is_told_how_to_use_them_honestly():
+    prompt = flat(system_prompt(tools_available=True))
 
-    assert "do NOT yet have access" not in prompt
+    assert "do NOT have access to the ADAA database" not in prompt
     assert "You are the ADAA Workforce Coordination Agent." in prompt
+    # The instructions that keep it truthful about what it found.
+    assert "Report exactly what the tool returned" in prompt
+    assert "never add a name to make the total look better" in prompt
+    assert "An empty result is a real answer." in prompt
+
+
+def test_with_tools_the_model_is_told_what_it_may_not_do():
+    """It can read and recommend. It cannot yet change anything."""
+    prompt = flat(system_prompt(tools_available=True))
+
+    assert "cannot yet create jobs" in prompt
+    assert "Never say an action is done when no tool did it." in prompt
 
 
 def test_the_business_rules_are_in_the_prompt():
-    prompt = system_prompt()
+    prompt = flat(system_prompt())
 
     assert "Never invent worker availability" in prompt
     assert "Keep worker reputation separate from crew reputation" in prompt
     assert "Treat the database as the source of truth" in prompt
 
 
-def test_chat_sends_the_system_prompt_and_reports_it_is_not_grounded(fake_gemini):
-    captured = fake_gemini("Understood. I cannot search yet.")
+def test_chat_sends_the_system_prompt_and_offers_the_tools(fake_gemini):
+    captured = fake_gemini("Here is what I found.")
 
     result = chat("I need 8 masons tomorrow")
 
-    assert result["reply"] == "Understood. I cannot search yet."
-    assert result["tools_used"] == []
-    # Nothing in this reply came from the database, and we say so.
-    assert result["grounded"] is False
+    assert result["reply"] == "Here is what I found."
     assert "ADAA Workforce Coordination Agent" in captured["system_instruction"]
+    # The tools really were offered to the model.
+    assert captured["tools"]
+    assert any(tool.__name__ == "recommend_workforce"
+               for tool in captured["tools"])
+
+
+def test_a_reply_with_no_tool_call_is_reported_as_not_grounded(fake_gemini):
+    """
+    The safeguard behind business rule 9. If no tool ran, nothing in the
+    reply came from ADAA's data, however confident it sounds.
+    """
+    fake_gemini("Ravi Crew has six masons free tomorrow.")
+
+    result = chat("Who is available?")
+
+    assert result["tools_used"] == []
+    assert result["grounded"] is False
 
 
 # --- failures --------------------------------------------------------------
 
 @pytest.mark.parametrize("raw,expected", [
-    ("429 RESOURCE_EXHAUSTED quota", "no quota left"),
-    ("404 NOT_FOUND model missing", "does not exist"),
-    ("PERMISSION_DENIED", "key was rejected"),
-    ("something else entirely", "Could not reach Gemini"),
+    ("429 RESOURCE_EXHAUSTED limit: 0",             "zero quota"),
+    ("429 RESOURCE_EXHAUSTED PerDay quotaValue 20", "daily free-tier allowance"),
+    ("429 RESOURCE_EXHAUSTED PerMinute",            "few requests per minute"),
+    ("404 NOT_FOUND model missing",                 "does not exist"),
+    ("PERMISSION_DENIED",                           "key was rejected"),
+    ("something else entirely",                     "Could not reach Gemini"),
 ])
 def test_api_errors_become_readable_advice(raw, expected):
     message = agent_module._explain_failure(RuntimeError(raw))
 
     assert expected in message
+
+
+@pytest.mark.parametrize("raw,should_wait", [
+    ("429 RESOURCE_EXHAUSTED PerMinute. Please retry in 45.2s", True),
+    ("429 RESOURCE_EXHAUSTED PerDay quotaValue 20. retry in 55s", False),
+    ("429 RESOURCE_EXHAUSTED limit: 0", False),
+    ("404 NOT_FOUND", False),
+])
+def test_only_a_per_minute_limit_is_worth_waiting_out(raw, should_wait):
+    """
+    A per-minute cap clears in a minute. A daily allowance does not, and
+    Google sends a short retryDelay with it anyway -- waiting on that just
+    stalls for a minute and then fails regardless.
+    """
+    wait = agent_module._retry_after(RuntimeError(raw))
+
+    assert (wait is not None) == should_wait
 
 
 def test_a_missing_api_key_is_explained(monkeypatch):
