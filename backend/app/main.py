@@ -22,7 +22,8 @@ from datetime import date, timedelta
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from app.agent import actions as agent_actions, audit, cache as reply_cache, reputation
+from app.agent import (actions as agent_actions, audit,
+                       cache as reply_cache, independence, reputation)
 from app.agent.actions import ActionError
 from app.agent.agent import GeminiUnavailable, Turn, chat, parse_request
 from app.agent.matching import (
@@ -655,6 +656,37 @@ def crew_reputation(crew_id: str):
     if fetch_one("select id from crews where id=%s", (crew_id,)) is None:
         raise HTTPException(status_code=404, detail=f"No crew with id {crew_id}")
     return reputation.crew_figures(crew_id)
+
+
+@app.get("/api/workers/{worker_id}/independence")
+def worker_independence(worker_id: str, save: bool = False):
+    """
+    Whether a worker has enough verified history to be considered for
+    independent work.
+
+    Returns a score, the five factors behind it, the evidence, and a
+    recommendation in words.
+
+    **This is a recommendation, not a change of status.** ADAA cannot make
+    anyone independent -- the worker decides, and their crew membership is
+    unaffected either way (business rule 5). The score is a prototype
+    decision-support figure and has not been validated.
+
+    Pass save=true to keep the assessment in the record of advice given.
+    """
+    result = independence.assess(worker_id, save=save)
+    if not result.get("found"):
+        raise HTTPException(status_code=404, detail=f"No worker with id {worker_id}")
+    return result
+
+
+@app.get("/api/workers/{worker_id}/independence/history")
+def worker_independence_history(worker_id: str):
+    """Past assessments for this worker, newest first."""
+    if fetch_one("select id from workers where id=%s", (worker_id,)) is None:
+        raise HTTPException(status_code=404, detail=f"No worker with id {worker_id}")
+    return {"worker_id": worker_id,
+            "assessments": independence.history(worker_id)}
 
 
 @app.get("/api/reputation/check")

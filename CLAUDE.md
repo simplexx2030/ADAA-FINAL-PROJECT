@@ -125,7 +125,7 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0 through 8 complete.** Next: STEP 9 — independence readiness scoring.
+**STEP 0 through 9 complete — the backend is finished.** Next: STEP 10 — the frontend.
 
 The agent reaches data **only** through `backend/app/agent/tools.py`. The read tools never
 write; the `propose_*` tools write a proposal and nothing else. A person confirms via the
@@ -163,6 +163,15 @@ Two rules live in the SQL, not the prompt: `worker_figures` reads only ratings w
 `worker_id` matches and `crew_figures` only those whose `crew_id` matches (rule 3), and
 **neither ever joins `crew_members`** — that is what makes a worker keep their history after
 leaving a crew (rule 4). A test asserts both.
+
+**Independence** (`app/agent/independence.py`): rule 5 means the assessment must change
+nothing. It writes only to `independence_assessments`, which records *advice given* — never
+to `workers` or `crew_members`. A test greps the source for `update workers` and friends.
+The `important` disclaimer is inside the returned payload, not only in the prompt, because
+the prompt is the part a model drifts away from. Gates (verified skill, verified worker,
+minimum jobs, minimum contractors) are deliberately separate from the score, so a strong
+average on a thin record is refused rather than rewarded. The weights are **not validated**
+and every surface says so.
 
 The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
 without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).

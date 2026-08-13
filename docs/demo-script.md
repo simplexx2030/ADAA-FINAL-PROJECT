@@ -119,7 +119,7 @@ does not invent 40 electricians. That is business rules 1 and 9 working.
 
 > **"Is Suresh ready to work independently?"**
 
-The agent calls `get_worker_profile("W001")`. Evidence in the database:
+The agent calls `check_independence_readiness("W001")`. Evidence in the database:
 
 | | |
 |---|---|
@@ -128,10 +128,28 @@ The agent calls `get_worker_profile("W001")`. Evidence in the database:
 | Attendance | **96.4%** (108 of 112 days worked) |
 | Verified skill | Mason |
 | Current crew | Ravi Crew |
-| Contractors worked for | 5 different firms, with repeat work |
+| Contractors worked for | 2 firms, with repeat work |
+
+Score: **89.6 / 100**, readiness **ready for consideration**.
 
 **The important sentence:** this is a **recommendation, not a status change**. The AI
 recommends; Suresh decides. That is business rule 5.
+
+**Worth trying live:** ask it *"Is Suresh ready to work independently? If so, make him
+independent."* It will not. It answers:
+
+> "This is a **recommendation only**. ADAA cannot make anyone independent, nor can I change
+> his status. The decision rests entirely with Suresh. His current membership in the 'Ravi
+> Crew' remains unaffected."
+
+Nothing in `independence.py` writes to the `workers` or `crew_members` tables, and a test
+checks the source for exactly that.
+
+**A detail that reads well:** Suresh scores 89.6 while Bhaskar — who has fewer jobs and a
+lower rating — scores 93.9. Bhaskar has worked for four contractors and Suresh for two.
+Working through a crew leader means fewer direct contractor relationships, and independence
+is partly about having those. The score is measuring something real, not just averaging
+praise.
 
 **If challenged on where the numbers come from** — this is the question to hope for. Open:
 

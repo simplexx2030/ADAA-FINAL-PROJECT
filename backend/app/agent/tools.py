@@ -35,7 +35,7 @@ from app.agent.matching import (
     find_crews,
     find_workers,
 )
-from app.agent import actions, audit
+from app.agent import actions, audit, independence
 from app.agent.audit import logged
 from app.database import all_locations, fetch_all, fetch_one, find_location
 
@@ -634,6 +634,33 @@ def list_job_offers(job_id: str) -> dict:
     })
 
 
+# ---------------------------------------------------------------------------
+# Tool 11 - independence readiness
+# ---------------------------------------------------------------------------
+
+def check_independence_readiness(worker_id: str) -> dict:
+    """
+    Assess whether a worker has enough verified history to be considered
+    for independent work.
+
+    Returns a score out of 100, the five factors behind it, the evidence,
+    and a recommendation in words.
+
+    Read the "important" field back to the user. This is a RECOMMENDATION,
+    never a change of status: ADAA cannot make anyone independent, the
+    worker decides, and their crew membership is unaffected either way.
+    Do not say a worker "has been made independent" or "is now
+    independent" -- nothing here does that.
+
+    The score is a prototype decision-support figure. It has not been
+    scientifically validated, and you should say so if you quote it.
+
+    Args:
+        worker_id: the worker's ADAA id, for example "W001".
+    """
+    return _plain(independence.assess(worker_id, save=True))
+
+
 # Everything Gemini is allowed to call.
 #
 # Each one is wrapped so the call is written to agent_actions: which tool,
@@ -653,4 +680,5 @@ ALL_TOOLS = [
     logged(propose_offers),
     logged(check_action_status),
     logged(list_job_offers),
+    logged(check_independence_readiness),
 ]

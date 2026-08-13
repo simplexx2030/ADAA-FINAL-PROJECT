@@ -118,28 +118,47 @@ Built at STEP 3, before Gemini is connected to it, so it can be tested on its ow
 
 ## Agent tools
 
-The agent reaches data only through these functions. Each returns real database records.
+The agent reaches data only through these twelve functions, in
+`backend/app/agent/tools.py`. Each returns real database records.
+
+**Reading** — these never change anything:
 
 | Tool | Purpose |
 |---|---|
-| `search_workers()` | Find suitable individual workers |
-| `search_crews()` | Find available crews |
-| `get_worker_profile()` | Retrieve a worker's verified history |
-| `get_crew_profile()` | Retrieve crew history and members |
-| `check_availability()` | Verify a worker or crew really is available |
-| `calculate_distance()` | Distance between site and workforce |
-| `create_job()` | Create a job after contractor confirmation |
-| `send_job_offer()` | Send an opportunity (simulated at first — no WhatsApp/SMS until the core agent works) |
-| `record_job_outcome()` | Record completion and outcome |
-| `record_rating()` | Record a worker or crew rating |
-| `check_independence_readiness()` | Evaluate readiness for an independent-work recommendation |
+| `search_workers()` | Individual workers who are verified, skilled and genuinely free |
+| `search_crews()` | Crews, with how many members hold the skill and are free |
+| `get_worker_profile()` | A worker's verified history, including crew membership |
+| `get_crew_profile()` | Crew history and members, with each member's *own* rating |
+| `check_availability()` | Whether a worker or crew is actually free on a date |
+| `distance_between()` | Distance between two places |
+| `recommend_workforce()` | The whole composition, crews plus individuals |
+| `list_job_offers()` | Who was offered a job and how they answered |
+| `check_action_status()` | Whether a proposed action has been confirmed |
+| `check_independence_readiness()` | Readiness for an independent-work **recommendation** |
+
+**Proposing** — these write a proposal and nothing else:
+
+| Tool | Purpose |
+|---|---|
+| `propose_job()` | Writes down a job. Creates nothing until a person confirms. |
+| `propose_offers()` | Writes down who would be offered it. Sends nothing. |
+
+The specification's `create_job`, `send_job_offer`, `record_job_outcome` and `record_rating`
+are **not** agent tools. Creating, completing and rating all happen through the API, driven
+by a person — the agent can propose the first two and has no part in the last. That is
+business rule 7 expressed as a tool list.
 
 ---
 
 ## Data model
 
-Eleven tables: `workers`, `skills`, `worker_skills`, `contractors`, `crews`, `crew_members`,
-`jobs`, `job_assignments`, `ratings`, `availability`, `independence_assessments`.
+The eleven tables from specification §9: `workers`, `skills`, `worker_skills`,
+`contractors`, `crews`, `crew_members`, `jobs`, `job_assignments`, `ratings`,
+`availability`, `independence_assessments`.
+
+Plus two the running system needs: `agent_actions` (the audit trail, §24) and
+`pending_actions` (proposals awaiting confirmation). Neither is dropped when the workforce
+data is re-seeded.
 
 Two design points that carry the product idea:
 
@@ -200,14 +219,14 @@ better than a failed answer. **Secrets are never logged**, and a test asserts it
 
 ## Current state
 
-**STEPS 0–7 built.** Working: the database, the deterministic matching engine, the Gemini
-connection, the agent tools, the audit trail, and job coordination from request through to
-confirmed workers.
+**STEPS 0–9 built — the backend is complete.** Working: the database, the deterministic
+matching engine, the Gemini connection, twelve agent tools, the audit trail, job coordination
+from request to confirmed workers, reputation counted from job history, and independence
+readiness assessment.
 
 Not built yet:
 
-- reputation updates after a completed job (STEP 8)
-- independence scoring, `check_independence_readiness` (STEP 9)
-- the frontend (STEP 10) and the multilingual layer (STEP 11)
+- the frontend (STEP 10)
+- the multilingual layer (STEP 11)
 
 Built one step at a time — see [`ROADMAP.md`](ROADMAP.md).

@@ -69,11 +69,16 @@ One step at a time. After each step: run the tests, verify manually, then contin
       *Success: a completed job updates the correct worker and crew records — separately.*
       ✅ **Done**
 
-- [ ] **STEP 9 — Independence intelligence** ⬅️ **Next**
-      `check_independence_readiness()` returning score, evidence and recommendation.
-      Not presented as scientifically validated — it is decision support.
+- [x] **STEP 9 — Independence intelligence**
+      `backend/app/agent/independence.py`. Returns a score, the five factors from §9.11,
+      the evidence, and a recommendation in words. Nothing in it writes to `workers` or
+      `crew_members` — a test reads the source and asserts that, because rule 5 says the
+      AI recommends and the worker decides.
+      Gates are kept separate from the score, so a good average on three jobs is refused
+      rather than rewarded. Presented openly as an unvalidated prototype figure.
+      ✅ **Done**
 
-- [ ] **STEP 10 — Frontend**
+- [ ] **STEP 10 — Frontend** ⬅️ **Next**
       Contractor dashboard, AI workforce assistant, crew dashboard, worker profile.
       *Success: a professor can use the system without the terminal.*
 

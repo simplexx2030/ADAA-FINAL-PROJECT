@@ -5,13 +5,15 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–8 complete** — the agent understands a request in plain language,
-searches the real database, composes a workforce it can explain, keeps an audit trail of every
-tool call, carries a job from request through to confirmed workers, and updates reputation from
-what actually happened.
+**Current status: STEPS 0–9 complete — the whole backend works.** The agent understands a
+request in plain language, searches the real database, composes a workforce it can explain,
+keeps an audit trail of every tool call, carries a job from request through to confirmed
+workers, updates reputation from what actually happened, and can assess whether a worker is
+ready for independent work.
 
 It **proposes** anything consequential; a person confirms it. The agent has no way to confirm
-its own proposal, and no way to award anyone a rating. There is no user interface yet.
+its own proposal, no way to award anyone a rating, and no way to change anybody's status.
+What is left is the user interface and the multilingual layer.
 
 **Presenting this?** Read [`docs/demo-script.md`](docs/demo-script.md) first. The Gemini
 free tier allows only 20 requests a day, which is about one rehearsal and one live run.
@@ -169,6 +171,16 @@ Reputation is never typed in — it is counted from the job records:
 `/api/reputation/check` should always come back empty. It exists so the claim that every
 number is derived can be checked rather than trusted.
 
+Independence readiness — a **recommendation**, never a change of status:
+
+| Endpoint | What it shows |
+|---|---|
+| `GET /api/workers/{id}/independence` | score, the five factors, evidence, recommendation |
+| `GET /api/workers/{id}/independence/history` | past assessments, newest first |
+
+ADAA cannot make anyone independent. The worker decides, their crew membership is unaffected
+either way, and the score is an unvalidated prototype figure.
+
 Replies are cached, so asking the same question twice only costs Gemini quota once. The cache
 invalidates itself when the workforce data changes or the day rolls over, and every reply says
 whether it was `cached`.
@@ -181,7 +193,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **201 passed** and 1 skipped. Tests that need the database are skipped automatically if it
+You should see **222 passed** and 1 skipped. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -223,6 +235,7 @@ ADAA-AI-AGENT/
 │   │       ├── audit.py      the record of what the agent did
 │   │       ├── actions.py    propose, confirm, execute
 │   │       ├── reputation.py counting history into reputation
+│   │       ├── independence.py readiness for independent work
 │   │       └── cache.py      remembering replies, to save quota
 │   ├── database/
 │   │   └── schema.sql   the eleven tables
