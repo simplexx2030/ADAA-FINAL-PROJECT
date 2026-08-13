@@ -84,7 +84,7 @@ export default function Assistant() {
             AI workforce assistant
           </h1>
           <p className="mt-1 text-sm text-stone-600">
-            Ask for workforce in plain language. Every answer shows what it looked up.
+            Ask for workforce in plain language.
           </p>
         </div>
         {sessionId && (
@@ -100,7 +100,6 @@ export default function Assistant() {
       <Card>
         <CardHeader
           title="Conversation"
-          subtitle="The agent searches the database through its tools"
           right={
             turns.length > 0 ? (
               <Button
@@ -187,8 +186,7 @@ export default function Assistant() {
       {error && <ErrorNote error={error} />}
 
       <p className="text-xs text-stone-500">
-        The assistant can search, recommend and propose. It cannot create a job, send an
-        offer, confirm anyone or change any record on its own — a person confirms those.
+        The assistant proposes; a person confirms.
       </p>
     </div>
   );
@@ -207,9 +205,9 @@ function Provenance({ reply }: { reply: ChatReply }) {
   return (
     <div className="flex flex-wrap items-center gap-2 pl-1 text-xs">
       {reply.grounded ? (
-        <Tag tone="good">grounded in the database</Tag>
+        <Tag tone="good">from the database</Tag>
       ) : (
-        <Tag tone="warn">no tool ran — not from the database</Tag>
+        <Tag tone="warn">no data looked up</Tag>
       )}
 
       {reply.tools_used.map((tool, index) => (
@@ -222,7 +220,7 @@ function Provenance({ reply }: { reply: ChatReply }) {
         </span>
       ))}
 
-      {reply.cached && <Tag tone="info">cached — no quota used</Tag>}
+      {reply.cached && <Tag tone="info">cached</Tag>}
       <span className="text-stone-400">{reply.model}</span>
     </div>
   );

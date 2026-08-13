@@ -34,10 +34,7 @@ export default function SessionPage({ params }: { params: Promise<{ id: string }
       {error && <ErrorNote error={error} />}
 
       <Card>
-        <CardHeader
-          title="Action trail"
-          subtitle="Every tool call, in order, with the arguments the agent chose"
-        />
+        <CardHeader title="Action trail" />
         {loading ? (
           <Loading what="Loading the trail" />
         ) : !data || data.actions.length === 0 ? (
@@ -75,10 +72,7 @@ export default function SessionPage({ params }: { params: Promise<{ id: string }
         )}
       </Card>
 
-      <p className="text-xs text-stone-500">
-        Recorded in the <code className="font-mono">agent_actions</code> table. This is
-        the evidence behind every name the assistant mentioned.
-      </p>
+
     </div>
   );
 }

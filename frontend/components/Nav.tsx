@@ -8,6 +8,7 @@ import { api } from "@/lib/api";
 const LINKS = [
   { href: "/", label: "Dashboard" },
   { href: "/assistant", label: "AI Assistant" },
+  { href: "/activity", label: "AI Activity" },
   { href: "/crews", label: "Crews" },
   { href: "/workers", label: "Workers" },
 ];

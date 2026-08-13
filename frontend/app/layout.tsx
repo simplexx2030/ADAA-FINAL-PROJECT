@@ -17,10 +17,8 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <Nav />
         <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
-        <footer className="mx-auto max-w-6xl px-4 pb-10 pt-4 text-xs text-stone-500">
-          ADAA — university research prototype. The workforce data is generated for
-          demonstration. Match scores and independence scores are prototype figures and
-          have not been validated.
+        <footer className="mx-auto max-w-6xl px-4 pb-10 pt-4 text-xs text-stone-400">
+          ADAA — research prototype. Demonstration data.
         </footer>
       </body>
     </html>

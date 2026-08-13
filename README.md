@@ -122,6 +122,7 @@ after this point, which is what specification §26 asks for.
 |---|---|
 | `/` | Contractor dashboard |
 | `/assistant` | Ask for workforce in plain language |
+| `/activity` | What the assistant looked up, and when |
 | `/crews/RAVI01` | A crew, and each member's **own** rating beside the crew's |
 | `/workers/W014` | Bhaskar, who left a crew and kept everything |
 

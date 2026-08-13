@@ -64,7 +64,6 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
           <Stat
             label="Crew rating"
             value={crew.rating === null ? "—" : Number(crew.rating).toFixed(2)}
-            hint="the crew's own, not its members'"
           />
           <Stat label="Jobs completed" value={crew.completed_jobs} hint="as a crew" />
           <Stat label="Active members" value={active.length} />
@@ -84,7 +83,7 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
       <Card>
         <CardHeader
           title="Members"
-          subtitle="Each member's rating is theirs, and does not come from the crew"
+          subtitle={`${active.length} active`}
         />
         {active.length === 0 ? (
           <Empty>No active members.</Empty>
@@ -95,8 +94,8 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
                 <tr>
                   <th className="px-5 py-2 font-medium">Worker</th>
                   <th className="px-5 py-2 font-medium">Role</th>
-                  <th className="px-5 py-2 font-medium">Their own rating</th>
-                  <th className="px-5 py-2 font-medium">Their own jobs</th>
+                  <th className="px-5 py-2 font-medium">Worker rating</th>
+                  <th className="px-5 py-2 font-medium">Worker jobs</th>
                   <th className="px-5 py-2 font-medium">Since</th>
                   <th className="px-5 py-2 font-medium">Availability</th>
                 </tr>
@@ -145,9 +144,7 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
       {former.length > 0 && (
         <Card>
           <CardHeader
-            title="Former members"
-            subtitle="Leaving is recorded, not erased — and they keep everything they earned"
-          />
+            title="Former members" subtitle={`${former.length} on record`} />
           <ul className="divide-y divide-stone-100">
             {former.map((member) => (
               <li
@@ -168,7 +165,7 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
                 <div className="text-right text-sm">
                   <Rating value={member.worker_own_rating} />
                   <div className="text-xs text-stone-500">
-                    {member.worker_own_completed_jobs} jobs — still theirs
+                    {member.worker_own_completed_jobs} jobs
                   </div>
                 </div>
               </li>

@@ -29,6 +29,7 @@ screen.
 |---|---|
 | `/` | **Contractor dashboard** — who is available, which crews, recent jobs |
 | `/assistant` | **AI assistant** — ask for workforce in plain language |
+| `/activity` | **AI activity** — what the assistant looked up, and when |
 | `/crews`, `/crews/{id}` | **Crew dashboard** — members, and each member's *own* rating |
 | `/workers`, `/workers/{id}` | **Worker profile** — reputation, skills, crew history, independence |
 | `/sessions/{id}` | What the agent actually did, tool call by tool call |
@@ -36,13 +37,17 @@ screen.
 ## Two things the interface is careful about
 
 **Every agent reply shows its provenance.** Under each answer is a row saying whether
-it is *grounded in the database* and which tools ran. A chat bubble on its own is not
-evidence — a language model can write a confident paragraph about eight masons who do
-not exist. If no tool ran, the interface says so.
+it came from the database and which tools ran. A chat bubble on its own is not evidence
+— a language model can write a confident paragraph about eight masons who do not exist.
+If no tool ran, the interface says so. `/activity` shows the same record across every
+conversation.
 
 **A crew's rating is never shown as a member's rating.** The crew page puts the crew
-rating and each member's own rating side by side, in adjacent columns, because keeping
-those two apart is the point of the product.
+rating and each member's own rating in adjacent columns, because keeping those two
+apart is the point of the product.
+
+Beyond those, the screens stay quiet: labels rather than commentary. The product should
+not explain its own design to the person using it.
 
 ## How it is put together
 

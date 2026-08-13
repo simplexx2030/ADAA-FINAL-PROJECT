@@ -75,10 +75,7 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
 
       {/* --- Reputation, recounted from the records ----------------- */}
       <Card>
-        <CardHeader
-          title="Reputation"
-          subtitle="Counted from this worker's job records — not stored as a summary"
-        />
+        <CardHeader title="Reputation" />
         <div className="grid grid-cols-2 gap-6 px-5 py-5 sm:grid-cols-4">
           <Stat
             label="Completed jobs"
@@ -127,10 +124,7 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
       <div className="grid gap-6 lg:grid-cols-2">
         {/* --- Skills ---------------------------------------------- */}
         <Card>
-          <CardHeader
-            title="Skills"
-            subtitle="Only verified skills may be used to recommend this worker"
-          />
+          <CardHeader title="Skills" />
           {person.skills.length === 0 ? (
             <Empty>No skills recorded.</Empty>
           ) : (
@@ -157,14 +151,9 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
 
         {/* --- Crew history ---------------------------------------- */}
         <Card>
-          <CardHeader
-            title="Crew history"
-            subtitle="Membership is a relationship, not an identity"
-          />
+          <CardHeader title="Crew history" />
           {person.crew_history.length === 0 ? (
-            <Empty>
-              Works independently — no crew membership on record.
-            </Empty>
+            <Empty>Works independently.</Empty>
           ) : (
             <ul className="divide-y divide-stone-100">
               {currentCrew && (
@@ -203,12 +192,6 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
                 </li>
               ))}
             </ul>
-          )}
-          {pastCrews.length > 0 && (
-            <p className="border-t border-stone-100 px-5 py-3 text-xs text-stone-600">
-              Everything above — jobs, ratings, attendance, verified skills — stayed
-              with {person.name} when they left. Reputation belongs to the worker.
-            </p>
           )}
         </Card>
       </div>
@@ -301,10 +284,7 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
       )}
 
       {!assessment && !error && (
-        <Empty>
-          ADAA can assess whether {name}&rsquo;s verified history supports independent
-          work.
-        </Empty>
+        <Empty>Assess {name}&rsquo;s readiness from their verified history.</Empty>
       )}
 
       {assessment && (
@@ -343,7 +323,7 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
           {/* the five factors from the assessment */}
           <div>
             <div className="mb-2 text-xs uppercase tracking-wide text-stone-500">
-              What the score is made of
+              Factors
             </div>
             <div className="space-y-1.5">
               {Object.entries(assessment.factors).map(([factor, value]) => (

@@ -45,9 +45,7 @@ export default function Dashboard() {
         <h1 className="text-2xl font-bold tracking-tight text-stone-900">
           Contractor dashboard
         </h1>
-        <p className="mt-1 text-sm text-stone-600">
-          Guntur district. Everything below is read from the workforce database.
-        </p>
+        <p className="mt-1 text-sm text-stone-600">Guntur district</p>
       </div>
 
       {error && <ErrorNote error={error} />}
@@ -144,7 +142,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader
             title="Crews"
-            subtitle="A crew's rating is its own, not its members'"
+            subtitle="By rating"
             right={
               <Link href="/crews" className="text-sm text-stone-600 underline">
                 All crews

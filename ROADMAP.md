@@ -79,8 +79,8 @@ One step at a time. After each step: run the tests, verify manually, then contin
       ✅ **Done**
 
 - [x] **STEP 10 — Frontend**
-      Next.js, React and Tailwind. All four screens from §19, plus a fifth showing the
-      agent's action trail. Every agent reply displays whether it is grounded and which
+      Next.js, React and Tailwind. All four screens from §19, plus an AI activity page
+      and a per-conversation action trail. Every agent reply displays whether it is grounded and which
       tools ran; the crew page puts the crew's rating and each member's own rating in
       adjacent columns.
       *Success: a professor can use the system without the terminal.* ✅ **Done**

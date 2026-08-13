@@ -272,9 +272,27 @@ export const api = {
   cancelAction: (id: string) => post<Record<string, unknown>>(`/api/actions/${id}/cancel`),
 
   sessions: () =>
-    get<{ sessions: { session_id: string; actions: number; tool_calls: number }[] }>(
-      "/api/agent/sessions",
-    ),
+    get<{
+      sessions: {
+        session_id: string;
+        started_at: string;
+        last_action_at: string;
+        actions: number;
+        tool_calls: number;
+        failures: number;
+        tools_used: string[] | null;
+      }[];
+    }>("/api/agent/sessions"),
+
+  toolUsage: () =>
+    get<{
+      tools: {
+        tool_name: string;
+        calls: number;
+        failures: number;
+        average_ms: number | null;
+      }[];
+    }>("/api/agent/tool-usage"),
   sessionTrail: (id: string) =>
     get<{
       session_id: string;

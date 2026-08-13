@@ -27,7 +27,7 @@ export default function Workers() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-stone-900">Workers</h1>
         <p className="mt-1 text-sm text-stone-600">
-          Filtering by skill shows only workers whose skill is <strong>verified</strong>.
+          Filtering by trade shows verified skills only.
         </p>
       </div>
 
