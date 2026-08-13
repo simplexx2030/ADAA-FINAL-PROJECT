@@ -1,0 +1,26 @@
+# Secrets — never commit these (build spec Rule H)
+.env
+.env.local
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node / frontend (from STEP 10 onward)
+node_modules/
+.next/
+out/
+
+# Old BidReady git history, kept locally as a backup only
+.git-bidready-backup/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

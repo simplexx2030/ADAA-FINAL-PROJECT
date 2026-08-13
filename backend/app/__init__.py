@@ -1,0 +1,1 @@
+"""ADAA backend application package."""

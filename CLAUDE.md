@@ -1,0 +1,101 @@
+# CLAUDE.md — Working Rules for the ADAA Project
+
+**Full product requirements live in [`ADAA_CLAUDE_CODE_BUILD_SPEC_GEMINI.md`](ADAA_CLAUDE_CODE_BUILD_SPEC_GEMINI.md).**
+That file is the single source of truth. Read it before any significant change.
+This file holds the rules that apply to *every* session.
+
+---
+
+## The one-sentence architecture
+
+> Claude Code builds ADAA; Gemini 3.1 Pro powers ADAA's AI agent; Python/FastAPI controls
+> the application; PostgreSQL stores the workforce data; deterministic business logic
+> verifies and executes decisions.
+
+## The core principle
+
+> **Gemini reasons; the ADAA application verifies and executes.**
+
+| Gemini does | Python does |
+|---|---|
+| Understand natural language | Calculate distance |
+| Decide which tools are needed | Check availability |
+| Interpret retrieved data | Calculate match scores |
+| Explain recommendations | Enforce business rules |
+| Support multilingual interaction | Read/write the database |
+
+## Role separation — do not confuse these
+
+- **Claude Code** = the development/coding assistant. Builds the software.
+- **Gemini 3.1 Pro Preview** = the LLM *inside* the product, called via the Google GenAI SDK.
+- **ADAA Agent** = the software agent using Gemini + tools + business rules + database.
+
+**The Anthropic API must never appear in the ADAA runtime.** Claude does not power the agent.
+
+---
+
+## The 9 business rules (spec §5)
+
+These are **application logic**, not prompt instructions. The LLM must not be the only thing
+enforcing them.
+
+1. Never claim unavailable workers are available. Availability comes from the database.
+2. Never fabricate worker qualifications. Only verified skills may be used.
+3. Worker and crew reputation are **separate**. A crew's rating is not every member's rating.
+4. Worker reputation belongs to the worker. Leaving a crew preserves jobs, ratings, verified
+   skills, attendance, and contractor history.
+5. AI cannot force independence. It recommends; the worker decides.
+6. AI cannot automatically remove workers from crews.
+7. Consequential actions require confirmation (job confirmation, wage changes, financial
+   actions, removing a worker, changing verified information).
+8. The database is the source of truth. Gemini is not.
+9. Never claim an action happened unless the relevant tool confirms it.
+
+---
+
+## Development rules (spec §27)
+
+- **A — Work incrementally.** One milestone at a time. Never build the whole system at once.
+- **B — Gemini is the ADAA LLM.** Never substitute Claude inside the product.
+- **C — Explain before major changes.** State what changes, why, files affected, risks.
+- **D — Do not invent requirements.** The spec is the source of truth. Inspect code and docs
+  first; ask the user only if genuinely necessary.
+- **E — Keep code simple.** The developer is a civil engineering student who does not code
+  extensively. Prefer readable code, clear names, small functions, useful comments, simple
+  architecture. Avoid unnecessary design patterns.
+- **F — Test every milestone.** Implementation + test + manual verification + short explanation.
+- **G — No unnecessary dependencies.** Every dependency needs a reason.
+- **H — Never expose API keys.** Use `.env`. Never commit `GEMINI_API_KEY` or database passwords.
+
+## Session workflow
+
+After completing each step:
+
+1. Run the tests.
+2. Explain what was built.
+3. Show how to run it.
+4. State what to verify manually.
+5. Name the next step.
+6. **Stop and wait** for the user to say "continue".
+
+If a milestone appears already complete, verify it before skipping it.
+
+---
+
+## Project decisions made so far
+
+- **Git**: this repo was initialised fresh for ADAA. The unrelated previous project
+  (BidReady) history is kept locally in `.git-bidready-backup/` and is git-ignored.
+  Remote: `https://github.com/victorsimba189-lab/Adaa-ai-agent.git`
+- **Database**: Supabase hosted PostgreSQL — project **`adaa-ai agent`**
+  (ref `plqpwsnylgpecdlcftqs`), organisation `5pillars`, region `ap-south-1` (Mumbai),
+  PostgreSQL 17, status ACTIVE_HEALTHY. API URL `https://plqpwsnylgpecdlcftqs.supabase.co`.
+  Tables are created at STEP 2 — the database is currently empty.
+- **Python**: 3.14 works; all dependencies install cleanly.
+- **Model name**: `gemini-3.1-pro-preview` is set via `GEMINI_MODEL` in `.env` and is never
+  hard-coded. Verify it with `backend/scripts/check_gemini.py`.
+
+## Current position
+
+**STEP 0 complete.** Next: STEP 1 — sample workforce CSV data.
+See [`ROADMAP.md`](ROADMAP.md) for the full checklist.

@@ -1,0 +1,11 @@
+# ADAA backend dependencies.
+# Every dependency here has a reason (build spec Rule G).
+
+fastapi              # the web framework that serves the ADAA API
+uvicorn[standard]    # the server that actually runs FastAPI
+pydantic-settings    # reads and validates settings from the .env file
+google-genai         # the official Google SDK used to talk to Gemini
+
+# Testing
+pytest               # runs our tests
+httpx                # needed by FastAPI's TestClient to call the API in tests
