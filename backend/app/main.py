@@ -12,8 +12,16 @@ Run it with:
     backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend
 """
 
+from datetime import date, timedelta
+
 from fastapi import FastAPI, HTTPException
 
+from app.agent.matching import (
+    DEFAULT_SEARCH_RADIUS_KM,
+    WorkforceRequest,
+    calculate_distance,
+    compose_workforce,
+)
 from app.config import settings
 from app.database import fetch_all, fetch_one
 
@@ -257,3 +265,118 @@ def get_crew(crew_id: str):
 def list_skills():
     """The list of skills ADAA knows about."""
     return {"skills": fetch_all("select id, name, category from skills order by name")}
+
+
+# ---------------------------------------------------------------------------
+# Locations
+# ---------------------------------------------------------------------------
+
+@app.get("/api/locations")
+def list_locations():
+    """
+    The places ADAA has workforce in.
+
+    Coordinates are averaged from the workers recorded at each place, so
+    this list comes from the data rather than from a hard-coded table.
+    """
+    return {"locations": fetch_all(LOCATION_SQL)}
+
+
+LOCATION_SQL = """
+    select location_name as name,
+           round(avg(location_lat)::numeric, 6)::float8 as lat,
+           round(avg(location_lng)::numeric, 6)::float8 as lng,
+           count(*) as workers
+      from workers
+     where location_name is not null
+     group by location_name
+     order by count(*) desc, location_name
+"""
+
+
+def resolve_location(name: str) -> dict:
+    """Turn a place name such as 'Guntur' into coordinates."""
+    row = fetch_one(
+        LOCATION_SQL.replace("where location_name is not null",
+                             "where lower(location_name) = lower(%s)"),
+        (name,),
+    )
+    if row is None:
+        known = [r["name"] for r in fetch_all(LOCATION_SQL)]
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unknown location '{name}'. Known locations: {', '.join(known)}",
+        )
+    return row
+
+
+# ---------------------------------------------------------------------------
+# Matching
+# ---------------------------------------------------------------------------
+
+@app.get("/api/match/workforce")
+def match_workforce(
+    skill: str,
+    quantity: int,
+    location: str | None = None,
+    lat: float | None = None,
+    lng: float | None = None,
+    on_date: str | None = None,
+    radius_km: float = DEFAULT_SEARCH_RADIUS_KM,
+):
+    """
+    Find and compose a workforce for a job.
+
+    This endpoint contains no AI. It is the deterministic matching engine
+    described in section 10 of the build specification, and it is what the
+    Gemini agent will call in a later step.
+
+    Example:
+        /api/match/workforce?skill=Mason&quantity=8&location=Guntur
+
+    Give either a known ``location`` name, or explicit ``lat`` and ``lng``.
+    ``on_date`` defaults to tomorrow, which is what the demonstration asks
+    for.
+    """
+    if quantity < 1:
+        raise HTTPException(status_code=400, detail="quantity must be at least 1")
+
+    if lat is None or lng is None:
+        if not location:
+            raise HTTPException(
+                status_code=400,
+                detail="Give either a location name, or both lat and lng.",
+            )
+        place = resolve_location(location)
+        lat, lng, location_name = place["lat"], place["lng"], place["name"]
+    else:
+        location_name = location or f"{lat}, {lng}"
+
+    if on_date:
+        try:
+            wanted = date.fromisoformat(on_date)
+        except ValueError:
+            raise HTTPException(
+                status_code=400,
+                detail="on_date must look like 2026-08-14",
+            )
+    else:
+        wanted = date.today() + timedelta(days=1)
+
+    request = WorkforceRequest(
+        skill=skill,
+        quantity=quantity,
+        on_date=wanted,
+        location_lat=lat,
+        location_lng=lng,
+        location_name=location_name,
+        max_distance_km=radius_km,
+    )
+
+    return compose_workforce(request)
+
+
+@app.get("/api/distance")
+def distance(lat1: float, lng1: float, lat2: float, lng2: float):
+    """Distance in kilometres between two points (agent tool 6)."""
+    return {"distance_km": calculate_distance(lat1, lng1, lat2, lng2)}

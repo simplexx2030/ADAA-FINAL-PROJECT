@@ -90,7 +90,8 @@ If a milestone appears already complete, verify it before skipping it.
 - **Database**: Supabase hosted PostgreSQL — project **`adaa-ai agent`**
   (ref `plqpwsnylgpecdlcftqs`), organisation `5pillars`, region `ap-south-1` (Mumbai),
   PostgreSQL 17, status ACTIVE_HEALTHY. API URL `https://plqpwsnylgpecdlcftqs.supabase.co`.
-  Tables are created at STEP 2 — the database is currently empty.
+  All 11 tables exist and are seeded. Connect through `app.database`, never with a
+  hand-built URL — `normalize_database_url` repairs the connection string.
 - **Python**: 3.14 works; all dependencies install cleanly.
 - **Model name**: `gemini-3.1-pro-preview` is set via `GEMINI_MODEL` in `.env` and is never
   hard-coded. Verify it with `backend/scripts/check_gemini.py`.
@@ -113,5 +114,8 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0, 1 and 2 complete.** Next: STEP 3 — the deterministic matching engine.
+**STEP 0, 1, 2 and 3 complete.** Next: STEP 4 — Gemini integration.
+
+The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
+without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).
 See [`ROADMAP.md`](ROADMAP.md) for the full checklist.

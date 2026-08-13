@@ -5,9 +5,10 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–2 complete** — the environment is set up, the sample workforce
-dataset exists, and the API reads real records from PostgreSQL.
-There is no AI agent, no matching engine and no user interface yet. Those arrive next.
+**Current status: STEPS 0–3 complete** — the environment is set up, the sample workforce
+dataset exists, the API reads real records from PostgreSQL, and the matching engine can
+compose a workforce for a job.
+There is no AI agent and no user interface yet. Those arrive next.
 
 ---
 
@@ -17,16 +18,19 @@ A contractor says:
 
 > "I need 8 masons tomorrow at 8 AM near Guntur."
 
-ADAA understands the request, searches real workforce data, and proposes a workforce:
+ADAA understands the request, searches real workforce data, and proposes a workforce.
+This is the actual output of the matching engine against the seeded database:
 
 ```text
-Ravi Crew  — 6 workers
-Suresh     — 1 worker
-Raju       — 1 worker
+Ravi Crew  — 6 workers    score 90.2   (6 of 6 available members)
+Mahesh     — 1 worker     score 88.9   rating 4.6,  24 jobs
+Ramesh     — 1 worker     score 85.6   rating 4.06, 17 jobs
 Total      = 8 workers
 ```
 
 ...with an explanation of *why* each was chosen, grounded in verified database records.
+Nobody appears who is not verified, skilled and genuinely free that day, and if the
+request cannot be filled ADAA says so rather than padding the list.
 
 The key idea: ADAA does not remove the traditional mason-leader system, it **digitises** it.
 A mason leader becomes a recognised Crew Leader / Subcontractor, and workers keep their own
@@ -113,6 +117,8 @@ Things worth trying in the browser:
 | `/api/crews` | all crews with their member counts |
 | `/api/crews/RAVI01` | Ravi Crew, and each member's **own** rating |
 | `/api/skills` | the twelve skills ADAA knows about |
+| `/api/locations` | the places ADAA has workforce in |
+| `/api/match/workforce?skill=Mason&quantity=8&location=Guntur` | **the 8-mason scenario** |
 
 Press `Ctrl+C` in the terminal to stop the server.
 
@@ -122,7 +128,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **17 passed**. Tests that need the database are skipped automatically if it
+You should see **48 passed**. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -155,7 +161,9 @@ ADAA-AI-AGENT/
 │   ├── app/
 │   │   ├── main.py      the API endpoints
 │   │   ├── config.py    all settings, read from .env
-│   │   └── database.py  the PostgreSQL connection
+│   │   ├── database.py  the PostgreSQL connection
+│   │   └── agent/
+│   │       └── matching.py   who is eligible, and who ranks highest
 │   ├── database/
 │   │   └── schema.sql   the eleven tables
 │   ├── scripts/

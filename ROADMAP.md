@@ -22,12 +22,14 @@ One step at a time. After each step: run the tests, verify manually, then contin
       API endpoints read live records.
       *Success: the application retrieves real workforce records from PostgreSQL.* ✅ **Done**
 
-- [ ] **STEP 3 — Deterministic matching engine** ⬅️ **Next**
-      Skill, availability and location filtering; reliability, rating, ranking, crew
-      composition. Built **before** Gemini so it can be tested on its own.
-      *Success: given "8 masons, Guntur, tomorrow" it returns suitable candidates.*
+- [x] **STEP 3 — Deterministic matching engine**
+      `backend/app/agent/matching.py`: haversine distance, the five eligibility filters,
+      the six-part weighted score, and crew-plus-individual composition. No AI involved,
+      so it is testable on its own.
+      *Success: "8 masons, Guntur, tomorrow" returns Ravi Crew (6) + 2 individuals = 8.*
+      ✅ **Done**
 
-- [ ] **STEP 4 — Gemini integration**
+- [ ] **STEP 4 — Gemini integration** ⬅️ **Next**
       Google GenAI SDK, Gemini client, system prompt, basic conversation endpoint.
       *Success: "I need 8 masons tomorrow" gets a meaningful response.*
 
