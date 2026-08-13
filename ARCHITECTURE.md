@@ -153,23 +153,61 @@ Full column lists are in section 9 of the build specification.
 
 ---
 
+## Actions that change something
+
+Reading is free. Changing a record is not. Business rule 7 requires confirmation for
+anything consequential, so those actions run in three parts:
+
+```text
+    agent proposes  ->  a person confirms  ->  the application executes
+```
+
+The agent's `propose_job` and `propose_offers` tools write a row into `pending_actions` and
+return its id. **Nothing happens.** The action is carried out only when a person calls
+`POST /api/actions/{id}/confirm`.
+
+There is deliberately **no tool that confirms**. If the model could approve its own
+proposal, rule 7 would be a suggestion rather than a rule — so the guarantee lives in the
+tool list, not in the prompt, and two tests enforce it.
+
+Two further protections:
+
+- **Proposals expire** after 30 minutes, so a stale one cannot be confirmed against data
+  that has moved on.
+- **The checks are re-run at execution.** A worker who was free when the proposal was
+  written may have been booked since; in that case they are skipped rather than
+  double-booked (rule 1).
+
+Confirming an assignment marks the worker `booked`, which is what makes rule 1 hold *after*
+a booking rather than only before it.
+
+---
+
 ## Logging
 
-Every important agent action is logged: `session_id`, `user_id`, `action_type`, `tool_name`,
-`input`, `output`, `timestamp`, `success`.
+Every agent action is logged to `agent_actions`: `session_id`, `user_id`, `action_type`,
+`tool_name`, `input`, `output`, `duration_ms`, `success`, `model`, `created_at`.
 
-This enables debugging and university evaluation. **Secrets are never logged.**
+This is what makes the agent checkable rather than merely plausible. It answers the
+evaluation questions in specification section 23 — does it call the correct tool, does it
+use real data — which cannot be answered from the chat text alone.
+
+`agent_actions` and `pending_actions` are **not** dropped when the workforce data is
+re-seeded, so the evidence survives. Logging swallows its own errors: a lost audit row is
+better than a failed answer. **Secrets are never logged**, and a test asserts it.
 
 ---
 
 ## Current state
 
-**STEPS 0–4 built.** The database, the deterministic matching engine and the Gemini
-connection all work. What is described above but does not exist yet:
+**STEPS 0–7 built.** Working: the database, the deterministic matching engine, the Gemini
+connection, the agent tools, the audit trail, and job coordination from request through to
+confirmed workers.
 
-- the agent **tools** — Gemini cannot reach the database on its own (STEP 5)
-- job coordination, reputation updates, independence scoring (STEPS 7–9)
+Not built yet:
+
+- reputation updates after a completed job (STEP 8)
+- independence scoring, `check_independence_readiness` (STEP 9)
 - the frontend (STEP 10) and the multilingual layer (STEP 11)
-- **logging** of agent actions, which is designed above but not yet implemented
 
 Built one step at a time — see [`ROADMAP.md`](ROADMAP.md).

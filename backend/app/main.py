@@ -19,7 +19,8 @@ from datetime import date, timedelta
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from app.agent import audit, cache as reply_cache
+from app.agent import actions as agent_actions, audit, cache as reply_cache
+from app.agent.actions import ActionError
 from app.agent.agent import GeminiUnavailable, Turn, chat, parse_request
 from app.agent.matching import (
     DEFAULT_SEARCH_RADIUS_KM,
@@ -452,6 +453,104 @@ def session_trail(session_id: str):
         raise HTTPException(status_code=404,
                             detail=f"No actions recorded for session {session_id}")
     return {"session_id": session_id, "actions": actions}
+
+
+# ---------------------------------------------------------------------------
+# Actions that change something (business rule 7)
+# ---------------------------------------------------------------------------
+#
+# The agent proposes. A person confirms. These endpoints are the "person"
+# half. There is no way for the agent to reach them.
+
+@app.get("/api/actions/{action_id}")
+def get_action(action_id: str):
+    """What a proposed action would do, and whether it has been confirmed."""
+    found = agent_actions.look_up(action_id)
+    if not found.get("found"):
+        raise HTTPException(status_code=404,
+                            detail=f"No action with id {action_id}")
+    return found
+
+
+@app.post("/api/actions/{action_id}/confirm")
+def confirm_action(action_id: str):
+    """
+    Approve a proposed action and carry it out.
+
+    This is the only way a job gets created, an offer gets sent, or a
+    worker gets confirmed. The agent cannot call it.
+
+    The proposal is re-checked here rather than trusted: somebody free when
+    it was proposed may have been booked since, and in that case the action
+    fails rather than double-booking them.
+    """
+    try:
+        return agent_actions.confirm(action_id)
+    except ActionError as error:
+        raise HTTPException(status_code=409, detail=str(error))
+
+
+@app.post("/api/actions/{action_id}/cancel")
+def cancel_action(action_id: str):
+    """Decline a proposed action. Nothing is changed."""
+    try:
+        return agent_actions.cancel(action_id)
+    except ActionError as error:
+        raise HTTPException(status_code=409, detail=str(error))
+
+
+@app.get("/api/jobs/{job_id}/offers")
+def list_offers(job_id: str):
+    """Who has been offered this job, and how they answered."""
+    return {"job_id": job_id, "offers": agent_actions.job_offers(job_id)}
+
+
+class OfferResponse(BaseModel):
+    accept: bool = Field(description="True to accept the job, false to decline")
+
+
+@app.post("/api/offers/{assignment_id}/respond")
+def respond_to_offer(assignment_id: int, response: OfferResponse):
+    """
+    A worker or crew leader answers an offer.
+
+    In the real product this comes from their phone. Here it comes through
+    the API, which is enough to demonstrate the loop:
+    contractor to job to offer to response to confirmation.
+    """
+    try:
+        return agent_actions.respond_to_offer(assignment_id, response.accept)
+    except ActionError as error:
+        raise HTTPException(status_code=409, detail=str(error))
+
+
+class ConfirmAssignments(BaseModel):
+    assignment_ids: list[int] = Field(
+        description="Which offers to confirm, by assignment id")
+
+
+@app.post("/api/jobs/{job_id}/confirm")
+def confirm_assignments(job_id: str, request: ConfirmAssignments):
+    """
+    Propose confirming workers onto a job.
+
+    Confirming is consequential -- it books people for the day -- so this
+    creates a proposal that must itself be confirmed. Post the returned
+    action_id to /api/actions/{id}/confirm to carry it out.
+    """
+    job = fetch_one("select id, title, date from jobs where id = %s", (job_id,))
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"No job with id {job_id}")
+
+    summary = (f"Confirm {len(request.assignment_ids)} worker(s) onto job "
+               f"{job_id} ({job['title']}) on {job['date']}. They will be "
+               "marked booked for that day.")
+
+    return agent_actions.propose(
+        "confirm_assignment",
+        {"assignment_ids": request.assignment_ids, "job_id": job_id},
+        summary,
+    )
 
 
 @app.get("/api/agent/tool-usage")

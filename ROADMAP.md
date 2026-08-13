@@ -51,12 +51,15 @@ One step at a time. After each step: run the tests, verify manually, then contin
       Gemini quota twice.
       *Success: the agent solves the 8-mason scenario using real data.* ✅ **Done**
 
-- [ ] **STEP 7 — Job coordination** ⬅️ **Next**
-      `create_job`, `send_job_offer`, `collect_response`, `confirm_assignment`.
-      Notifications simulated at first.
-      *Success: contractor → job → crew/worker → response → confirmation.*
+- [x] **STEP 7 — Job coordination**
+      The first actions that change records — and none of them can be done by the agent.
+      It **proposes**; a person confirms through `/api/actions/{id}/confirm`; the
+      application executes. There is deliberately no tool that confirms, and a test
+      asserts it. Notifications are simulated, as the spec requires.
+      Confirming books the workers, so a confirmed worker stops appearing as available.
+      *Success: contractor → job → offer → response → confirmation.* ✅ **Done**
 
-- [ ] **STEP 8 — Reputation**
+- [ ] **STEP 8 — Reputation** ⬅️ **Next**
       Ratings, completed jobs, attendance, reliability, worker history, crew history.
       *Success: a completed job updates the correct worker and crew records — separately.*
 

@@ -5,10 +5,12 @@ subcontractors, while helping every worker build an **independent professional r
 
 University research prototype. Not a production marketplace.
 
-**Current status: STEPS 0–6 complete** — the agent understands a request in plain language,
-searches the real database through its tools, composes a workforce it can explain, and keeps
-an audit trail of every tool call it made.
-It cannot yet create jobs or send offers, and there is no user interface. Those come next.
+**Current status: STEPS 0–7 complete** — the agent understands a request in plain language,
+searches the real database, composes a workforce it can explain, keeps an audit trail of every
+tool call, and can carry a job from request through to confirmed workers.
+
+It **proposes** anything consequential; a person confirms it. The agent has no way to confirm
+its own proposal. There is no user interface yet.
 
 **Presenting this?** Read [`docs/demo-script.md`](docs/demo-script.md) first. The Gemini
 free tier allows only 20 requests a day, which is about one rehearsal and one live run.
@@ -142,6 +144,17 @@ Every conversation is recorded, so you can check afterwards exactly what the age
 | `GET /api/agent/tool-usage` | how often each tool is used, and how reliable it is |
 | `GET /api/agent/cache` | how many replies are cached |
 
+Actions that change something follow a two-step flow (business rule 7):
+
+| Endpoint | What it does |
+|---|---|
+| `GET /api/actions/{id}` | what a proposed action would do |
+| `POST /api/actions/{id}/confirm` | **a person** approves it, and it happens |
+| `POST /api/actions/{id}/cancel` | decline it; nothing changes |
+| `GET /api/jobs/{id}/offers` | who was offered the job, and how they answered |
+| `POST /api/offers/{id}/respond` | a worker accepts or declines |
+| `POST /api/jobs/{id}/confirm` | propose confirming workers onto the job |
+
 Replies are cached, so asking the same question twice only costs Gemini quota once. The cache
 invalidates itself when the workforce data changes or the day rolls over, and every reply says
 whether it was `cached`.
@@ -154,7 +167,7 @@ Press `Ctrl+C` in the terminal to stop the server.
 backend/.venv/Scripts/python -m pytest backend/tests -v
 ```
 
-You should see **162 passed** and 1 skipped. Tests that need the database are skipped automatically if it
+You should see **182 passed** and 1 skipped. Tests that need the database are skipped automatically if it
 cannot be reached, so the suite still runs without a `.env` file.
 
 ### Check that Gemini works
@@ -194,6 +207,7 @@ ADAA-AI-AGENT/
 │   │       ├── agent.py      the Gemini connection
 │   │       ├── prompts.py    what Gemini is told
 │   │       ├── audit.py      the record of what the agent did
+│   │       ├── actions.py    propose, confirm, execute
 │   │       └── cache.py      remembering replies, to save quota
 │   ├── database/
 │   │   └── schema.sql   the eleven tables

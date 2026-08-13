@@ -98,6 +98,11 @@ def set_session(session_id: str | None) -> None:
     _current_session["id"] = session_id
 
 
+def current_session() -> str | None:
+    """Which conversation is running, if any."""
+    return _current_session["id"]
+
+
 def logged(function: Callable) -> Callable:
     """
     Wrap one tool so every call is recorded.

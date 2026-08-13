@@ -125,7 +125,7 @@ If a milestone appears already complete, verify it before skipping it.
 
 ## Current position
 
-**STEP 0 through 6 complete.** Next: STEP 7 — job coordination (the first WRITE actions).
+**STEP 0 through 7 complete.** Next: STEP 8 — reputation updates after a completed job.
 
 The agent reaches data **only** through `backend/app/agent/tools.py`. All seven tools are
 read-only, and a test asserts none of them writes. Write actions (create job, send offer,
@@ -143,6 +143,16 @@ errors — a lost row must never cost a user their answer. Never log secrets.
 fingerprint of the workforce data, so a cached answer can never outlive the availability it
 was based on. Tests run with the cache **off** (see `tests/conftest.py`) — without that,
 tests sharing placeholder input read each other's answers.
+
+**Write actions** (`app/agent/actions.py`, table `pending_actions`): the agent proposes,
+a person confirms via `POST /api/actions/{id}/confirm`, the application executes.
+**Never give the agent a tool that confirms, cancels or executes** — two tests guard this,
+and without it rule 7 is only a suggestion. Proposals expire after 30 minutes and are
+re-checked at execution, because a worker free at propose time may be booked by confirm time.
+
+**Tests that write must clean up.** Confirming an assignment marks workers `booked`, which
+silently breaks the 8-mason demo for everyone afterwards. See the `sandbox` fixture in
+`tests/test_agent_actions.py`. If the demo ever looks wrong, re-run `seed_database.py`.
 
 The matching engine (`backend/app/agent/matching.py`) is deterministic and fully tested
 without an LLM. Gemini must call it, never replace it. See [`docs/matching.md`](docs/matching.md).

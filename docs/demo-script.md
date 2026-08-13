@@ -182,6 +182,47 @@ did it, that is a bug worth reporting — business rule 9.
 
 ---
 
+## Scenario 7 (optional) — Actually booking the crew
+
+Only if you have time, and only after scenario 1. This shows the full loop and the
+confirmation rule, which is one of the more defensible parts of the design.
+
+> **"Create that job for contractor CON001 and go ahead."**
+
+The agent calls `propose_job` and answers with something like:
+
+```text
+I have prepared the proposal... **Nothing has been created yet.**
+To proceed, please confirm this action using the following ID: act_ca85d67f2116
+```
+
+**Say this out loud:** it was told "go ahead" and it still did not do it. The agent has
+**no tool that can confirm its own proposal** — that is enforced in code, not asked for in
+the prompt. Business rule 7.
+
+Then confirm it yourself, in `/docs`:
+
+```
+POST /api/actions/{action_id}/confirm
+```
+
+Now the job exists. Offers, responses and confirmation follow the same pattern:
+
+| Step | Endpoint |
+|---|---|
+| Offer the job | agent proposes → you confirm |
+| Worker answers | `POST /api/offers/{assignment_id}/respond` |
+| Confirm workers | `POST /api/jobs/{job_id}/confirm` → confirm the action |
+
+**The detail worth pointing at:** once workers are confirmed, they are marked `booked`, so
+`/api/match/workforce` stops offering them for anything else that day. Business rule 1 holds
+after the booking, not just before it.
+
+> ⚠️ **This changes the data.** Confirming Ravi Crew books all seven members and the
+> 8-mason scenario will stop working. Run `seed_database.py` afterwards to reset.
+
+---
+
 ## The strongest thing you can show
 
 After running the scenarios, open the audit trail for the session:

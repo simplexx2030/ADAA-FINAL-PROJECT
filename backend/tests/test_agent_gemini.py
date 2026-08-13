@@ -173,12 +173,25 @@ def test_with_tools_the_model_is_told_how_to_use_them_honestly():
     assert "An empty result is a real answer." in prompt
 
 
-def test_with_tools_the_model_is_told_what_it_may_not_do():
-    """It can read and recommend. It cannot yet change anything."""
+def test_with_tools_the_model_is_told_it_proposes_but_cannot_confirm():
+    """
+    Business rule 7. The agent may propose a job or an offer, but a person
+    confirms it. The prompt has to say so, because the model will otherwise
+    announce that it has done what it only suggested.
+    """
     prompt = flat(system_prompt(tools_available=True))
 
-    assert "cannot yet create jobs" in prompt
-    assert "Never say an action is done when no tool did it." in prompt
+    assert "You propose; a person confirms." in prompt
+    assert "You have no way to confirm a proposal yourself" in prompt
+    assert "do NOT do anything" in prompt
+
+
+def test_with_tools_the_model_is_told_what_it_may_never_do():
+    """Rules 6 and 7: some things need a person, full stop."""
+    prompt = flat(system_prompt(tools_available=True))
+
+    assert "cannot remove a worker from a crew" in prompt
+    assert "change anyone's verified skills or ratings" in prompt
 
 
 def test_the_business_rules_are_in_the_prompt():

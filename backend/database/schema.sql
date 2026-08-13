@@ -250,6 +250,41 @@ create index if not exists agent_actions_tool_idx
     on agent_actions (tool_name, created_at);
 
 
+-- Pending actions (business rule 7) -----------------------------------------
+-- Anything consequential -- creating a job, sending offers, confirming a
+-- worker -- is written here FIRST, as a proposal, and only carried out
+-- when a person confirms it.
+--
+-- The agent can propose. It cannot confirm. That separation is the whole
+-- point of the table: it is what stops "the AI booked eight people" from
+-- being something the AI could do on its own.
+--
+-- Like agent_actions, this is not dropped when the workforce data is
+-- re-seeded. Note that re-seeding does delete the jobs a proposal refers
+-- to, so old proposals become stale -- they expire anyway.
+create table if not exists pending_actions (
+    id           text primary key,
+    session_id   text,
+    action_type  text not null,
+    summary      text not null,
+    payload      jsonb not null,
+    status       text not null default 'pending',
+    result       jsonb,
+    error        text,
+    created_at   timestamptz not null default now(),
+    expires_at   timestamptz not null,
+    decided_at   timestamptz,
+
+    constraint pending_actions_status_ck check (
+        status in ('pending', 'confirmed', 'cancelled', 'expired', 'failed'))
+);
+
+create index if not exists pending_actions_status_idx
+    on pending_actions (status, expires_at);
+create index if not exists pending_actions_session_idx
+    on pending_actions (session_id, created_at);
+
+
 -- Indexes for the searches the matching engine will run most often.
 create index workers_availability_idx   on workers (availability_status, verification_status);
 create index worker_skills_skill_idx    on worker_skills (skill_id, verification_status);

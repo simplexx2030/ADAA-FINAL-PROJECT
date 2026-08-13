@@ -19,9 +19,10 @@ Three habits are kept throughout:
    behind them, so the agent explains rather than asserts.
 2. A tool that finds nothing says so plainly. "No available verified masons
    in Guntur tomorrow" is a useful answer. An invented one is not.
-3. Nothing here writes to the database. These are all read-only. Actions
-   that change records arrive at STEP 7, and they will need confirmation
-   (business rule 7).
+3. The tools that would change something do not change anything. They
+   write down a proposal and return its id; a person confirms it through
+   the API. There is no tool for confirming, on purpose -- see
+   actions.py.
 """
 
 from datetime import date, timedelta
@@ -34,6 +35,7 @@ from app.agent.matching import (
     find_crews,
     find_workers,
 )
+from app.agent import actions, audit
 from app.agent.audit import logged
 from app.database import all_locations, fetch_all, fetch_one, find_location
 
@@ -461,6 +463,177 @@ def recommend_workforce(skill: str, quantity: int, location: str,
     return _plain(result)
 
 
+# ---------------------------------------------------------------------------
+# Tools 8-10 - proposing actions that would change something
+# ---------------------------------------------------------------------------
+#
+# These are the only tools that touch anything consequential, and none of
+# them actually does it. Each one writes down a proposal and returns its
+# id. A person confirms it through the API.
+#
+# There is deliberately NO tool that confirms a proposal. If the model
+# could approve its own proposal, business rule 7 would be a suggestion
+# rather than a rule.
+
+def propose_job(contractor_id: str, title: str, skill_required: str,
+                workers_required: int, on_date: str, location: str,
+                start_time: str = "08:00", wage: float = 0.0,
+                site_address: str = "", description: str = "") -> dict:
+    """
+    Propose creating a job. THIS DOES NOT CREATE THE JOB.
+
+    It writes down what the job would be and returns an action_id. The job
+    exists only after a person confirms that action. Tell the contractor
+    what you have proposed and ask them to confirm it. Never tell them the
+    job has been created.
+
+    Args:
+        contractor_id: which contractor the job belongs to, e.g. "CON001".
+        title: short description of the work, e.g. "Brickwork, first floor".
+        skill_required: the trade needed, e.g. "Mason".
+        workers_required: how many people are needed.
+        on_date: the date as YYYY-MM-DD.
+        location: the place name, e.g. "Guntur".
+        start_time: start time as HH:MM. Defaults to 08:00.
+        wage: daily wage in rupees, if the contractor gave one.
+        site_address: the site address, if known.
+        description: any further detail.
+    """
+    place = _place(location)
+    if place is None:
+        return _unknown_place(location)
+
+    contractor = fetch_one(
+        "select id, company_name from contractors where id = %s",
+        (contractor_id,),
+    )
+    if contractor is None:
+        known = fetch_all("select id, company_name from contractors order by id")
+        return {"proposed": False,
+                "note": (f"No contractor with id {contractor_id}. Known: " +
+                         ", ".join(f"{c['id']} ({c['company_name']})"
+                                   for c in known))}
+
+    wanted = _resolve_date(on_date)
+    payload = {
+        "contractor_id": contractor_id, "title": title,
+        "description": description, "skill_required": skill_required,
+        "workers_required": workers_required,
+        "location_name": place["name"], "location_lat": place["lat"],
+        "location_lng": place["lng"], "site_address": site_address,
+        "date": wanted.isoformat(), "start_time": start_time,
+        "wage": wage or None,
+    }
+    summary = (f"Create a job for {contractor['company_name']}: "
+               f"{workers_required} x {skill_required}, {title}, at "
+               f"{place['name']} on {wanted.isoformat()} from {start_time}"
+               + (f", {wage:.0f} rupees a day" if wage else ""))
+
+    return {"proposed": True,
+            **actions.propose("create_job", payload, summary,
+                              audit.current_session())}
+
+
+def propose_offers(job_id: str, worker_ids: list[str] = [],
+                   crew_ids: list[str] = []) -> dict:
+    """
+    Propose sending job offers. THIS DOES NOT SEND ANYTHING.
+
+    It writes down who would be offered the job and returns an action_id.
+    Offers go out only after a person confirms that action. Never tell the
+    contractor that offers have been sent before that.
+
+    Args:
+        job_id: the job to offer, e.g. "J0298".
+        worker_ids: individual workers to offer it to, e.g. ["W003"].
+        crew_ids: crews to offer it to, e.g. ["RAVI01"].
+    """
+    job = fetch_one(
+        "select id, title, date, skill_required, workers_required "
+        "from jobs where id = %s",
+        (job_id,),
+    )
+    if job is None:
+        return {"proposed": False, "note": f"There is no job with id {job_id}."}
+
+    if not worker_ids and not crew_ids:
+        return {"proposed": False,
+                "note": "Give at least one worker_id or crew_id."}
+
+    names = []
+    for worker_id in worker_ids:
+        row = fetch_one("select name from workers where id=%s", (worker_id,))
+        if row is None:
+            return {"proposed": False,
+                    "note": f"There is no worker with id {worker_id}."}
+        names.append(row["name"])
+    for crew_id in crew_ids:
+        row = fetch_one("select name from crews where id=%s", (crew_id,))
+        if row is None:
+            return {"proposed": False,
+                    "note": f"There is no crew with id {crew_id}."}
+        names.append(row["name"])
+
+    payload = {"job_id": job_id, "worker_ids": list(worker_ids),
+               "crew_ids": list(crew_ids)}
+    summary = (f"Send offers for job {job_id} ({job['title']}, "
+               f"{job['date']}) to: " + ", ".join(names))
+
+    return {"proposed": True,
+            **actions.propose("send_offers", payload, summary,
+                              audit.current_session())}
+
+
+def check_action_status(action_id: str) -> dict:
+    """
+    Check whether a proposed action has been confirmed yet.
+
+    Use this before saying anything about what has happened. If the status
+    is still "pending", nothing has been done.
+
+    Args:
+        action_id: the id returned when the action was proposed.
+    """
+    found = actions.look_up(action_id)
+    if not found.get("found"):
+        return found
+
+    return _plain({
+        "found": True,
+        "action_id": found["id"],
+        "action_type": found["action_type"],
+        "status": found["status"],
+        "summary": found["summary"],
+        "result": found.get("result"),
+        "error": found.get("error"),
+        "note": {
+            "pending": "Not done. It is waiting for a person to confirm it.",
+            "confirmed": "This was confirmed and carried out.",
+            "cancelled": "This was declined. Nothing was changed.",
+            "expired": "Nobody answered in time. Nothing was changed.",
+            "failed": "Confirmation was attempted but the action failed.",
+        }.get(found["status"], ""),
+    })
+
+
+def list_job_offers(job_id: str) -> dict:
+    """
+    See who has been offered a job and how they answered.
+
+    Args:
+        job_id: the job, e.g. "J0298".
+    """
+    offers = actions.job_offers(job_id)
+    return _plain({
+        "job_id": job_id,
+        "offers": offers,
+        "accepted": len([o for o in offers if o["status"] == "accepted"]),
+        "confirmed": len([o for o in offers if o["status"] == "confirmed"]),
+        "note": ("No offers have been made for this job." if not offers
+                 else "status shows where each offer stands."),
+    })
+
+
 # Everything Gemini is allowed to call.
 #
 # Each one is wrapped so the call is written to agent_actions: which tool,
@@ -475,4 +648,9 @@ ALL_TOOLS = [
     logged(check_availability),
     logged(distance_between),
     logged(recommend_workforce),
+    # Proposing only. None of these changes anything by itself.
+    logged(propose_job),
+    logged(propose_offers),
+    logged(check_action_status),
+    logged(list_job_offers),
 ]
