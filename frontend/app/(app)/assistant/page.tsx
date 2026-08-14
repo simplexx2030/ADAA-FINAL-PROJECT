@@ -80,17 +80,17 @@ export default function Assistant() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+          <h1 className="text-2xl font-bold tracking-tight text-white">
             AI workforce assistant
           </h1>
-          <p className="mt-1 text-sm text-stone-600">
+          <p className="mt-1 text-sm text-dim">
             Ask for workforce in plain language.
           </p>
         </div>
         {sessionId && (
           <Link
             href={`/sessions/${sessionId}`}
-            className="text-sm text-stone-600 underline decoration-stone-300 underline-offset-2 hover:decoration-stone-600"
+            className="text-sm text-dim underline decoration-white/25 underline-offset-2 hover:decoration-white/60"
           >
             See what the agent did →
           </Link>
@@ -119,7 +119,7 @@ export default function Assistant() {
         <div className="max-h-[26rem] min-h-[16rem] space-y-4 overflow-y-auto px-5 py-5">
           {turns.length === 0 && (
             <div className="space-y-3 py-6 text-center">
-              <p className="text-sm text-stone-500">
+              <p className="text-sm text-dim">
                 Try one of these, or type your own:
               </p>
               <div className="flex flex-wrap justify-center gap-2">
@@ -127,7 +127,7 @@ export default function Assistant() {
                   <button
                     key={suggestion}
                     onClick={() => send(suggestion)}
-                    className="rounded-full border border-stone-300 bg-white px-3 py-1.5 text-sm text-stone-700 transition hover:border-stone-500 hover:bg-stone-50"
+                    className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-sm text-bone transition hover:border-white/30 hover:bg-white/[0.09]"
                   >
                     {suggestion}
                   </button>
@@ -139,13 +139,13 @@ export default function Assistant() {
           {turns.map((turn, index) =>
             turn.role === "user" ? (
               <div key={index} className="flex justify-end">
-                <div className="max-w-[80%] rounded-lg rounded-br-sm bg-stone-900 px-4 py-2.5 text-sm text-white">
+                <div className="btn-molten max-w-[80%] rounded-lg rounded-br-sm px-4 py-2.5 text-sm text-white">
                   {turn.text}
                 </div>
               </div>
             ) : (
               <div key={index} className="space-y-2">
-                <div className="max-w-[90%] rounded-lg rounded-bl-sm border border-stone-200 bg-stone-50 px-4 py-3 text-sm leading-relaxed text-stone-800">
+                <div className="max-w-[90%] rounded-lg rounded-bl-sm border border-white/[0.07] bg-white/[0.04] px-4 py-3 text-sm leading-relaxed text-bone">
                   <div className="whitespace-pre-wrap">{turn.text}</div>
                 </div>
                 {turn.meta && <Provenance reply={turn.meta} />}
@@ -154,8 +154,8 @@ export default function Assistant() {
           )}
 
           {busy && (
-            <div className="flex items-center gap-2 text-sm text-stone-500">
-              <span className="h-3 w-3 animate-spin rounded-full border-2 border-stone-300 border-t-stone-600" />
+            <div className="flex items-center gap-2 text-sm text-dim">
+              <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/15 border-t-molten" />
               Searching the workforce database…
             </div>
           )}
@@ -168,14 +168,14 @@ export default function Assistant() {
             event.preventDefault();
             send(message);
           }}
-          className="flex gap-2 border-t border-stone-200 px-5 py-4"
+          className="flex gap-2 border-t border-white/[0.07] px-5 py-4"
         >
           <input
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             placeholder="What workforce do you need?"
             disabled={busy}
-            className="flex-1 rounded-md border border-stone-300 px-3 py-2 text-sm outline-none focus:border-stone-500 disabled:bg-stone-100"
+            className="flex-1 rounded-md border border-white/15 px-3 py-2 text-sm outline-none focus:border-white/30 disabled:bg-white/[0.06]"
           />
           <Button type="submit" disabled={busy || !message.trim()}>
             {busy ? "Asking…" : "Ask"}
@@ -185,7 +185,7 @@ export default function Assistant() {
 
       {error && <ErrorNote error={error} />}
 
-      <p className="text-xs text-stone-500">
+      <p className="text-xs text-dim">
         The assistant proposes; a person confirms.
       </p>
     </div>
@@ -213,7 +213,7 @@ function Provenance({ reply }: { reply: ChatReply }) {
       {reply.tools_used.map((tool, index) => (
         <span
           key={index}
-          className="rounded bg-stone-100 px-2 py-0.5 font-mono text-[11px] text-stone-700 ring-1 ring-inset ring-stone-200"
+          className="rounded bg-white/10 px-2 py-0.5 font-mono text-[11px] text-bone ring-1 ring-inset ring-white/15"
           title={JSON.stringify(tool.arguments)}
         >
           {tool.tool}()
@@ -221,7 +221,7 @@ function Provenance({ reply }: { reply: ChatReply }) {
       ))}
 
       {reply.cached && <Tag tone="info">cached</Tag>}
-      <span className="text-stone-400">{reply.model}</span>
+      <span className="text-dim">{reply.model}</span>
     </div>
   );
 }

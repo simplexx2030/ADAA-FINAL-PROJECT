@@ -39,11 +39,11 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/crews" className="text-sm text-stone-500 hover:underline">
+        <Link href="/crews" className="text-sm text-dim hover:underline">
           ← All crews
         </Link>
         <div className="mt-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+          <h1 className="text-2xl font-bold tracking-tight text-white">
             {crew.name}
           </h1>
           <Tag tone={statusTone(crew.verification_status)}>
@@ -53,7 +53,7 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
             {crew.availability_status}
           </Tag>
         </div>
-        <p className="mt-1 text-sm text-stone-600">
+        <p className="mt-1 text-sm text-dim">
           {crew.primary_trade} · {crew.location_name} · led by{" "}
           {crew.leader_name ?? "—"}
         </p>
@@ -90,7 +90,7 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-stone-50 text-left text-xs uppercase tracking-wide text-stone-500">
+              <thead className="bg-white/[0.04] text-left text-xs uppercase tracking-wide text-dim">
                 <tr>
                   <th className="px-5 py-2 font-medium">Worker</th>
                   <th className="px-5 py-2 font-medium">Role</th>
@@ -100,13 +100,13 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
                   <th className="px-5 py-2 font-medium">Availability</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-white/[0.07]">
                 {active.map((member) => (
-                  <tr key={member.id} className="hover:bg-stone-50">
+                  <tr key={member.id} className="hover:bg-white/[0.04]">
                     <td className="px-5 py-2.5">
                       <Link
                         href={`/workers/${member.id}`}
-                        className="font-medium text-stone-900 hover:underline"
+                        className="font-medium text-white hover:underline"
                       >
                         {member.name}
                       </Link>
@@ -115,16 +115,16 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
                       {member.role === "leader" ? (
                         <Tag tone="info">leader</Tag>
                       ) : (
-                        <span className="text-stone-600">member</span>
+                        <span className="text-dim">member</span>
                       )}
                     </td>
                     <td className="px-5 py-2.5">
                       <Rating value={member.worker_own_rating} />
                     </td>
-                    <td className="px-5 py-2.5 tabular-nums text-stone-700">
+                    <td className="px-5 py-2.5 tabular-nums text-bone">
                       {member.worker_own_completed_jobs}
                     </td>
-                    <td className="px-5 py-2.5 tabular-nums text-stone-600">
+                    <td className="px-5 py-2.5 tabular-nums text-dim">
                       {member.joined_at}
                     </td>
                     <td className="px-5 py-2.5">
@@ -145,7 +145,7 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
         <Card>
           <CardHeader
             title="Former members" subtitle={`${former.length} on record`} />
-          <ul className="divide-y divide-stone-100">
+          <ul className="divide-y divide-white/[0.07]">
             {former.map((member) => (
               <li
                 key={member.id}
@@ -154,17 +154,17 @@ export default function CrewPage({ params }: { params: Promise<{ id: string }> }
                 <div>
                   <Link
                     href={`/workers/${member.id}`}
-                    className="font-medium text-stone-900 hover:underline"
+                    className="font-medium text-white hover:underline"
                   >
                     {member.name}
                   </Link>
-                  <div className="text-xs text-stone-500">
+                  <div className="text-xs text-dim">
                     {member.joined_at} → {member.left_at}
                   </div>
                 </div>
                 <div className="text-right text-sm">
                   <Rating value={member.worker_own_rating} />
-                  <div className="text-xs text-stone-500">
+                  <div className="text-xs text-dim">
                     {member.worker_own_completed_jobs} jobs
                   </div>
                 </div>

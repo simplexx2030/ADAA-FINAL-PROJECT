@@ -45,10 +45,10 @@ export default function Activity() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+        <h1 className="text-2xl font-bold tracking-tight text-white">
           AI activity
         </h1>
-        <p className="mt-1 text-sm text-stone-600">
+        <p className="mt-1 text-sm text-dim">
           What the assistant looked up, and when.
         </p>
       </div>
@@ -100,7 +100,7 @@ export default function Activity() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-stone-50 text-left text-xs uppercase tracking-wide text-stone-500">
+              <thead className="bg-white/[0.04] text-left text-xs uppercase tracking-wide text-dim">
                 <tr>
                   <th className="px-5 py-2 font-medium">Session</th>
                   <th className="px-5 py-2 font-medium">Started</th>
@@ -110,19 +110,19 @@ export default function Activity() {
                   <th className="px-5 py-2 font-medium"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-white/[0.07]">
                 {list.map((session) => (
-                  <tr key={session.session_id} className="hover:bg-stone-50">
-                    <td className="px-5 py-2.5 font-mono text-xs text-stone-600">
+                  <tr key={session.session_id} className="hover:bg-white/[0.04]">
+                    <td className="px-5 py-2.5 font-mono text-xs text-dim">
                       {session.session_id.slice(0, 12)}
                     </td>
-                    <td className="px-5 py-2.5 whitespace-nowrap text-stone-600">
+                    <td className="px-5 py-2.5 whitespace-nowrap text-dim">
                       {when(session.started_at)}
                     </td>
-                    <td className="px-5 py-2.5 tabular-nums text-stone-700">
+                    <td className="px-5 py-2.5 tabular-nums text-bone">
                       {session.actions}
                     </td>
-                    <td className="px-5 py-2.5 tabular-nums text-stone-700">
+                    <td className="px-5 py-2.5 tabular-nums text-bone">
                       {session.tool_calls}
                     </td>
                     <td className="px-5 py-2.5">
@@ -130,13 +130,13 @@ export default function Activity() {
                         {(session.tools_used ?? []).slice(0, 3).map((tool) => (
                           <span
                             key={tool}
-                            className="rounded bg-stone-100 px-1.5 py-0.5 font-mono text-[11px] text-stone-700"
+                            className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[11px] text-bone"
                           >
                             {tool}
                           </span>
                         ))}
                         {(session.tools_used ?? []).length > 3 && (
-                          <span className="text-xs text-stone-400">
+                          <span className="text-xs text-dim">
                             +{(session.tools_used ?? []).length - 3}
                           </span>
                         )}
@@ -147,7 +147,7 @@ export default function Activity() {
                         {session.failures > 0 && <Tag tone="bad">failed</Tag>}
                         <Link
                           href={`/sessions/${session.session_id}`}
-                          className="text-sm text-stone-600 underline"
+                          className="text-sm text-dim underline"
                         >
                           View
                         </Link>
@@ -169,7 +169,7 @@ export default function Activity() {
         ) : tools.length === 0 ? (
           <Empty>No tool calls recorded yet.</Empty>
         ) : (
-          <ul className="divide-y divide-stone-100">
+          <ul className="divide-y divide-white/[0.07]">
             {tools.map((tool) => {
               const share = totalCalls
                 ? Math.round((Number(tool.calls) / totalCalls) * 100)
@@ -177,10 +177,10 @@ export default function Activity() {
               return (
                 <li key={tool.tool_name} className="px-5 py-3">
                   <div className="flex items-center justify-between gap-4 text-sm">
-                    <span className="font-mono text-stone-800">
+                    <span className="font-mono text-bone">
                       {tool.tool_name}
                     </span>
-                    <span className="shrink-0 text-stone-500">
+                    <span className="shrink-0 text-dim">
                       {tool.calls} {Number(tool.calls) === 1 ? "call" : "calls"}
                       {tool.average_ms !== null && ` · ${tool.average_ms} ms avg`}
                       {Number(tool.failures) > 0 && (
@@ -190,9 +190,9 @@ export default function Activity() {
                       )}
                     </span>
                   </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded bg-stone-100">
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded bg-white/10">
                     <div
-                      className="h-full rounded bg-stone-600"
+                      className="h-full rounded bg-molten"
                       style={{ width: `${share}%` }}
                     />
                   </div>

@@ -22,13 +22,13 @@ export default function SessionPage({ params }: { params: Promise<{ id: string }
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/assistant" className="text-sm text-stone-500 hover:underline">
+        <Link href="/assistant" className="text-sm text-dim hover:underline">
           ← Back to the assistant
         </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900">
+        <h1 className="mt-2 text-2xl font-bold tracking-tight text-white">
           What the agent did
         </h1>
-        <p className="mt-1 font-mono text-xs text-stone-500">session {id}</p>
+        <p className="mt-1 font-mono text-xs text-dim">session {id}</p>
       </div>
 
       {error && <ErrorNote error={error} />}
@@ -40,7 +40,7 @@ export default function SessionPage({ params }: { params: Promise<{ id: string }
         ) : !data || data.actions.length === 0 ? (
           <Empty>Nothing recorded for this session yet.</Empty>
         ) : (
-          <ul className="divide-y divide-stone-100">
+          <ul className="divide-y divide-white/[0.07]">
             {data.actions.map((action) => (
               <li key={action.id} className="flex flex-wrap items-start gap-3 px-5 py-3">
                 <div className="w-28 shrink-0">
@@ -53,16 +53,16 @@ export default function SessionPage({ params }: { params: Promise<{ id: string }
 
                 <div className="min-w-0 flex-1">
                   {action.tool_name && (
-                    <div className="font-mono text-sm text-stone-900">
+                    <div className="font-mono text-sm text-white">
                       {action.tool_name}()
                     </div>
                   )}
-                  <pre className="mt-1 overflow-x-auto whitespace-pre-wrap break-words text-xs text-stone-600">
+                  <pre className="mt-1 overflow-x-auto whitespace-pre-wrap break-words text-xs text-dim">
                     {JSON.stringify(action.input, null, 0)}
                   </pre>
                 </div>
 
-                <div className="shrink-0 text-right text-xs text-stone-500">
+                <div className="shrink-0 text-right text-xs text-dim">
                   <div>{action.duration_ms ?? "—"} ms</div>
                   <div>{action.success ? "ok" : "failed"}</div>
                 </div>

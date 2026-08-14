@@ -39,15 +39,15 @@ export default function Dashboard() {
 
   return (
     <div>
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-molten/15 px-3 py-1.5 text-xs font-semibold text-molten-soft">
         <TrendUp className="h-3.5 w-3.5" />
         University Research Prototype
       </span>
 
-      <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900">
+      <h1 className="mt-4 text-4xl font-bold tracking-tight text-white">
         ADAA Workforce Coordination Agent
       </h1>
-      <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-600">
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-dim">
         Connecting construction workforce demand with suitable workers, crews, and
         subcontractors — while helping every worker build an independent professional
         reputation.
@@ -91,7 +91,7 @@ export default function Dashboard() {
       <div className="mt-6 grid gap-5 lg:grid-cols-2">
         <Link
           href="/assistant"
-          className="brand-gradient group rounded-xl px-7 py-7 text-white transition hover:opacity-95"
+          className="btn-molten group rounded-xl px-7 py-7 text-white transition hover:opacity-95"
         >
           <Chat className="h-7 w-7" />
           <h2 className="mt-5 text-xl font-bold">AI Workforce Assistant</h2>
@@ -107,11 +107,11 @@ export default function Dashboard() {
         </Link>
 
         <Card className="px-7 py-7">
-          <Briefcase className="h-7 w-7 text-orange-500" />
-          <h2 className="mt-5 text-xl font-bold text-slate-900">
+          <Briefcase className="h-7 w-7 text-molten" />
+          <h2 className="mt-5 text-xl font-bold text-white">
             Contractor Dashboard
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+          <p className="mt-2 text-sm leading-relaxed text-dim">
             Post workforce requirements, view active jobs, and see recommended workforce
             for each assignment.
           </p>
@@ -125,7 +125,7 @@ export default function Dashboard() {
       <div className="mt-10">
         <div className="mb-3 flex items-end justify-between">
           <SectionTitle>Top rated workers</SectionTitle>
-          <Link href="/workers" className="text-sm font-medium text-slate-500 hover:text-slate-900">
+          <Link href="/workers" className="text-sm font-medium text-dim hover:text-white">
             View all
           </Link>
         </div>
@@ -138,13 +138,13 @@ export default function Dashboard() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {allWorkers.slice(0, 3).map((worker) => (
               <Link key={worker.id} href={`/workers/${worker.id}`}>
-                <Card className="px-5 py-4 transition hover:border-slate-300 hover:shadow-sm">
+                <Card className="px-5 py-4 transition hover:border-white/15 hover:shadow-sm">
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <div className="truncate font-semibold text-slate-900">
+                      <div className="truncate font-semibold text-white">
                         {worker.name}
                       </div>
-                      <div className="truncate text-xs text-slate-500">
+                      <div className="truncate text-xs text-dim">
                         {worker.verified_skills || "no verified skill"}
                       </div>
                     </div>
@@ -154,7 +154,7 @@ export default function Dashboard() {
                     <Badge tone={worker.crew_name ? "blue" : "green"}>
                       {worker.crew_name ?? "Independent"}
                     </Badge>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-dim">
                       {worker.completed_jobs} jobs
                     </span>
                   </div>

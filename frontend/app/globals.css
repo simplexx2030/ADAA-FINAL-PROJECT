@@ -1,30 +1,200 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+/*
+ * The ADAA palette. Dark ground ("ink"), one hot accent ("molten"), one
+ * confirmation colour ("jade"). Everything on screen is built from these.
+ *
+ * The accent is called `molten`, not `amber`, because Tailwind already ships
+ * an `amber-50..950` scale and having both would be a coin toss every time
+ * someone typed a class name.
+ */
+@theme {
+  --color-ink: #070d1a; /* page ground */
+  --color-deep: #0c1526; /* panels that sit on the ground */
+  --color-steel: #172440; /* borders and dividers when glass is too faint */
+  --color-bone: #edf2fb; /* body text */
+  --color-dim: #93a1bc; /* secondary text */
 
-  /* ADAA orange — the one accent colour in the interface */
-  --brand: #f97316;
-  --brand-dark: #ea580c;
+  --color-molten: #ff8a1e;
+  --color-molten-soft: #ffb020;
+  --color-jade: #3ddc97;
+
+  --shadow-glass: 0 8px 40px rgba(2, 6, 18, 0.45);
+  --shadow-glow: 0 0 60px rgba(255, 138, 30, 0.25);
+  --shadow-card: 0 1px 2px rgba(9, 14, 26, 0.06), 0 8px 24px rgba(9, 14, 26, 0.06);
+
+  --font-sans: var(--font-anek), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-te: var(--font-anek-te), var(--font-anek), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand: var(--brand);
-  --color-brand-dark: var(--brand-dark);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+html {
+  scroll-behavior: smooth;
+  /* Tells the browser to draw its own furniture dark: scrollbars, and the
+     native date and time pickers the job form relies on. Without it those
+     arrive white and unreadable. */
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-ink);
+  color: var(--color-bone);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* The orange panels used for the assistant call-to-action. */
-.brand-gradient {
-  background-image: linear-gradient(105deg, #f59e0b 0%, #f97316 45%, #ea580c 100%);
+/*
+ * Form controls do not inherit `color` from the page, so on a dark ground
+ * they would render black-on-black. Set them once here rather than on every
+ * field.
+ */
+input,
+select,
+textarea {
+  color: var(--color-bone);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-dim);
+}
+
+/* The dropdown list is painted by the OS, outside the page's background. */
+select option {
+  background-color: var(--color-deep);
+  color: var(--color-bone);
+}
+
+::selection {
+  background: rgba(255, 138, 30, 0.35);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------ */
+/* The materials                                                       */
+/*                                                                     */
+/* Plain CSS, not @apply: Tailwind 4 handles @apply inside @layer      */
+/* differently to v3, and these rules are short enough that the        */
+/* translation buys nothing.                                           */
+/* ------------------------------------------------------------------ */
+
+/* Frosted panel — the structural material of the whole interface. */
+.glass {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-glass);
+}
+
+.glass-bright {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Faint blueprint grid, laid over the ambient mesh on the landing page. */
+.blueprint {
+  background-image: linear-gradient(rgba(146, 168, 214, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(146, 168, 214, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 40%, transparent 100%);
+}
+
+/* The hot gradient: primary buttons, active navigation, accent badges. */
+.btn-molten {
+  background-image: linear-gradient(100deg, #ff6a00, #ff8a1e 55%, #ffb020);
+}
+
+/* The same gradient poured into text. Named `molten-text` rather than
+   `text-molten` so it cannot be confused with the colour utility. */
+.molten-text {
+  background-image: linear-gradient(100deg, #ff8a1e, #ffb020);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/*                                                                     */
+/* Scroll reveals and the live ticket are driven by these keyframes and */
+/* the `.reveal` class rather than an animation library.                */
+/* ------------------------------------------------------------------ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* One-shot entrance for the hero, which is on screen at load and so has
+   nothing to wait for. `--enter-delay` staggers a group. */
+@keyframes enterUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.enter-up {
+  animation: enterUp 0.65s ease-out both;
+  animation-delay: var(--enter-delay, 0s);
+}
+
+/* Rows sliding into the live ticket. */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.35s ease-out both;
+}
+
+/*
+ * Scroll reveal. `Reveal` adds `.reveal` at render and `.revealed` when the
+ * element first enters the viewport, so the transition runs exactly once.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Show everything immediately; never leave content stuck at opacity 0. */
+  .reveal,
+  .enter-up,
+  .slide-in {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
 }

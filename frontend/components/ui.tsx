@@ -2,6 +2,16 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, Person, Star } from "@/components/icons";
 
+/*
+ * The pieces every screen is built from.
+ *
+ * Almost all of the interface's colour lives in this file. The detail screens
+ * contain none of their own, so restyling ADAA means restyling this.
+ *
+ * The palette is defined in `app/globals.css`: ink ground, glass panels,
+ * molten accent, jade for anything confirmed.
+ */
+
 /* ------------------------------------------------------------------ */
 /* Layout                                                              */
 /* ------------------------------------------------------------------ */
@@ -18,8 +28,8 @@ export function PageHeader({
   return (
     <div className="mb-7 flex flex-wrap items-start justify-between gap-4">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">{title}</h1>
-        {subtitle && <p className="mt-1.5 text-sm text-slate-500">{subtitle}</p>}
+        <h1 className="text-3xl font-bold tracking-tight text-white">{title}</h1>
+        {subtitle && <p className="mt-1.5 text-sm text-dim">{subtitle}</p>}
       </div>
       {action}
     </div>
@@ -33,17 +43,11 @@ export function Card({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={`rounded-xl border border-slate-200 bg-white ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`glass rounded-2xl ${className}`}>{children}</div>;
 }
 
 export function SectionTitle({ children }: { children: ReactNode }) {
-  return (
-    <h2 className="mb-3 text-lg font-bold text-slate-900">{children}</h2>
-  );
+  return <h2 className="mb-3 text-lg font-bold text-white">{children}</h2>;
 }
 
 /** The heading strip inside a card, used by the detail screens. */
@@ -57,10 +61,10 @@ export function CardHeader({
   right?: ReactNode;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-slate-100 px-5 py-4">
+    <div className="flex items-start justify-between gap-4 border-b border-white/[0.07] px-5 py-4">
       <div>
-        <h2 className="font-bold text-slate-900">{title}</h2>
-        {subtitle && <p className="mt-0.5 text-sm text-slate-500">{subtitle}</p>}
+        <h2 className="font-bold text-white">{title}</h2>
+        {subtitle && <p className="mt-0.5 text-sm text-dim">{subtitle}</p>}
       </div>
       {right}
     </div>
@@ -72,11 +76,11 @@ export function CardHeader({
 /* ------------------------------------------------------------------ */
 
 const ICON_TONES = {
-  blue: "bg-blue-600",
-  green: "bg-emerald-600",
-  orange: "bg-orange-500",
-  purple: "bg-fuchsia-600",
-  slate: "bg-slate-700",
+  blue: "bg-indigo-500/90",
+  green: "bg-jade/90 text-ink",
+  orange: "btn-molten",
+  purple: "bg-fuchsia-500/90",
+  slate: "bg-white/10",
 };
 
 /** One of the four figures across the top of the dashboard. */
@@ -98,8 +102,8 @@ export function StatCard({
       >
         {icon}
       </span>
-      <div className="text-2xl font-bold tabular-nums text-slate-900">{value}</div>
-      <div className="mt-0.5 text-sm text-slate-500">{label}</div>
+      <div className="text-2xl font-bold tabular-nums text-white">{value}</div>
+      <div className="mt-0.5 text-sm text-dim">{label}</div>
     </Card>
   );
 }
@@ -115,9 +119,9 @@ export function Stat({
 }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-wide text-slate-500">{label}</div>
-      <div className="mt-1 text-2xl font-bold tabular-nums text-slate-900">{value}</div>
-      {hint && <div className="mt-0.5 text-xs text-slate-500">{hint}</div>}
+      <div className="text-xs uppercase tracking-wide text-dim">{label}</div>
+      <div className="mt-1 text-2xl font-bold tabular-nums text-white">{value}</div>
+      {hint && <div className="mt-0.5 text-xs text-dim">{hint}</div>}
     </div>
   );
 }
@@ -127,12 +131,12 @@ export function Stat({
 /* ------------------------------------------------------------------ */
 
 const TONES = {
-  green: "bg-emerald-50 text-emerald-700",
-  blue: "bg-blue-50 text-blue-700",
-  purple: "bg-purple-50 text-purple-700",
-  amber: "bg-amber-50 text-amber-700",
-  rose: "bg-rose-50 text-rose-700",
-  slate: "bg-slate-100 text-slate-600",
+  green: "bg-jade/15 text-jade",
+  blue: "bg-indigo-400/15 text-indigo-300",
+  purple: "bg-fuchsia-400/15 text-fuchsia-300",
+  amber: "bg-molten/15 text-molten-soft",
+  rose: "bg-rose-500/15 text-rose-300",
+  slate: "bg-white/10 text-dim",
 };
 
 export function Badge({
@@ -232,10 +236,9 @@ export function Button({
 }) {
   const variants = {
     primary:
-      "brand-gradient text-white shadow-sm hover:opacity-95 disabled:opacity-50",
-    secondary:
-      "bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:text-slate-400",
-    ghost: "text-slate-600 hover:bg-slate-100",
+      "btn-molten text-white shadow-[0_4px_20px_rgba(255,122,26,0.3)] hover:brightness-110 disabled:opacity-50",
+    secondary: "glass-bright text-bone hover:bg-white/[0.14] disabled:text-dim",
+    ghost: "text-dim hover:bg-white/10 hover:text-bone",
   };
   return (
     <button
@@ -263,8 +266,8 @@ export function FilterPill({
       onClick={onClick}
       className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition ${
         active
-          ? "bg-slate-900 text-white"
-          : "border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+          ? "btn-molten text-white"
+          : "border border-white/10 bg-white/[0.04] text-dim hover:bg-white/[0.09] hover:text-bone"
       }`}
     >
       {children}
@@ -278,8 +281,8 @@ export function FilterPill({
 
 export function Loading({ what = "Loading" }: { what?: string }) {
   return (
-    <div className="flex items-center justify-center gap-2 py-14 text-sm text-slate-500">
-      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-200 border-t-slate-500" />
+    <div className="flex items-center justify-center gap-2 py-14 text-sm text-dim">
+      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/15 border-t-molten" />
       {what}…
     </div>
   );
@@ -287,9 +290,9 @@ export function Loading({ what = "Loading" }: { what?: string }) {
 
 export function ErrorNote({ error }: { error: string }) {
   return (
-    <div className="rounded-xl border border-rose-200 bg-rose-50 px-5 py-4 text-sm text-rose-900">
-      <div className="font-semibold">Something went wrong</div>
-      <div className="mt-1 whitespace-pre-wrap text-rose-800">{error}</div>
+    <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-5 py-4 text-sm text-rose-100">
+      <div className="font-semibold text-rose-200">Something went wrong</div>
+      <div className="mt-1 whitespace-pre-wrap text-rose-100/90">{error}</div>
     </div>
   );
 }
@@ -303,15 +306,15 @@ export function EmptyPanel({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-slate-300 px-6 py-16 text-center">
-      {icon && <span className="text-slate-300">{icon}</span>}
-      <p className="text-sm text-slate-500">{children}</p>
+    <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 px-6 py-16 text-center">
+      {icon && <span className="text-white/20">{icon}</span>}
+      <p className="text-sm text-dim">{children}</p>
     </div>
   );
 }
 
 export function Empty({ children }: { children: ReactNode }) {
-  return <div className="px-5 py-10 text-center text-sm text-slate-500">{children}</div>;
+  return <div className="px-5 py-10 text-center text-sm text-dim">{children}</div>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -321,7 +324,7 @@ export function Empty({ children }: { children: ReactNode }) {
 export function Avatar({ name }: { name: string }) {
   return (
     <span
-      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-400"
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/[0.08] text-dim"
       title={name}
     >
       <Person className="h-5 w-5" />
@@ -331,11 +334,10 @@ export function Avatar({ name }: { name: string }) {
 
 /** A rating shown as a number with a star, as on the cards. */
 export function RatingValue({ value }: { value: number | string | null }) {
-  if (value === null || value === undefined)
-    return <span className="text-slate-400">—</span>;
+  if (value === null || value === undefined) return <span className="text-dim">—</span>;
   return (
-    <span className="inline-flex items-center gap-1 font-bold tabular-nums text-slate-900">
-      <Star className="h-3.5 w-3.5 text-amber-400" />
+    <span className="inline-flex items-center gap-1 font-bold tabular-nums text-white">
+      <Star className="h-3.5 w-3.5 text-molten-soft" />
       {Number(value).toFixed(1)}
     </span>
   );
@@ -344,13 +346,13 @@ export function RatingValue({ value }: { value: number | string | null }) {
 /** Rating out of five, for the detail screens where precision matters. */
 export function Rating({ value, count }: { value: number | string | null; count?: number }) {
   if (value === null || value === undefined)
-    return <span className="text-slate-400">no rating yet</span>;
+    return <span className="text-dim">no rating yet</span>;
   return (
     <span className="tabular-nums">
-      <span className="font-semibold">{Number(value).toFixed(2)}</span>
-      <span className="text-slate-400"> / 5</span>
+      <span className="font-semibold text-white">{Number(value).toFixed(2)}</span>
+      <span className="text-dim"> / 5</span>
       {count !== undefined && (
-        <span className="ml-1 text-xs text-slate-500">
+        <span className="ml-1 text-xs text-dim">
           from {count} {count === 1 ? "rating" : "ratings"}
         </span>
       )}
@@ -368,8 +370,8 @@ export function MiniStats({
     <div className="grid grid-cols-3 gap-2 text-center">
       {items.map((item) => (
         <div key={item.label}>
-          <div className="text-sm font-bold text-slate-900">{item.value}</div>
-          <div className="text-xs text-slate-500">{item.label}</div>
+          <div className="text-sm font-bold text-white">{item.value}</div>
+          <div className="text-xs text-dim">{item.label}</div>
         </div>
       ))}
     </div>
@@ -386,7 +388,7 @@ export function CardLink({
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-700"
+      className="inline-flex items-center gap-2 text-sm font-semibold text-molten transition hover:text-molten-soft"
     >
       {children}
       <ArrowRight className="h-4 w-4" />

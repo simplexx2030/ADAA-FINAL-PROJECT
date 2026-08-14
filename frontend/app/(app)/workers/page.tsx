@@ -50,7 +50,7 @@ export default function Workers() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search by name…"
-          className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-orange-500 sm:w-72"
+          className="w-full rounded-lg border border-white/15 px-4 py-2.5 text-sm outline-none focus:border-molten sm:w-72"
         />
         <FilterPill active={skill === ""} onClick={() => setSkill("")}>
           All Skills
@@ -80,23 +80,23 @@ export default function Workers() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((worker) => (
             <Link key={worker.id} href={`/workers/${worker.id}`}>
-              <Card className="h-full px-5 py-4 transition hover:border-slate-300 hover:shadow-sm">
+              <Card className="h-full px-5 py-4 transition hover:border-white/15 hover:shadow-sm">
                 {/* name and verification */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex min-w-0 items-center gap-3">
                     <Avatar name={worker.name} />
                     <div className="min-w-0">
-                      <div className="truncate font-bold text-slate-900">
+                      <div className="truncate font-bold text-white">
                         {worker.name}
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-slate-500">
+                      <div className="flex items-center gap-1 text-xs text-dim">
                         <Pin className="h-3 w-3" />
                         {worker.location_name}
                       </div>
                     </div>
                   </div>
                   {worker.verification_status === "verified" && (
-                    <Shield className="h-[18px] w-[18px] shrink-0 text-emerald-500" />
+                    <Shield className="h-[18px] w-[18px] shrink-0 text-jade" />
                   )}
                 </div>
 
@@ -117,7 +117,7 @@ export default function Workers() {
                 </div>
 
                 {/* the three figures */}
-                <div className="mt-4 border-t border-slate-100 pt-3.5">
+                <div className="mt-4 border-t border-white/[0.07] pt-3.5">
                   <MiniStats
                     items={[
                       {
@@ -131,10 +131,10 @@ export default function Workers() {
                 </div>
 
                 {/* role, and crew if any */}
-                <div className="mt-3.5 flex items-center justify-between gap-2 border-t border-slate-100 pt-3.5">
+                <div className="mt-3.5 flex items-center justify-between gap-2 border-t border-white/[0.07] pt-3.5">
                   <RoleBadge role={worker.crew_role} crewName={worker.crew_name} />
                   {worker.crew_name && (
-                    <span className="inline-flex items-center gap-1 text-xs text-slate-500">
+                    <span className="inline-flex items-center gap-1 text-xs text-dim">
                       <Layers className="h-3.5 w-3.5" />
                       {worker.crew_name}
                     </span>

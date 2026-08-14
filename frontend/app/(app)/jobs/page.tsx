@@ -59,8 +59,8 @@ export default function Jobs() {
             <Card key={job.id} className="px-5 py-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-bold text-slate-900">{job.title}</h3>
-                  <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+                  <h3 className="font-bold text-white">{job.title}</h3>
+                  <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-dim">
                     <span className="inline-flex items-center gap-1">
                       <Tool className="h-3.5 w-3.5" />
                       {job.skill_required}
@@ -86,7 +86,7 @@ export default function Jobs() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-slate-400">{job.id}</span>
+                  <span className="font-mono text-xs text-dim">{job.id}</span>
                   <Badge tone={statusTone(job.status)}>{job.status}</Badge>
                 </div>
               </div>

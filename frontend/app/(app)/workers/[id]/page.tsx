@@ -52,11 +52,11 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/workers" className="text-sm text-stone-500 hover:underline">
+        <Link href="/workers" className="text-sm text-dim hover:underline">
           ← All workers
         </Link>
         <div className="mt-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+          <h1 className="text-2xl font-bold tracking-tight text-white">
             {person.name}
           </h1>
           <Tag tone={statusTone(person.verification_status)}>
@@ -66,7 +66,7 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
             {person.availability_status}
           </Tag>
         </div>
-        <p className="mt-1 text-sm text-stone-600">
+        <p className="mt-1 text-sm text-dim">
           {person.id} · {person.location_name} · {person.experience_years} years in the
           trade · speaks {person.preferred_language} · travels up to{" "}
           {person.travel_radius_km} km
@@ -128,15 +128,15 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
           {person.skills.length === 0 ? (
             <Empty>No skills recorded.</Empty>
           ) : (
-            <ul className="divide-y divide-stone-100">
+            <ul className="divide-y divide-white/[0.07]">
               {person.skills.map((skill) => (
                 <li
                   key={skill.name}
                   className="flex items-center justify-between px-5 py-3"
                 >
                   <div>
-                    <div className="font-medium text-stone-900">{skill.name}</div>
-                    <div className="text-xs text-stone-500">
+                    <div className="font-medium text-white">{skill.name}</div>
+                    <div className="text-xs text-dim">
                       {skill.category} · {skill.years_experience} years
                     </div>
                   </div>
@@ -155,17 +155,17 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
           {person.crew_history.length === 0 ? (
             <Empty>Works independently.</Empty>
           ) : (
-            <ul className="divide-y divide-stone-100">
+            <ul className="divide-y divide-white/[0.07]">
               {currentCrew && (
                 <li className="flex items-center justify-between px-5 py-3">
                   <div>
                     <Link
                       href={`/crews/${currentCrew.crew_id}`}
-                      className="font-medium text-stone-900 hover:underline"
+                      className="font-medium text-white hover:underline"
                     >
                       {currentCrew.crew_name}
                     </Link>
-                    <div className="text-xs text-stone-500">
+                    <div className="text-xs text-dim">
                       {currentCrew.role} since {currentCrew.joined_at}
                     </div>
                   </div>
@@ -180,11 +180,11 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
                   <div>
                     <Link
                       href={`/crews/${crew.crew_id}`}
-                      className="font-medium text-stone-900 hover:underline"
+                      className="font-medium text-white hover:underline"
                     >
                       {crew.crew_name}
                     </Link>
-                    <div className="text-xs text-stone-500">
+                    <div className="text-xs text-dim">
                       {crew.joined_at} → {crew.left_at}
                     </div>
                   </div>
@@ -208,17 +208,17 @@ export default function WorkerPage({ params }: { params: Promise<{ id: string }>
         {person.ratings_received.length === 0 ? (
           <Empty>No ratings yet.</Empty>
         ) : (
-          <ul className="divide-y divide-stone-100">
+          <ul className="divide-y divide-white/[0.07]">
             {person.ratings_received.slice(0, 10).map((rating, index) => (
               <li key={index} className="flex items-start gap-4 px-5 py-3">
-                <div className="w-16 shrink-0 text-sm font-semibold tabular-nums text-stone-900">
+                <div className="w-16 shrink-0 text-sm font-semibold tabular-nums text-white">
                   {Number(rating.rating).toFixed(2)}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-sm text-stone-700">
-                    {rating.comment || <span className="text-stone-400">no comment</span>}
+                  <div className="text-sm text-bone">
+                    {rating.comment || <span className="text-dim">no comment</span>}
                   </div>
-                  <div className="text-xs text-stone-500">job {rating.job_id}</div>
+                  <div className="text-xs text-dim">job {rating.job_id}</div>
                 </div>
               </li>
             ))}
@@ -291,10 +291,10 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
         <div className="space-y-5 px-5 py-5">
           <div className="flex flex-wrap items-center gap-4">
             <div>
-              <div className="text-xs uppercase tracking-wide text-stone-500">Score</div>
-              <div className="text-3xl font-semibold tabular-nums text-stone-900">
+              <div className="text-xs uppercase tracking-wide text-dim">Score</div>
+              <div className="text-3xl font-semibold tabular-nums text-white">
                 {assessment.score}
-                <span className="text-lg text-stone-400"> / 100</span>
+                <span className="text-lg text-dim"> / 100</span>
               </div>
             </div>
             <Tag
@@ -310,10 +310,10 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
             </Tag>
           </div>
 
-          <p className="text-sm text-stone-800">{assessment.recommendation}</p>
+          <p className="text-sm text-bone">{assessment.recommendation}</p>
 
           {assessment.blockers.length > 0 && (
-            <ul className="list-inside list-disc space-y-1 text-sm text-stone-600">
+            <ul className="list-inside list-disc space-y-1 text-sm text-dim">
               {assessment.blockers.map((blocker, index) => (
                 <li key={index}>{blocker}</li>
               ))}
@@ -322,22 +322,22 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
 
           {/* the five factors from the assessment */}
           <div>
-            <div className="mb-2 text-xs uppercase tracking-wide text-stone-500">
+            <div className="mb-2 text-xs uppercase tracking-wide text-dim">
               Factors
             </div>
             <div className="space-y-1.5">
               {Object.entries(assessment.factors).map(([factor, value]) => (
                 <div key={factor} className="flex items-center gap-3 text-sm">
-                  <div className="w-52 shrink-0 text-stone-600">
+                  <div className="w-52 shrink-0 text-dim">
                     {factor.replace(/_/g, " ")}
                   </div>
-                  <div className="h-2 flex-1 overflow-hidden rounded bg-stone-100">
+                  <div className="h-2 flex-1 overflow-hidden rounded bg-white/10">
                     <div
-                      className="h-full rounded bg-stone-700"
+                      className="h-full rounded bg-molten"
                       style={{ width: `${Math.round(value * 100)}%` }}
                     />
                   </div>
-                  <div className="w-12 shrink-0 text-right tabular-nums text-stone-500">
+                  <div className="w-12 shrink-0 text-right tabular-nums text-dim">
                     {Math.round(value * 100)}%
                   </div>
                 </div>
@@ -345,12 +345,12 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
             </div>
           </div>
 
-          <div className="grid gap-4 border-t border-stone-100 pt-4 text-sm sm:grid-cols-2">
+          <div className="grid gap-4 border-t border-white/[0.07] pt-4 text-sm sm:grid-cols-2">
             <div>
-              <div className="text-xs uppercase tracking-wide text-stone-500">
+              <div className="text-xs uppercase tracking-wide text-dim">
                 Evidence
               </div>
-              <ul className="mt-1 space-y-0.5 text-stone-700">
+              <ul className="mt-1 space-y-0.5 text-bone">
                 <li>{assessment.evidence.completed_jobs} completed jobs</li>
                 <li>
                   rating <Rating value={assessment.evidence.average_rating} />
@@ -368,14 +368,14 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
               </ul>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-wide text-stone-500">
+              <div className="text-xs uppercase tracking-wide text-dim">
                 Contractors worked for ({assessment.evidence.distinct_contractors})
               </div>
-              <ul className="mt-1 space-y-0.5 text-stone-700">
+              <ul className="mt-1 space-y-0.5 text-bone">
                 {assessment.evidence.contractors.slice(0, 4).map((contractor) => (
                   <li key={contractor.company}>
                     {contractor.company}{" "}
-                    <span className="text-stone-500">— {contractor.jobs} jobs</span>
+                    <span className="text-dim">— {contractor.jobs} jobs</span>
                   </li>
                 ))}
               </ul>
@@ -383,7 +383,7 @@ function IndependencePanel({ workerId, name }: { workerId: string; name: string 
           </div>
 
           {/* Straight from the API, not rewritten here. */}
-          <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <div className="rounded-md border border-molten/25 bg-molten/10 px-4 py-3 text-sm text-molten-soft">
             {assessment.important}
           </div>
         </div>

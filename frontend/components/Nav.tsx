@@ -37,11 +37,11 @@ export function Nav() {
   }, []);
 
   return (
-    <header className="border-b border-stone-200 bg-white">
+    <header className="border-b border-white/[0.07] bg-deep">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
         <Link href="/" className="flex items-baseline gap-2">
-          <span className="text-lg font-bold tracking-tight text-stone-900">ADAA</span>
-          <span className="hidden text-xs text-stone-500 sm:inline">
+          <span className="text-lg font-bold tracking-tight text-white">ADAA</span>
+          <span className="hidden text-xs text-dim sm:inline">
             Workforce Coordination
           </span>
         </Link>
@@ -58,8 +58,8 @@ export function Nav() {
                 href={link.href}
                 className={`rounded-md px-3 py-1.5 text-sm transition ${
                   active
-                    ? "bg-stone-900 text-white"
-                    : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
+                    ? "btn-molten text-white"
+                    : "text-dim hover:bg-white/10 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -72,13 +72,13 @@ export function Nav() {
           <span
             className={`h-2 w-2 rounded-full ${
               health === "ok"
-                ? "bg-emerald-500"
+                ? "bg-jade"
                 : health === "down"
                   ? "bg-rose-500"
-                  : "bg-stone-300"
+                  : "bg-white/25"
             }`}
           />
-          <span className="text-stone-500">
+          <span className="text-dim">
             {health === "ok" && `connected · ${workers} workers`}
             {health === "down" && "backend not reachable"}
             {health === "checking" && "checking…"}

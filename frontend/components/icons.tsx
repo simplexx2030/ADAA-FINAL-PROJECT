@@ -168,3 +168,79 @@ export function Close({ className = base }: IconProps) {
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* The landing page                                                    */
+/*                                                                     */
+/* Used only by `app/(site)/page.tsx` and the live ticket.             */
+/* ------------------------------------------------------------------ */
+
+export function Check({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m5 12.5 5 5L19 7" />
+    </svg>
+  );
+}
+
+export function CheckCircle({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8 12.5 2.5 2.5L16 9.5" />
+    </svg>
+  );
+}
+
+/** A ringing handset struck through — the call that was never answered. */
+export function PhoneMissed({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 3.5 21 9.5M21 3.5 15 9.5" />
+      <path d="M21.5 17.4v2.6a1.8 1.8 0 0 1-2 1.8 17.6 17.6 0 0 1-7.7-2.7 17.4 17.4 0 0 1-5.3-5.3A17.6 17.6 0 0 1 3.8 6a1.8 1.8 0 0 1 1.8-2h2.6a1.8 1.8 0 0 1 1.8 1.5c.1.9.3 1.7.6 2.5a1.8 1.8 0 0 1-.4 1.9l-1.1 1.1a14 14 0 0 0 5.3 5.3l1.1-1.1a1.8 1.8 0 0 1 1.9-.4c.8.3 1.6.5 2.5.6a1.8 1.8 0 0 1 1.6 1.9Z" />
+    </svg>
+  );
+}
+
+/** Two overlapping speech bubbles — the group-chat scramble. */
+export function MessagesSquare({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 9a2 2 0 0 1-2 2H7l-4 3V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2Z" />
+      <path d="M18 8h1a2 2 0 0 1 2 2v11l-4-3h-5a2 2 0 0 1-2-2v-1" />
+    </svg>
+  );
+}
+
+/** Concentric sweep — the job going out to everyone nearby at once. */
+export function Radar({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="2" />
+      <path d="M12 6a6 6 0 0 1 6 6" />
+      <path d="M12 2a10 10 0 0 1 10 10" />
+      <path d="M12 14 6.5 19.5" />
+    </svg>
+  );
+}
+
+/** A person with a cross — the worker who did not turn up. */
+export function UserX({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M2.5 20.5a6.5 6.5 0 0 1 13 0" />
+      <path d="m17 8.5 4.5 4.5M21.5 8.5 17 13" />
+    </svg>
+  );
+}
+
+export function ClipboardList({ className = base }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 3.5h6v3H9z" />
+      <path d="M15 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2" />
+      <path d="M9 11h6M9 15h4" />
+    </svg>
+  );
+}

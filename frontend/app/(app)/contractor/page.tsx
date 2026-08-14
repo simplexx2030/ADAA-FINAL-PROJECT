@@ -31,6 +31,7 @@ import {
   Pin,
   Plus,
   Rupee,
+  Star,
   Tool,
   Users,
 } from "@/components/icons";
@@ -79,7 +80,7 @@ export default function Contractor() {
       {/* --- Assistant call-to-action -------------------------------- */}
       <Link
         href="/assistant"
-        className="brand-gradient mt-6 flex items-center justify-between gap-4 rounded-xl px-6 py-5 text-white transition hover:opacity-95"
+        className="btn-molten mt-6 flex items-center justify-between gap-4 rounded-xl px-6 py-5 text-white transition hover:opacity-95"
       >
         <span className="flex items-center gap-4">
           <Chat className="h-6 w-6" />
@@ -108,6 +109,29 @@ export default function Contractor() {
 
 /* ------------------------------------------------------------------ */
 
+/**
+ * How well this candidate fits, out of 100.
+ *
+ * Shown because "why this person?" is the first thing a contractor asks,
+ * and a bare list of names does not answer it.
+ */
+function MatchScore({ score }: { score: number }) {
+  const tone =
+    score >= 80
+      ? "bg-jade/15 text-jade"
+      : score >= 60
+        ? "bg-molten/15 text-molten-soft"
+        : "bg-white/10 text-dim";
+  return (
+    <span
+      className={`rounded px-1.5 py-0.5 text-xs font-semibold tabular-nums ${tone}`}
+      title="Match score out of 100 — skill, availability, reliability, rating, proximity, experience"
+    >
+      {Math.round(score)}
+    </span>
+  );
+}
+
 function JobCard({ job }: { job: Job }) {
   const recommendation = useLoad<Match & { job_id: string }>(
     () => api.jobRecommendation(job.id),
@@ -120,8 +144,8 @@ function JobCard({ job }: { job: Job }) {
     <Card className="px-6 py-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h3 className="text-base font-bold text-slate-900">{job.title}</h3>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+          <h3 className="text-base font-bold text-white">{job.title}</h3>
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-dim">
             <span className="inline-flex items-center gap-1">
               <Tool className="h-3.5 w-3.5" />
               {job.skill_required}
@@ -149,53 +173,100 @@ function JobCard({ job }: { job: Job }) {
         <Badge tone={statusTone(job.status)}>{job.status}</Badge>
       </div>
 
-      <div className="mt-5 border-t border-slate-100 pt-4">
+      <div className="mt-5 border-t border-white/[0.07] pt-4">
         {recommendation.loading ? (
-          <div className="py-2 text-xs text-slate-400">Matching workforce…</div>
+          <div className="py-2 text-xs text-dim">Matching workforce…</div>
         ) : recommendation.error ? (
           <div className="text-xs text-rose-600">{recommendation.error}</div>
         ) : result ? (
           <>
-            <div className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <div className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-dim">
               Recommended workforce ({result.filled}/{job.workers_required} filled)
             </div>
 
             {result.selection.length === 0 ? (
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-dim">
                 Nobody eligible was found for this trade, place and date.
               </p>
             ) : (
+              <>
               <ul className="space-y-1.5">
                 {result.selection.map((entry) => (
                   <li
                     key={`${entry.kind}-${entry.id}`}
-                    className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2.5"
+                    className="rounded-lg bg-white/[0.04] px-3 py-2.5"
                   >
-                    <span className="flex items-center gap-3">
-                      <Badge tone={entry.kind === "crew" ? "blue" : "green"}>
-                        {entry.kind}
-                      </Badge>
-                      <Link
-                        href={
-                          entry.kind === "crew"
-                            ? `/crews/${entry.id}`
-                            : `/workers/${entry.id}`
-                        }
-                        className="text-sm font-semibold text-slate-900 hover:underline"
-                      >
-                        {entry.name}
-                      </Link>
-                    </span>
-                    <span className="text-sm font-bold tabular-nums text-slate-900">
-                      {entry.supply}
-                    </span>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="flex min-w-0 items-center gap-3">
+                        <Badge tone={entry.kind === "crew" ? "blue" : "green"}>
+                          {entry.kind}
+                        </Badge>
+                        <Link
+                          href={
+                            entry.kind === "crew"
+                              ? `/crews/${entry.id}`
+                              : `/workers/${entry.id}`
+                          }
+                          className="truncate text-sm font-semibold text-white hover:underline"
+                        >
+                          {entry.name}
+                        </Link>
+                      </span>
+                      <span className="flex shrink-0 items-center gap-3">
+                        <MatchScore score={entry.match_score} />
+                        <span className="w-4 text-right text-sm font-bold tabular-nums text-white">
+                          {entry.supply}
+                        </span>
+                      </span>
+                    </div>
+
+                    {/* Why this candidate: the figures behind the score. */}
+                    <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 pl-[4.25rem] text-xs text-dim">
+                      <span className="inline-flex items-center gap-1">
+                        <Pin className="h-3 w-3" />
+                        {entry.distance_km} km away
+                      </span>
+
+                      {entry.kind === "crew" ? (
+                        <>
+                          <span className="inline-flex items-center gap-1">
+                            <Star className="h-3 w-3 text-molten-soft" />
+                            {entry.evidence.crew_rating ?? "—"} crew rating
+                          </span>
+                          <span>
+                            {entry.evidence.contributing} of{" "}
+                            {entry.evidence.of_available} available
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="inline-flex items-center gap-1">
+                            <Star className="h-3 w-3 text-molten-soft" />
+                            {entry.evidence.average_rating ?? "—"}
+                          </span>
+                          <span>{entry.evidence.completed_jobs} jobs</span>
+                          {entry.evidence.attendance_rate != null && (
+                            <span>
+                              {Number(entry.evidence.attendance_rate).toFixed(0)}%
+                              attendance
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
+
+              <p className="mt-3 text-xs text-dim">
+                Ranked on skill depth, availability, reliability, rating, proximity and
+                experience. Prototype weights.
+              </p>
+              </>
             )}
 
             {result.shortfall > 0 && (
-              <p className="mt-3 text-xs text-orange-600">
+              <p className="mt-3 text-xs text-molten">
                 Shortfall of {result.shortfall} worker(s). Consider expanding search
                 radius or adjusting the date.
               </p>
@@ -256,16 +327,16 @@ function PostJob({
   }
 
   const field =
-    "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-orange-500";
+    "w-full rounded-lg border border-white/15 px-3 py-2 text-sm outline-none focus:border-molten";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-900/40 p-4 py-10">
-      <div className="w-full max-w-lg rounded-xl bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-          <h2 className="text-lg font-bold text-slate-900">Post a job</h2>
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/80 p-4 py-10">
+      <div className="glass w-full max-w-lg rounded-2xl">
+        <div className="flex items-center justify-between border-b border-white/[0.07] px-6 py-4">
+          <h2 className="text-lg font-bold text-white">Post a job</h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+            className="rounded-lg p-1.5 text-dim hover:bg-white/10 hover:text-bone"
           >
             <Close className="h-5 w-5" />
           </button>
@@ -273,7 +344,7 @@ function PostJob({
 
         <div className="space-y-4 px-6 py-5">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">
+            <label className="mb-1.5 block text-sm font-medium text-bone">
               Job title
             </label>
             <input
@@ -286,7 +357,7 @@ function PostJob({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-bone">
                 Trade
               </label>
               <select
@@ -302,7 +373,7 @@ function PostJob({
               </select>
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-bone">
                 Workers needed
               </label>
               <input
@@ -319,7 +390,7 @@ function PostJob({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-bone">
                 Location
               </label>
               <select
@@ -335,7 +406,7 @@ function PostJob({
               </select>
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-bone">
                 Date
               </label>
               <input
@@ -349,7 +420,7 @@ function PostJob({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-bone">
                 Start time
               </label>
               <input
@@ -360,7 +431,7 @@ function PostJob({
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-bone">
                 Wage per day (₹)
               </label>
               <input
@@ -374,8 +445,8 @@ function PostJob({
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">
-              Site address <span className="text-slate-400">(optional)</span>
+            <label className="mb-1.5 block text-sm font-medium text-bone">
+              Site address <span className="text-dim">(optional)</span>
             </label>
             <input
               className={field}
@@ -388,7 +459,7 @@ function PostJob({
           {error && <ErrorNote error={error} />}
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">
+        <div className="flex justify-end gap-3 border-t border-white/[0.07] px-6 py-4">
           <Button variant="secondary" onClick={onClose} disabled={busy}>
             Cancel
           </Button>

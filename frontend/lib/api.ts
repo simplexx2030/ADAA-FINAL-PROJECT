@@ -131,9 +131,32 @@ export type Candidate = {
   name: string;
   supply: number;
   distance_km: number;
+  /** 0-100, from the six weighted factors in `scores`. */
   match_score: number;
-  scores: Record<string, number>;
-  evidence: Record<string, unknown>;
+  scores: {
+    skill: number;
+    availability: number;
+    reliability: number;
+    rating: number;
+    proximity: number;
+    experience: number;
+  };
+  /** The figures behind the score. Which keys appear depends on kind. */
+  evidence: {
+    // workers
+    average_rating?: number | null;
+    completed_jobs?: number;
+    attendance_rate?: number | null;
+    years_in_skill?: number;
+    location?: string;
+    // crews
+    crew_rating?: number | null;
+    crew_completed_jobs?: number;
+    qualified_available_members?: number;
+    contributing?: number;
+    of_available?: number;
+    member_names?: string[];
+  };
 };
 
 export type Match = {
