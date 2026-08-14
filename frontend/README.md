@@ -27,12 +27,25 @@ screen.
 
 | Page | What it is for |
 |---|---|
-| `/` | **Contractor dashboard** — who is available, which crews, recent jobs |
+| `/` | **Dashboard** — the figures, and the two ways in |
 | `/assistant` | **AI assistant** — ask for workforce in plain language |
+| `/contractor` | **Contractor dashboard** — post a job, see the recommended workforce for each |
+| `/workers`, `/workers/{id}` | **Workers** — card grid with search and trade filters; profile with reputation, skills, crew history, independence |
+| `/crews`, `/crews/{id}` | **Crews** — card grid; crew page shows each member's *own* rating |
+| `/jobs` | Every job, filterable by status |
 | `/activity` | **AI activity** — what the assistant looked up, and when |
-| `/crews`, `/crews/{id}` | **Crew dashboard** — members, and each member's *own* rating |
-| `/workers`, `/workers/{id}` | **Worker profile** — reputation, skills, crew history, independence |
-| `/sessions/{id}` | What the agent actually did, tool call by tool call |
+| `/sessions/{id}` | One conversation, tool call by tool call |
+
+## Posting a job
+
+`/contractor` → **Post Job** opens a form (trade, headcount, place, date, time, wage).
+Submitting creates the job, and the card immediately shows the workforce the matching
+engine recommends for it, with a shortfall if there is one.
+
+The form creates the job directly, unlike the agent's route, which only proposes one.
+The difference is who is acting: business rule 7 exists so the AI cannot commit a
+contractor to something, and here the contractor is pressing the button themselves.
+The agent still has no way to do this.
 
 ## Two things the interface is careful about
 

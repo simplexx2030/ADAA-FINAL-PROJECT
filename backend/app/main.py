@@ -19,8 +19,9 @@ Run it with:
 
 from datetime import date, timedelta
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from app.agent import (actions as agent_actions, audit,
@@ -61,6 +62,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+def unexpected_error(request: Request, error: Exception):
+    """
+    Turn an unhandled error into an ordinary JSON response.
+
+    Without this, an exception escapes before the CORS middleware runs, the
+    reply arrives with no Access-Control-Allow-Origin header, and the
+    browser reports it as "backend not reachable" -- which sends anyone
+    debugging it to restart a server that was never down. This way the real
+    error reaches the screen.
+    """
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"{type(error).__name__}: {error}"},
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -135,8 +153,14 @@ def list_workers(skill: str | None = None, location: str | None = None):
                   from worker_skills ws
                   join skills s on s.id = ws.skill_id
                  where ws.worker_id = w.id
-                   and ws.verification_status = 'verified') as verified_skills
+                   and ws.verification_status = 'verified') as verified_skills,
+               cm.role as crew_role,
+               c.id   as crew_id,
+               c.name as crew_name
           from workers w
+          left join crew_members cm
+                 on cm.worker_id = w.id and cm.status = 'active'
+          left join crews c on c.id = cm.crew_id
          where 1 = 1
     """
     params: list = []
@@ -227,7 +251,12 @@ def list_crews(trade: str | None = None):
                c.reliability_score, c.verification_status,
                leader.name as leader_name,
                (select count(*) from crew_members cm
-                 where cm.crew_id = c.id and cm.status = 'active') as active_members
+                 where cm.crew_id = c.id and cm.status = 'active') as active_members,
+               (select count(*)
+                  from crew_members cm
+                  join workers w on w.id = cm.worker_id
+                 where cm.crew_id = c.id and cm.status = 'active'
+                   and w.availability_status = 'available') as available_members
           from crews c
           left join workers leader on leader.id = c.leader_worker_id
          where 1 = 1
@@ -553,6 +582,118 @@ def list_jobs(status: str | None = None, limit: int = 50):
     # dashboard needs both, and showing the page size as if it were the
     # total would be quietly wrong.
     return {"total": counted["total"], "jobs": fetch_all(sql, tuple(params))}
+
+
+class NewJob(BaseModel):
+    """What the contractor fills in on the Post Job form."""
+
+    title: str
+    skill_required: str
+    workers_required: int
+    location: str
+    date: str
+    start_time: str = "08:00"
+    wage: float | None = None
+    site_address: str = ""
+    description: str = ""
+    contractor_id: str = "CON001"
+
+
+@app.post("/api/jobs")
+def create_job(request: NewJob):
+    """
+    Post a job.
+
+    This creates the job directly, unlike the agent's route, which only
+    proposes one. The difference is who is acting: business rule 7 exists
+    so the AI cannot commit a contractor to something, and here the
+    contractor is filling in a form and pressing the button themselves.
+    The form submission IS the confirmation.
+
+    The agent still has no way to do this. Its propose_job tool writes a
+    proposal that a person has to confirm.
+    """
+    place = find_location(request.location)
+    if place is None:
+        known = [row["name"] for row in all_locations()]
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unknown location '{request.location}'. Known: {', '.join(known)}",
+        )
+
+    if request.workers_required < 1:
+        raise HTTPException(status_code=400,
+                            detail="A job needs at least one worker.")
+    try:
+        wanted = date.fromisoformat(request.date)
+    except ValueError:
+        raise HTTPException(status_code=400,
+                            detail="date must look like 2026-08-20")
+
+    payload = {
+        "contractor_id": request.contractor_id,
+        "title": request.title,
+        "description": request.description,
+        "skill_required": request.skill_required,
+        "workers_required": request.workers_required,
+        "location_name": place["name"],
+        "location_lat": place["lat"],
+        "location_lng": place["lng"],
+        "site_address": request.site_address,
+        "date": wanted.isoformat(),
+        "start_time": request.start_time,
+        "wage": request.wage,
+    }
+
+    try:
+        # Reuse the same executor the confirmed-proposal path uses, so a job
+        # created here is identical to one the agent proposed.
+        return agent_actions._execute_create_job(payload)
+    except ActionError as error:
+        raise HTTPException(status_code=409, detail=str(error))
+
+
+@app.get("/api/jobs/{job_id}/recommendation")
+def job_recommendation(job_id: str, radius_km: float = DEFAULT_SEARCH_RADIUS_KM):
+    """
+    The workforce the matching engine suggests for this job.
+
+    No AI is involved. This is the deterministic engine reading the job's
+    own trade, headcount, place and date. A shortfall is reported as a
+    shortfall.
+    """
+    job = fetch_one(
+        """
+        select id, title, skill_required, workers_required, location_name,
+               location_lat, location_lng, date
+          from jobs where id = %s
+        """,
+        (job_id,),
+    )
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"No job with id {job_id}")
+
+    if job["location_lat"] is None or job["location_lng"] is None:
+        place = find_location(job["location_name"] or "")
+        if place is None:
+            raise HTTPException(
+                status_code=422,
+                detail=(f"Job {job_id} has no coordinates and its location "
+                        f"'{job['location_name']}' is not known, so no distance "
+                        "can be calculated."))
+        job = {**job, "location_lat": place["lat"], "location_lng": place["lng"]}
+
+    result = compose_workforce(WorkforceRequest(
+        skill=job["skill_required"],
+        quantity=job["workers_required"],
+        on_date=job["date"],
+        location_lat=job["location_lat"],
+        location_lng=job["location_lng"],
+        location_name=job["location_name"] or "",
+        max_distance_km=radius_km,
+    ))
+    result.pop("considered", None)
+    return {"job_id": job_id, **result}
 
 
 @app.get("/api/jobs/{job_id}")

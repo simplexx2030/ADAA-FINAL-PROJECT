@@ -1,135 +1,150 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
 import { useLoad } from "@/lib/useLoad";
 import {
+  Avatar,
+  Badge,
   Card,
-  CardHeader,
-  Empty,
+  EmptyPanel,
   ErrorNote,
+  FilterPill,
   Loading,
-  Rating,
-  Tag,
-  statusTone,
+  MiniStats,
+  PageHeader,
+  RatingValue,
+  RoleBadge,
 } from "@/components/ui";
+import { Layers, Pin, Shield, Users } from "@/components/icons";
 
 export default function Workers() {
   const [skill, setSkill] = useState("");
+  const [search, setSearch] = useState("");
+
   const skills = useLoad(() => api.skills(), []);
   const workers = useLoad(() => api.workers(skill ? { skill } : undefined), [skill]);
 
-  const list = workers.data?.workers ?? [];
+  const list = useMemo(() => {
+    const all = workers.data?.workers ?? [];
+    const term = search.trim().toLowerCase();
+    if (!term) return all;
+    return all.filter((worker) => worker.name.toLowerCase().includes(term));
+  }, [workers.data, search]);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">Workers</h1>
-        <p className="mt-1 text-sm text-stone-600">
-          Filtering by trade shows verified skills only.
-        </p>
-      </div>
+    <div>
+      <PageHeader
+        title="Workers"
+        subtitle="Browse all registered construction workers."
+      />
 
       {(workers.error || skills.error) && (
         <ErrorNote error={workers.error || skills.error || ""} />
       )}
 
-      <div className="flex flex-wrap gap-2">
-        <button
-          onClick={() => setSkill("")}
-          className={`rounded-full px-3 py-1.5 text-sm transition ${
-            skill === ""
-              ? "bg-stone-900 text-white"
-              : "border border-stone-300 bg-white text-stone-700 hover:bg-stone-50"
-          }`}
-        >
-          All trades
-        </button>
+      {/* --- Search and trade filters -------------------------------- */}
+      <div className="mb-6 flex flex-wrap items-center gap-2">
+        <input
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Search by name…"
+          className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-orange-500 sm:w-72"
+        />
+        <FilterPill active={skill === ""} onClick={() => setSkill("")}>
+          All Skills
+        </FilterPill>
         {(skills.data?.skills ?? []).map((entry) => (
-          <button
+          <FilterPill
             key={entry.id}
+            active={skill === entry.name}
             onClick={() => setSkill(entry.name)}
-            className={`rounded-full px-3 py-1.5 text-sm transition ${
-              skill === entry.name
-                ? "bg-stone-900 text-white"
-                : "border border-stone-300 bg-white text-stone-700 hover:bg-stone-50"
-            }`}
           >
             {entry.name}
-          </button>
+          </FilterPill>
         ))}
       </div>
 
-      <Card>
-        <CardHeader
-          title={`${list.length} workers`}
-          subtitle={skill ? `with a verified ${skill} skill` : "all trades"}
-        />
-        {workers.loading ? (
+      {workers.loading ? (
+        <Card>
           <Loading what="Loading workers" />
-        ) : list.length === 0 ? (
-          <Empty>Nobody has a verified {skill} skill.</Empty>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-stone-50 text-left text-xs uppercase tracking-wide text-stone-500">
-                <tr>
-                  <th className="px-5 py-2 font-medium">Worker</th>
-                  <th className="px-5 py-2 font-medium">Verified skills</th>
-                  <th className="px-5 py-2 font-medium">Rating</th>
-                  <th className="px-5 py-2 font-medium">Jobs</th>
-                  <th className="px-5 py-2 font-medium">Attendance</th>
-                  <th className="px-5 py-2 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
-                {list.map((worker) => (
-                  <tr key={worker.id} className="hover:bg-stone-50">
-                    <td className="px-5 py-2.5">
-                      <Link
-                        href={`/workers/${worker.id}`}
-                        className="font-medium text-stone-900 hover:underline"
-                      >
+        </Card>
+      ) : list.length === 0 ? (
+        <EmptyPanel icon={<Users className="h-10 w-10" />}>
+          {search
+            ? `Nobody matching “${search}”.`
+            : `Nobody has a verified ${skill} skill.`}
+        </EmptyPanel>
+      ) : (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((worker) => (
+            <Link key={worker.id} href={`/workers/${worker.id}`}>
+              <Card className="h-full px-5 py-4 transition hover:border-slate-300 hover:shadow-sm">
+                {/* name and verification */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <Avatar name={worker.name} />
+                    <div className="min-w-0">
+                      <div className="truncate font-bold text-slate-900">
                         {worker.name}
-                      </Link>
-                      <div className="text-xs text-stone-500">
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-slate-500">
+                        <Pin className="h-3 w-3" />
                         {worker.location_name}
                       </div>
-                    </td>
-                    <td className="px-5 py-2.5 text-stone-700">
-                      {worker.verified_skills || (
-                        <span className="text-stone-400">none verified</span>
-                      )}
-                    </td>
-                    <td className="px-5 py-2.5">
-                      <Rating value={worker.average_rating} />
-                    </td>
-                    <td className="px-5 py-2.5 tabular-nums text-stone-700">
-                      {worker.completed_jobs}
-                    </td>
-                    <td className="px-5 py-2.5 tabular-nums text-stone-700">
-                      {worker.attendance_rate === null
-                        ? "—"
-                        : `${Number(worker.attendance_rate).toFixed(1)}%`}
-                    </td>
-                    <td className="px-5 py-2.5">
-                      <div className="flex flex-wrap gap-1">
-                        <Tag tone={statusTone(worker.availability_status)}>
-                          {worker.availability_status}
-                        </Tag>
-                        <Tag tone={statusTone(worker.verification_status)}>
-                          {worker.verification_status}
-                        </Tag>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </Card>
+                    </div>
+                  </div>
+                  {worker.verification_status === "verified" && (
+                    <Shield className="h-[18px] w-[18px] shrink-0 text-emerald-500" />
+                  )}
+                </div>
+
+                {/* verified trades */}
+                <div className="mt-3.5 flex flex-wrap gap-1.5">
+                  {(worker.verified_skills ?? "")
+                    .split(",")
+                    .map((name) => name.trim())
+                    .filter(Boolean)
+                    .map((name) => (
+                      <Badge key={name} tone="green">
+                        {name}
+                      </Badge>
+                    ))}
+                  {!worker.verified_skills && (
+                    <Badge tone="slate">no verified skill</Badge>
+                  )}
+                </div>
+
+                {/* the three figures */}
+                <div className="mt-4 border-t border-slate-100 pt-3.5">
+                  <MiniStats
+                    items={[
+                      {
+                        value: <RatingValue value={worker.average_rating} />,
+                        label: "Rating",
+                      },
+                      { value: worker.completed_jobs, label: "Jobs" },
+                      { value: `${worker.experience_years}y`, label: "Exp" },
+                    ]}
+                  />
+                </div>
+
+                {/* role, and crew if any */}
+                <div className="mt-3.5 flex items-center justify-between gap-2 border-t border-slate-100 pt-3.5">
+                  <RoleBadge role={worker.crew_role} crewName={worker.crew_name} />
+                  {worker.crew_name && (
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-500">
+                      <Layers className="h-3.5 w-3.5" />
+                      {worker.crew_name}
+                    </span>
+                  )}
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

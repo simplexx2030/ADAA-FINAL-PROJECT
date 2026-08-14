@@ -250,6 +250,11 @@ def find_workers(request: WorkforceRequest) -> list[Candidate]:
     candidates = []
 
     for row in fetch_all(_WORKER_SQL, _query_params(request)):
+        # A worker with no coordinates cannot be placed, so they are skipped.
+        # One incomplete row must not take down the whole search.
+        if row["location_lat"] is None or row["location_lng"] is None:
+            continue
+
         distance = calculate_distance(
             request.location_lat, request.location_lng,
             row["location_lat"], row["location_lng"],
@@ -306,6 +311,9 @@ def find_crews(request: WorkforceRequest) -> list[Candidate]:
     for crew_id, crew in crews.items():
         info = crew["info"]
         members = crew["members"]
+
+        if info["location_lat"] is None or info["location_lng"] is None:
+            continue
 
         distance = calculate_distance(
             request.location_lat, request.location_lng,

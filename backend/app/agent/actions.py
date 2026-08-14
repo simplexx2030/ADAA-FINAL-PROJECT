@@ -202,6 +202,19 @@ def _execute_create_job(payload: dict) -> dict:
     if contractor is None:
         raise ActionError(f"No contractor with id {payload['contractor_id']}.")
 
+    # A job with no coordinates cannot be matched against, so fill them in
+    # from the place name if the caller did not supply them.
+    if payload.get("location_lat") is None or payload.get("location_lng") is None:
+        from app.database import find_location
+
+        place = find_location(payload.get("location_name") or "")
+        if place is None:
+            raise ActionError(
+                f"Cannot place a job at '{payload.get('location_name')}'. "
+                "Give a known location, or supply coordinates.")
+        payload = {**payload, "location_name": place["name"],
+                   "location_lat": place["lat"], "location_lng": place["lng"]}
+
     job_id = _next_job_id()
 
     with connect() as conn:

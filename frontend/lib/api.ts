@@ -78,6 +78,9 @@ export type Worker = {
   preferred_language: string;
   travel_radius_km: number;
   verified_skills?: string | null;
+  crew_role?: string | null;
+  crew_id?: string | null;
+  crew_name?: string | null;
 };
 
 export type WorkerProfile = Worker & {
@@ -105,6 +108,7 @@ export type Crew = {
   verification_status: string;
   leader_name: string | null;
   active_members?: number;
+  available_members?: number;
 };
 
 export type CrewProfile = Crew & {
@@ -190,6 +194,19 @@ export type Reputation = {
   reliability_score: number | null;
 };
 
+export type NewJob = {
+  title: string;
+  skill_required: string;
+  workers_required: number;
+  location: string;
+  date: string;
+  start_time?: string;
+  wage?: number | null;
+  site_address?: string;
+  description?: string;
+  contractor_id?: string;
+};
+
 export type Job = {
   id: string;
   title: string;
@@ -256,6 +273,9 @@ export const api = {
   }) => post<ChatReply>("/api/agent/chat", body),
 
   jobs: () => get<{ total: number; jobs: Job[] }>("/api/jobs"),
+  createJob: (job: NewJob) => post<{ job_id: string; status: string }>("/api/jobs", job),
+  jobRecommendation: (id: string) =>
+    get<Match & { job_id: string }>(`/api/jobs/${id}/recommendation`),
   jobOffers: (id: string) =>
     get<{
       job_id: string;

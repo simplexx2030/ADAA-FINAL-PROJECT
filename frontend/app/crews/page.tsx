@@ -4,86 +4,86 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { useLoad } from "@/lib/useLoad";
 import {
+  Badge,
   Card,
-  CardHeader,
-  Empty,
+  EmptyPanel,
   ErrorNote,
   Loading,
-  Rating,
-  Tag,
-  statusTone,
+  PageHeader,
+  RatingValue,
 } from "@/components/ui";
+import { Layers, Pin, Shield, Users } from "@/components/icons";
 
 export default function Crews() {
   const { data, loading, error } = useLoad(() => api.crews(), []);
   const crews = data?.crews ?? [];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">Crews</h1>
-        <p className="mt-1 text-sm text-stone-600">
-          A crew has a reputation of its own, separate from the reputations of the
-          workers in it.
-        </p>
-      </div>
+    <div>
+      <PageHeader title="Crews" subtitle="Browse all registered construction crews." />
 
       {error && <ErrorNote error={error} />}
 
-      <Card>
-        <CardHeader title={`${crews.length} crews`} subtitle="Best rated first" />
-        {loading ? (
+      {loading ? (
+        <Card>
           <Loading what="Loading crews" />
-        ) : crews.length === 0 ? (
-          <Empty>No crews on record.</Empty>
-        ) : (
-          <ul className="divide-y divide-stone-100">
-            {crews.map((crew) => (
-              <li key={crew.id}>
-                <Link
-                  href={`/crews/${crew.id}`}
-                  className="flex flex-wrap items-center justify-between gap-4 px-5 py-4 transition hover:bg-stone-50"
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-stone-900">{crew.name}</span>
-                      <Tag tone={statusTone(crew.verification_status)}>
-                        {crew.verification_status}
-                      </Tag>
-                    </div>
-                    <div className="mt-0.5 text-sm text-stone-500">
-                      {crew.primary_trade} · led by {crew.leader_name ?? "—"} ·{" "}
-                      {crew.location_name}
+        </Card>
+      ) : crews.length === 0 ? (
+        <EmptyPanel icon={<Layers className="h-10 w-10" />}>
+          No crews on record.
+        </EmptyPanel>
+      ) : (
+        <div className="grid gap-5 sm:grid-cols-2">
+          {crews.map((crew) => (
+            <Link key={crew.id} href={`/crews/${crew.id}`}>
+              <Card className="h-full px-5 py-4 transition hover:border-slate-300 hover:shadow-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white">
+                      <Layers className="h-5 w-5" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="truncate font-bold text-slate-900">
+                        {crew.name}
+                      </div>
+                      <div className="truncate text-xs text-slate-500">
+                        Led by {crew.leader_name ?? "—"}
+                      </div>
                     </div>
                   </div>
+                  {crew.verification_status === "verified" && (
+                    <Shield className="h-[18px] w-[18px] shrink-0 text-emerald-500" />
+                  )}
+                </div>
 
-                  <div className="flex items-center gap-6 text-sm">
-                    <div className="text-right">
-                      <div className="text-xs text-stone-500">Crew rating</div>
-                      <Rating value={crew.rating} />
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs text-stone-500">Jobs</div>
-                      <div className="font-semibold tabular-nums">
+                <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+                  <span className="inline-flex items-center gap-1">
+                    <Pin className="h-3.5 w-3.5" />
+                    {crew.location_name}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Users className="h-3.5 w-3.5" />
+                    {crew.available_members ?? 0} available
+                  </span>
+                </div>
+
+                <div className="mt-3.5 flex items-center justify-between gap-3 border-t border-slate-100 pt-3.5">
+                  <span className="flex items-center gap-3 text-sm">
+                    <RatingValue value={crew.rating} />
+                    <span className="text-slate-500">
+                      <span className="font-bold text-slate-900">
                         {crew.completed_jobs}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs text-stone-500">Members</div>
-                      <div className="font-semibold tabular-nums">
-                        {crew.active_members ?? 0}
-                      </div>
-                    </div>
-                    <Tag tone={statusTone(crew.availability_status)}>
-                      {crew.availability_status}
-                    </Tag>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Card>
+                      </span>{" "}
+                      jobs
+                    </span>
+                  </span>
+                  <Badge tone="blue">{crew.primary_trade}</Badge>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
