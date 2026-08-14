@@ -1,0 +1,16 @@
+# Runtime dependencies for the Vercel deployment of the ADAA backend.
+#
+# Vercel installs from the requirements.txt at the repository root, so this
+# file exists alongside backend/requirements.txt rather than replacing it.
+# It is the same list minus the testing tools, which have no business being
+# bundled into a function.
+#
+# Keep in step with backend/requirements.txt.
+
+fastapi              # the web framework that serves the ADAA API
+pydantic-settings    # reads and validates settings from the environment
+google-genai         # the official Google SDK used to talk to Gemini
+psycopg[binary]      # connects Python to the PostgreSQL database (Supabase)
+
+# uvicorn is deliberately absent: Vercel provides the server. It stays in
+# backend/requirements.txt because local development still needs it.

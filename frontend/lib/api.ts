@@ -10,8 +10,21 @@
  * asks.
  */
 
+/**
+ * Where the backend lives.
+ *
+ * In development the two run on different ports, so calls need the full
+ * address. Deployed, the API is served from the same domain as the pages
+ * (`/api/*` goes to the FastAPI function), so the address is empty and every
+ * call becomes a relative one. That is what keeps the deployment free of
+ * cross-origin requests, and free of a URL that has to be configured twice.
+ *
+ * `??` rather than `||` on purpose: an empty string is a real answer here
+ * -- it means "same origin" -- and `||` would throw it away.
+ */
 const API =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://127.0.0.1:8000";
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??
+  (process.env.NODE_ENV === "production" ? "" : "http://127.0.0.1:8000");
 
 /** Something went wrong on the server side, with a readable reason. */
 export class ApiError extends Error {
@@ -36,8 +49,11 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     // the most common problem during a demonstration, so it gets a message
     // that says what to do rather than "Failed to fetch".
     throw new ApiError(
-      `Cannot reach the ADAA backend at ${API}. Is it running? Start it with: ` +
-        `backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend`,
+      API
+        ? `Cannot reach the ADAA backend at ${API}. Is it running? Start it with: ` +
+            `backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend`
+        : "Cannot reach the ADAA backend. The API function did not respond — " +
+            "check that GEMINI_API_KEY and DATABASE_URL are set on the deployment.",
       0,
     );
   }

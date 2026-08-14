@@ -1,0 +1,11 @@
+# Nothing here is needed to run ADAA, and all of it costs upload time.
+backend/.venv
+backend/tests
+frontend/node_modules
+frontend/.next
+data
+docs
+.git-bidready-backup
+**/__pycache__
+*.md
+preview-screenshot.png
