@@ -31,13 +31,40 @@ you can always tell whether you are seeing a fresh answer.
 
 import hashlib
 import json
+import os
+import tempfile
 import time
 from datetime import date
 from pathlib import Path
 
 from app.config import settings
 
-CACHE_DIR = Path(__file__).resolve().parents[2] / ".cache"
+
+def _cache_dir() -> Path:
+    """
+    Where to keep the cache file.
+
+    Locally this is `backend/.cache`, which survives restarts and can be
+    inspected by hand.
+
+    Deployed on Vercel the whole deployment is read-only, so writing there
+    fails. The failure is silent -- `_save` swallows it -- which is worse
+    than it sounds: the cache would appear to work while never storing
+    anything, and the free tier's twenty requests a day would go twice as
+    fast as expected. `/tmp` is the one writable place, so we use it.
+
+    The trade-off is honest: `/tmp` belongs to a single warm function and
+    disappears when it does, so the deployed cache helps within a burst of
+    questions and not between them. That is still most of the benefit
+    during a demonstration, and it is the most a serverless function can
+    offer without a shared store.
+    """
+    if os.environ.get("VERCEL"):          # set by Vercel on every deployment
+        return Path(tempfile.gettempdir()) / "adaa-cache"
+    return Path(__file__).resolve().parents[2] / ".cache"
+
+
+CACHE_DIR = _cache_dir()
 CACHE_FILE = CACHE_DIR / "gemini_replies.json"
 
 # A week is plenty. The date is in the key anyway, so entries go stale on

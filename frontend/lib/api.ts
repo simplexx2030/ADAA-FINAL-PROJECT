@@ -264,8 +264,11 @@ export type Job = {
 /* ------------------------------------------------------------------ */
 
 export const api = {
-  health: () => get<{ status: string }>("/health"),
-  databaseHealth: () => get<{ status: string; workers: number }>("/health/database"),
+  // Everything the interface asks for lives under /api, without exception.
+  // Deployed, the frontend and backend share a domain and only /api/* is
+  // routed to the API -- a call to "/" would be answered by the landing page.
+  health: () => get<{ status: string }>("/api/health"),
+  databaseHealth: () => get<{ status: string; workers: number }>("/api/health/database"),
   status: () =>
     get<{
       name: string;
@@ -273,7 +276,7 @@ export const api = {
       gemini_model: string;
       gemini_key_configured: boolean;
       database_configured: boolean;
-    }>("/"),
+    }>("/api/status"),
 
   workers: (params?: { skill?: string; location?: string }) => {
     const query = new URLSearchParams();

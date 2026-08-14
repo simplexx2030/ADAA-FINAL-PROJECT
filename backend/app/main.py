@@ -85,7 +85,19 @@ def unexpected_error(request: Request, error: Exception):
 # Status
 # ---------------------------------------------------------------------------
 
+# Each of these three is served at two paths.
+#
+# The bare paths (`/health`, `/`) are the convenient ones to curl while the
+# backend is running on its own port. The `/api/...` twins matter when the
+# backend is deployed behind the frontend on a single domain: there, only
+# `/api/*` reaches the API, and `/` is the landing page. Without the twins,
+# the sidebar would ask `/` for JSON, be handed HTML, and report the backend
+# unreachable while it was working perfectly.
+#
+# They are aliases, not copies -- one function, two routes.
+
 @app.get("/health")
+@app.get("/api/health")
 def health():
     """
     Confirm the server is running.
@@ -96,6 +108,7 @@ def health():
 
 
 @app.get("/")
+@app.get("/api/status")
 def root():
     """
     A friendly landing response.
@@ -115,6 +128,7 @@ def root():
 
 
 @app.get("/health/database")
+@app.get("/api/health/database")
 def health_database():
     """Confirm the application can actually reach PostgreSQL."""
     try:
