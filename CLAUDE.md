@@ -132,11 +132,21 @@ If a milestone appears already complete, verify it before skipping it.
 
 **STEP 0 through 10 complete.** Next: STEP 11 — the multilingual layer.
 
-**Frontend** (`frontend/`, Next.js 16 + React 19 + Tailwind 4): all calls go through
-`lib/api.ts` — nothing else calls `fetch`. Pages are client components using `useLoad`.
-Dynamic route params are a **Promise** in Next 16; unwrap with `use(params)`.
-Read `frontend/AGENTS.md` and `node_modules/next/dist/docs/` before changing page
-conventions — this Next version differs from older patterns.
+**Frontend** (Next.js 16 + React 19 + Tailwind 4, at the **repository root**): all calls go
+through `lib/api.ts` — nothing else calls `fetch`. Pages are client components using
+`useLoad`. Dynamic route params are a **Promise** in Next 16; unwrap with `use(params)`.
+Read `AGENTS.md` and `node_modules/next/dist/docs/` before changing page conventions —
+this Next version differs from older patterns.
+
+**Why the frontend is at the root** (moved 2026-08-17, do not move it back into
+`frontend/`): Vercel decides a project is Next.js by resolving the **installed** `next` in
+the Root Directory. With the application in `frontend/`, `npm install --prefix frontend`
+put it in `frontend/node_modules`, so every Git build died with *"No Next.js version
+detected"* before it ever reached the Python function. Declaring `next` in a root
+`package.json` was tried and is **not** sufficient — the builder wants the installed
+package, not the declaration. So `app/`, `components/`, `lib/`, `public/` and the Node
+config files all live at the root now, `api/index.py` and `backend/` are unchanged, and
+`vercel.json` needs no build commands at all. See [`docs/vercel-deploy.md`](docs/vercel-deploy.md).
 
 CORS in `backend/app/main.py` allows `localhost:3000` only, and exists purely because the
 two run on different ports in development.

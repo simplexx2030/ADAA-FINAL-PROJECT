@@ -111,8 +111,8 @@ backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend
 **Then the web interface:**
 
 ```bash
-npm install --prefix frontend
-npm run dev --prefix frontend
+npm install
+npm run dev
 ```
 
 Open <http://localhost:3000>. That is the whole system — no terminal commands needed
@@ -267,10 +267,9 @@ ADAA-AI-AGENT/
 │   │   └── seed_database.py    loads them into PostgreSQL
 │   └── tests/
 │
-├── frontend/            the web interface (Next.js, React, Tailwind)
-│   ├── app/             one folder per screen
-│   ├── components/      cards, tags, the top bar
-│   └── lib/api.ts       every call made to the backend
+├── app/                 the web interface (Next.js) — one folder per screen
+├── components/          cards, tags, the top bar
+├── lib/api.ts           every call made to the backend
 │
 ├── data/                the sample workforce data (CSV)
 └── docs/                notes and diagrams

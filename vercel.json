@@ -1,13 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "installCommand": "npm install --prefix frontend",
-  "buildCommand": "npm run build --prefix frontend",
-  "outputDirectory": "frontend/.next",
   "functions": {
     "api/index.py": {
       "maxDuration": 60,
-      "excludeFiles": "{backend/tests/**,backend/scripts/**,backend/.venv/**,data/**,docs/**,frontend/**,**/__pycache__/**}"
+      "excludeFiles": "{backend/tests/**,backend/scripts/**,backend/.venv/**,data/**,docs/**,app/**,components/**,public/**,node_modules/**,.next/**,**/__pycache__/**}"
     }
   },
   "rewrites": [

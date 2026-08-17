@@ -41,35 +41,32 @@ hand again.
 
 **Settings** → **Build and Deployment**.
 
-**Root Directory must be empty.** It must point at the repository root, not at
-`frontend/`. If it is set to `frontend/`, the Python function is never built and
-every `/api/*` request returns 404 — the pages will load and nothing on them
-will have any data.
+**Root Directory must be empty.** It must point at the repository root. There is
+no longer a `frontend/` directory to point it at, and setting it to anything else
+means the Python function is never built and every `/api/*` request returns 404 —
+the pages would load with no data on them.
 
-Leave the build commands alone. `vercel.json` at the repository root already
-specifies them and overrides whatever the dashboard shows:
+There are no build commands to configure. The Next.js application is at the
+repository root, so Vercel's defaults are correct: `npm install`, `next build`,
+output in `.next`. `vercel.json` only declares the Python function and the
+`/api/*` rewrite.
 
-```
-installCommand    npm install --prefix frontend
-buildCommand      npm run build --prefix frontend
-outputDirectory   frontend/.next
-```
+### Why the Next.js application is at the repository root
 
-### Why there is a package.json at the repository root
-
-It looks redundant next to `frontend/package.json`, and deleting it breaks the
-build. Vercel decides *whether this is a Next.js project* by looking for `next`
-in a `package.json` at the Root Directory, and it does that before it runs the
-install command above. With no root `package.json` the build fails at:
+It used to live in `frontend/`, and moving it back would break deployment.
+Vercel decides whether a project is Next.js by resolving the **installed** `next`
+package in the Root Directory. With the application in a subdirectory,
+`npm install --prefix frontend` put Next.js in `frontend/node_modules`, so the
+build failed here every time:
 
 ```
 Error: No Next.js version detected.
 ```
 
-The root file therefore declares `next`, `react` and `react-dom` and nothing
-else. Nothing is installed from it. **If you ever bump the Next.js version in
-`frontend/package.json`, change it here too** — they are two copies of the same
-fact, which is the price of this layout.
+Declaring `next` in a root `package.json` while leaving the application in
+`frontend/` was tried and does **not** work — the builder wants the installed
+package, not the declaration. Moving the application up is the fix, and it is
+also the layout Vercel's own Next.js + Python template uses.
 
 ## Step 3 — Add the environment variables
 
@@ -167,9 +164,8 @@ The deployment's **Runtime Logs** show the Python traceback when something fails
 
 ## Things worth knowing
 
-**Do not set `NEXT_PUBLIC_API_URL`.** `frontend/lib/api.ts` falls back to an
-empty string in production, which makes the browser call `/api/...` on the same
-domain. That is the entire point of the single-project layout. Setting it sends
+**Do not set `NEXT_PUBLIC_API_URL`.** `lib/api.ts` falls back to an empty string
+in production, which makes the browser call `/api/...` on the same domain. That is the entire point of the single-project layout. Setting it sends
 requests elsewhere and reintroduces CORS.
 
 **The reply cache is weaker in production.** Locally it persists in

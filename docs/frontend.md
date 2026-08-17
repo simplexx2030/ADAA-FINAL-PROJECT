@@ -14,7 +14,7 @@ backend/.venv/Scripts/python -m uvicorn app.main:app --reload --app-dir backend
 Then, in a second terminal:
 
 ```bash
-npm run dev --prefix frontend
+npm run dev
 ```
 
 Open <http://localhost:3000>.
@@ -64,8 +64,11 @@ not explain its own design to the person using it.
 
 ## How it is put together
 
+The Next.js application sits at the **repository root**, alongside `api/` and
+`backend/`, because Vercel requires it there — see
+[`vercel-deploy.md`](vercel-deploy.md).
+
 ```text
-frontend/
 ├── app/               one folder per screen
 ├── components/
 │   ├── Nav.tsx        the top bar and the health indicator
@@ -87,7 +90,7 @@ The backend address defaults to `http://127.0.0.1:8000`. To change it, copy
 ## Checking it
 
 ```bash
-npm run build --prefix frontend
+npm run build
 ```
 
 A clean build also runs the TypeScript check.

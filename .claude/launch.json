@@ -19,7 +19,7 @@
     {
       "name": "adaa-frontend",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "frontend"],
+      "runtimeArgs": ["run", "dev"],
       "port": 3000
     }
   ]

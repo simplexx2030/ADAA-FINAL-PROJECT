@@ -14,10 +14,13 @@ venv/
 *.egg-info/
 .pytest_cache/
 
-# Node / frontend (from STEP 10 onward)
+# Node / frontend (from STEP 10 onward). The Next.js application lives at the
+# repository root -- see "Why the frontend is at the root" in CLAUDE.md.
 node_modules/
 .next/
 out/
+*.tsbuildinfo
+next-env.d.ts
 
 # Old BidReady git history, kept locally as a backup only
 .git-bidready-backup/
