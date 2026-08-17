@@ -47,9 +47,21 @@ means the Python function is never built and every `/api/*` request returns 404 
 the pages would load with no data on them.
 
 There are no build commands to configure. The Next.js application is at the
-repository root, so Vercel's defaults are correct: `npm install`, `next build`,
-output in `.next`. `vercel.json` only declares the Python function and the
-`/api/*` rewrite.
+repository root, so Vercel's defaults are correct: `npm install` and `next build`.
+
+`vercel.json` does pin `outputDirectory` to `.next`, even though that is the
+default. This is deliberate. A project imported while the application still lived
+in `frontend/` has `frontend/.next` **stored in its dashboard settings**, and a
+dashboard setting applies whenever `vercel.json` is silent. The result is a build
+that compiles perfectly and then fails with:
+
+```
+Error: The Next.js output directory "frontend/.next" was not found
+```
+
+Settings in `vercel.json` take precedence over the dashboard, so pinning the value
+in the repository fixes it for every project, present and future, without anyone
+having to find the right settings page.
 
 ### Why the Next.js application is at the repository root
 
@@ -137,6 +149,14 @@ Python dependencies from the root `requirements.txt` for the function in
 `api/index.py`.
 
 ## Step 5 — Verify, in this order
+
+**Use the short production URL, not the long one from the deployment page.**
+Deployment Protection is set to *Standard Protection*, which on the Hobby plan
+leaves the production domain public but protects every **generated** deployment
+URL — the `project-a1b2c3d4.vercel.app` kind. Those demand a Vercel login, so
+`curl` against one returns an HTML sign-in page instead of JSON and looks exactly
+like a broken API. Standard Protection is the right setting; just test the right
+address.
 
 Each check isolates a different layer, so a failure tells you where to look.
 
