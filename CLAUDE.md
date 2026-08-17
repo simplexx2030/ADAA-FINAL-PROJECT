@@ -86,7 +86,12 @@ If a milestone appears already complete, verify it before skipping it.
 
 - **Git**: this repo was initialised fresh for ADAA. The unrelated previous project
   (BidReady) history is kept locally in `.git-bidready-backup/` and is git-ignored.
-  Remote: `https://github.com/victorsimba189-lab/Adaa-ai-agent.git`
+  Remote (`origin`): `https://github.com/simplexx2030/ADAA-FINAL-PROJECT.git`
+  The first remote, `victorsimba189-lab/Adaa-ai-agent`, was **abandoned on 2026-08-17**:
+  that GitHub account is not accessible, and Vercel cannot deploy a personal-account
+  repository unless the connected GitHub login *owns* it — collaborator access is not
+  enough. It is still configured locally as `old-origin`, for reference only. Push to
+  `origin`, which the machine's stored credential (`simplexx2030`) owns.
 - **Database**: Supabase hosted PostgreSQL — project **`adaa-ai agent`**
   (ref `plqpwsnylgpecdlcftqs`), organisation `5pillars`, region `ap-south-1` (Mumbai),
   PostgreSQL 17, status ACTIVE_HEALTHY. API URL `https://plqpwsnylgpecdlcftqs.supabase.co`.
