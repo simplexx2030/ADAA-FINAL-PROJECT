@@ -4,16 +4,20 @@ One Vercel project serves the whole application: the Next.js pages and the
 FastAPI backend share a single domain. There is no second URL to configure and
 no cross-origin request to permit.
 
-This document is the checklist for deploying into the **existing `adaa-three`
-project**, so the address `https://adaa-three.vercel.app` stays exactly as it is.
-
 ---
 
 ## Before you start
 
-You need to be signed in to Vercel as **chateya@mowtechnologies.co.zw**. That is
-the account that owns `adaa-three`. Signing in as any other account will not show
-the project, and creating a new one would produce a different address.
+**The repository is `simplexx2030/ADAA-FINAL-PROJECT`.** The earlier remote,
+`victorsimba189-lab/Adaa-ai-agent`, is abandoned — that GitHub account is not
+accessible, and Vercel refuses to deploy a personal-account repository unless the
+connected GitHub login *owns* it. Collaborator access is not enough. The old
+remote is still configured locally as `old-origin`, for reference only.
+
+**Your Vercel account's GitHub connection must be `simplexx2030`.** Check it at
+**Vercel → Settings → Authentication**. A Vercel account links to exactly one
+GitHub login and there is no way to add a second, so if it shows a different
+account the only fix is a new Vercel account signed in with `simplexx2030`.
 
 Have these three values to hand:
 
@@ -21,32 +25,29 @@ Have these three values to hand:
 |---|---|
 | `GEMINI_API_KEY` | Google AI Studio — the same key as in your local `.env` |
 | `GEMINI_MODEL` | `gemini-3.5-flash` (see the note at the end) |
-| `DATABASE_URL` | Supabase — **transaction pooler**, see step 3 |
+| `DATABASE_URL` | Supabase — **transaction pooler**, port 6543, see step 3 |
 
 ---
 
 ## Step 1 — Connect the repository
 
-`adaa-three` was created by uploading files, so it has no Git connection yet.
-Connecting one means every future `git push` redeploys automatically, and you
-never upload files by hand again.
+Project → **Settings** → **Git** → **Connect Git Repository** → GitHub →
+`simplexx2030/ADAA-FINAL-PROJECT`, production branch **`main`**.
 
-1. Open the project → **Settings** → **Git**
-2. **Connect Git Repository** → GitHub → `victorsimba189-lab/Adaa-ai-agent`
-3. Production branch: **`main`**
+Every push to `main` then redeploys on its own, and nothing is ever uploaded by
+hand again.
 
 ## Step 2 — Check the build settings
 
-Still in **Settings** → **Build and Deployment**.
+**Settings** → **Build and Deployment**.
 
-**Root Directory must be empty.** This is the setting most likely to be wrong,
-because the first MVP was a flat upload. It must point at the repository root,
-not at `frontend/`. If it is set to `frontend/`, the Python function is never
-built and every `/api/*` request returns 404 — the pages will load and nothing
-on them will have any data.
+**Root Directory must be empty.** It must point at the repository root, not at
+`frontend/`. If it is set to `frontend/`, the Python function is never built and
+every `/api/*` request returns 404 — the pages will load and nothing on them
+will have any data.
 
 Leave the build commands alone. `vercel.json` at the repository root already
-specifies them, and it overrides whatever the dashboard shows:
+specifies them and overrides whatever the dashboard shows:
 
 ```
 installCommand    npm install --prefix frontend
@@ -54,19 +55,62 @@ buildCommand      npm run build --prefix frontend
 outputDirectory   frontend/.next
 ```
 
+### Why there is a package.json at the repository root
+
+It looks redundant next to `frontend/package.json`, and deleting it breaks the
+build. Vercel decides *whether this is a Next.js project* by looking for `next`
+in a `package.json` at the Root Directory, and it does that before it runs the
+install command above. With no root `package.json` the build fails at:
+
+```
+Error: No Next.js version detected.
+```
+
+The root file therefore declares `next`, `react` and `react-dom` and nothing
+else. Nothing is installed from it. **If you ever bump the Next.js version in
+`frontend/package.json`, change it here too** — they are two copies of the same
+fact, which is the price of this layout.
+
 ## Step 3 — Add the environment variables
 
-**Settings** → **Environment Variables**. Add all three to **Production**
-(and to Preview as well, if you want preview deployments to work).
+**Settings** → **Environment Variables**. Add each to **Production** and
+**Preview**.
 
 | Name | Value |
 |---|---|
 | `GEMINI_API_KEY` | your Google AI Studio key |
 | `GEMINI_MODEL` | `gemini-3.5-flash` |
-| `DATABASE_URL` | the Supabase connection string — see below |
+| `DATABASE_URL` | the Supabase transaction-pooler string — see below |
 
-For `DATABASE_URL`, use Supabase's **transaction pooler on port 6543**, not the
-session pooler on 5432 that development uses:
+**Add nothing else.** Vercel will offer to create a row for every name it finds
+in `.env.example`, including `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`,
+`GEMINI_CACHE` and `APP_ENV`. Delete those rows.
+
+### Never leave a variable blank
+
+An empty value is *not* the same as an unset one — pydantic uses the empty
+string instead of the default in `app/config.py`. The consequences differ:
+
+- **`GEMINI_CACHE=`** — empty fails `bool` parsing. Because `settings =
+  Settings()` runs at import, the whole application fails to load and **every
+  route returns 500, including `/api/health`.** An empty text box takes down the
+  entire backend.
+- **`GEMINI_MODEL=`** — an empty model name, so every Gemini call fails.
+- **`APP_ENV=`** — harmless, but pointless.
+
+If you do not need a variable, remove the row rather than leaving it empty.
+
+### `GEMINI_MODEL` is not optional
+
+It has a default, so it looks safe to skip. The default is
+`gemini-3.1-pro-preview`, which the free tier grants **zero** quota, so skipping
+it means every agent reply fails with 429. Locally your `.env` hides this. Set it
+explicitly.
+
+### `DATABASE_URL` uses a different port here than in development
+
+Use Supabase's **transaction pooler on port 6543**, not the session pooler on
+5432 that development uses:
 
 ```
 postgresql://postgres.plqpwsnylgpecdlcftqs:YOUR-PASSWORD@aws-0-ap-south-1.pooler.supabase.com:6543/postgres
@@ -81,55 +125,64 @@ awkward characters in the password are repaired automatically by
 Why the transaction pooler: each request runs in a short-lived serverless
 function that opens a connection and closes it again. The session pooler holds
 one connection per client, which is the wrong shape for that and will exhaust
-the connection limit under any real use.
+the connection limit under any real use — including during a demonstration.
 
 ## Step 4 — Deploy
 
-**Deployments** → **Redeploy**, or simply push to `main` once the Git connection
-from step 1 is in place.
+**Deployments** → **Redeploy**, or push to `main`.
 
-The first build takes a few minutes: Vercel installs the Node dependencies,
-builds Next.js, then installs the Python dependencies from the root
-`requirements.txt` for the function in `api/index.py`.
+Vercel will not apply newly added environment variables to an existing
+deployment, so after step 3 you must redeploy even if nothing in the code
+changed.
+
+The first build takes a few minutes: Node dependencies, then Next.js, then the
+Python dependencies from the root `requirements.txt` for the function in
+`api/index.py`.
 
 ## Step 5 — Verify, in this order
 
 Each check isolates a different layer, so a failure tells you where to look.
 
-1. **`https://adaa-three.vercel.app/api/health`** → `{"status": "ok"}`
-   The Python function is deployed and routing works. If this 404s, Root
-   Directory is wrong (step 2).
+1. **`/api/health`** → `{"status": "ok"}`
+   The Python function is deployed and routing works. A 404 means Root Directory
+   is wrong (step 2). A 500 means the application failed to import — check for a
+   blank `GEMINI_CACHE` first.
 
-2. **`https://adaa-three.vercel.app/api/health/database`** → a worker count
+2. **`/api/health/database`** → a worker count
    Supabase is reachable. If this fails and the one above passed, `DATABASE_URL`
-   is wrong or is using the 5432 session pooler.
+   is wrong or is still using the 5432 session pooler.
 
-3. **`https://adaa-three.vercel.app/`**
+3. **`/`**
    The landing page shows real workers and, in the sidebar, the model name. Both
    come from the API, so if they render, the frontend is talking to the backend.
 
 4. **The AI Assistant page** — ask one question.
-   This is the only check that spends Gemini quota, so leave it until last.
+   This is the only check that spends Gemini quota, so leave it until last. A 503
+   here with the first three passing points at `GEMINI_API_KEY` or
+   `GEMINI_MODEL`.
 
-If something is wrong, the deployment's **Runtime Logs** in the Vercel dashboard
-show the Python traceback.
+The deployment's **Runtime Logs** show the Python traceback when something fails.
 
 ---
 
-## Two things worth knowing
+## Things worth knowing
+
+**Do not set `NEXT_PUBLIC_API_URL`.** `frontend/lib/api.ts` falls back to an
+empty string in production, which makes the browser call `/api/...` on the same
+domain. That is the entire point of the single-project layout. Setting it sends
+requests elsewhere and reintroduces CORS.
 
 **The reply cache is weaker in production.** Locally it persists in
 `backend/.cache`. On Vercel the filesystem is read-only apart from `/tmp`, which
-belongs to one warm function and disappears with it. So the cache still saves
-quota within a burst of questions but not between sessions. See
-`backend/app/agent/cache.py`.
+belongs to one warm function and disappears with it, so the cache saves quota
+within a burst of questions but not between sessions. `backend/app/agent/cache.py`
+already detects Vercel and adapts; nothing to configure.
 
-**Check which model you are deploying.** `CLAUDE.md` records `gemini-3.5-flash`
-as the decision, but the local `.env` has been running `gemini-3.1-flash-lite`.
-Free-tier quota is 20 requests per day *per model*, so these are separate
-allowances — decide which one production should use before a demonstration
-rather than during one.
+**Check which model you are deploying.** Free-tier quota is 20 requests per day
+*per model*, so `gemini-3.5-flash` and `gemini-3.1-flash-lite` have separate
+allowances. Decide which one production should use before a demonstration rather
+than during one.
 
-**Rolling back.** Every previous deployment, including the original MVP, stays in
-the project's **Deployments** list. Promoting an older one back to production is
-a single click, and the domain follows it. Deploying does not delete anything.
+**Rolling back.** Every previous deployment stays in the project's
+**Deployments** list. Promoting an older one back to production is a single click
+and the domain follows it. Deploying does not delete anything.

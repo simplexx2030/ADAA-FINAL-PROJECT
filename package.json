@@ -1,0 +1,11 @@
+{
+  "//": "This file exists for one reason: Vercel looks for `next` in a package.json at the repository root to decide that this is a Next.js project. The application itself lives in frontend/ and is installed and built by the commands in vercel.json, so nothing is ever installed from here. Without this file the build fails with 'No Next.js version detected' before it reaches the Python function. Keep these versions in step with frontend/package.json.",
+  "name": "adaa",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  }
+}
