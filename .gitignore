@@ -27,3 +27,11 @@ out/
 Thumbs.db
 .vscode/
 .idea/
+# Vercel's local link file (contains the project and org ids, not secrets)
+.vercel
+
+# Every environment file, because one of them holds the Gemini key and the
+# database password. The example is the deliberate exception: it lists the
+# names of the variables and none of their values, and a new clone needs it.
+.env*
+!.env.example
